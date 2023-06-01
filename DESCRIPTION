@@ -1,12 +1,14 @@
 Package: clootl
 Title: Fetches and Manipulates the clootl Avian Phylogeny
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors: Eliot Miller, Emily Jane McTavish
+Maintainer: Eliot Miller <eliot.isaac@gmail.com>
+URL: https://github.com/eliotmiller/clootl
+Depends:
+    R (>= 4.3.0),
+    ape
+Description: Extracts the clootl tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
