@@ -14,3 +14,4 @@ install_github("eliotmiller/clootl")
 library(clootl)
 ?getCitations
 ```
+
