@@ -20,7 +20,11 @@ to extract a tree in the most recent taxonomic version.}
 \item{version}{The desired version of the tree. Set to current to extract the most recent
 version of the tree.}
 
-\item{which.tree}{The only option at the moment is the base.tree.}
+\item{which.tree}{Not currently implemented, and defaults for now to a placeholder tree. In the
+future there will be the base tree from OpenTree, a small cloud of dated, complete trees (which
+can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
+function for that purpose),
+and a maximum clade credibility version of these trees.}
 }
 \value{
 A phylogeny of the specified taxa in the specified eBird taxonomy version and clootl

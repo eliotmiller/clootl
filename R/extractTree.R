@@ -11,7 +11,11 @@
 #' to extract a tree in the most recent taxonomic version.
 #' @param version The desired version of the tree. Set to current to extract the most recent
 #' version of the tree.
-#' @param which.tree The only option at the moment is the base.tree.
+#' @param which.tree Not currently implemented, and defaults for now to a placeholder tree. In the
+#' future there will be the base tree from OpenTree, a small cloud of dated, complete trees (which
+#' can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
+#' function for that purpose),
+#' and a maximum clade credibility version of these trees.
 #' 
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -67,7 +71,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   }
   
   #now pull the right tree
-  fullTree <- dataStore[[taxonomyYear]]$trees[[treeVersion]]$base.tree
+  fullTree <- dataStore[[taxonomyYear]]$trees[[treeVersion]]$placeholder
 
   #if species is set to all.species, redefine species as the full set of taxa
   if(species[1]=="all.species" & output.type=="code")
