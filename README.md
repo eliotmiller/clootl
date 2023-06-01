@@ -16,7 +16,7 @@ library(clootl)
 ```
 
 #### Can I use it anyhow?
-If you insist. This will get you up and running and show you how to extract a phylogeny and provide proper attribution:
+If you insist. Things are in flux, and nothing here is published yet, so proceed with caution. This will get you up and running and show you how to extract a phylogeny and provide proper attribution:
 ```r
 library(devtools)
 install_github("eliotmiller/clootl")
