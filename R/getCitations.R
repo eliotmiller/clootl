@@ -51,7 +51,7 @@
 #' #get your citation DF
 #' yourCitations <- getCitations(tree=prunedTree)}
 
-getCitations <- function(tree)
+getCitations <- function(tree, synth_id="aves_1.1" )
 {
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs
@@ -63,7 +63,8 @@ getCitations <- function(tree)
   url <- "https://aves.opentreeoflife.org/v3/tree_of_life/node_info"
   headers <- c('Content-Type' = 'application/json')
   
-  body <- jsonlite::toJSON(list("node_ids"=nodesToQuery), auto_unbox=TRUE)
+
+  body <- jsonlite::toJSON(list(synth_id, "node_ids"=nodesToQuery), auto_unbox=TRUE)
   response <- RCurl::postForm(uri = url,
                        .opts = list(
                          postfields = body,
