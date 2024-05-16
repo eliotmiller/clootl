@@ -8,14 +8,17 @@
 #' will result in an error. Set to "all.species" if the complete tree is desired.
 #' @param output.type Either "scientific" or "code".
 #' @param taxonomy.year The eBird taxonomy year the tree should be output in. Set to "current"
-#' to extract a tree in the most recent taxonomic version.
+#' to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
+#' passed in, e.g. 2021.
 #' @param version The desired version of the tree. Set to current to extract the most recent
-#' version of the tree.
-#' @param which.tree Not currently implemented, and defaults for now to a placeholder tree. In the
-#' future there will be the base tree from OpenTree, a small cloud of dated, complete trees (which
+#' version of the tree. Otherwise, the exact character string of the tree needs to be passed in
+#' here, e.g. "Aves_1.2".
+#' @param which.tree Not currently implemented, and defaults for now to the single summary tree. In the
+#' future, in addition to this summary tree, there will be the base tree from OpenTree, and
+#' a small cloud of dated, complete trees (which
 #' can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-#' function for that purpose),
-#' and a maximum clade credibility version of these trees.
+#' function for that purpose). Note the small cloud of complete dated trees is currently
+#' included in the dataStore, and can be accessed by exploring the structure of data(dataStore)
 #' 
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -46,13 +49,13 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   #pull the taxonomy file and subset to species. create the name needed to identify the right file
   if(taxonomy.year=="current")
   {
-    taxonomyYear <- names(dataStore)[length(dataStore)]
+    taxonomyYear <- names(dataStore$taxonomy.files)[1]
   }
   else
   {
     taxonomyYear <- paste("year", taxonomy.year, sep="")
   }
-  tax <- dataStore[[taxonomyYear]]$taxonomy.files$ebird.taxonomy
+  tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
 
   #subset to species
   tax <- tax[tax$CATEGORY=="species",]
@@ -63,15 +66,15 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   #pull the tree file in the right version and taxonomy
   if(version=="current")
   {
-    treeVersion <- names(dataStore[[1]]$trees)[length(dataStore[[1]]$trees)]
+    treeVersion <- names(dataStore$trees)[1]
   }
   else
   {
-    treeVersion <- paste("v", version, sep="")
+    treeVersion <- version
   }
   
   #now pull the right tree
-  fullTree <- dataStore[[taxonomyYear]]$trees[[treeVersion]]$placeholder
+  fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
 
   #if species is set to all.species, redefine species as the full set of taxa
   if(species[1]=="all.species" & output.type=="code")
@@ -98,7 +101,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      stop("Some of your provided species codes do not match with codes in this year's eBird taxonomy")
+      stop("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
     }
     
     #else might as well set a tree aside with codes instead of sci names
@@ -124,7 +127,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      stop("Some of your provided species names do not match with species in this year's eBird taxonomy")
+      stop("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
     }
     
     #else plug in underscores

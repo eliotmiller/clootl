@@ -15,16 +15,19 @@ will result in an error. Set to "all.species" if the complete tree is desired.}
 \item{output.type}{Either "scientific" or "code".}
 
 \item{taxonomy.year}{The eBird taxonomy year the tree should be output in. Set to "current"
-to extract a tree in the most recent taxonomic version.}
+to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
+passed in, e.g. 2021.}
 
 \item{version}{The desired version of the tree. Set to current to extract the most recent
-version of the tree.}
+version of the tree. Otherwise, the exact character string of the tree needs to be passed in
+here, e.g. "Aves_1.2".}
 
-\item{which.tree}{Not currently implemented, and defaults for now to a placeholder tree. In the
-future there will be the base tree from OpenTree, a small cloud of dated, complete trees (which
+\item{which.tree}{Not currently implemented, and defaults for now to the single summary tree. In the
+future, in addition to this summary tree, there will be the base tree from OpenTree, and
+a small cloud of dated, complete trees (which
 can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-function for that purpose),
-and a maximum clade credibility version of these trees.}
+function for that purpose). Note the small cloud of complete dated trees is currently
+included in the dataStore, and can be accessed by exploring the structure of data(dataStore)}
 }
 \value{
 A phylogeny of the specified taxa in the specified eBird taxonomy version and clootl
