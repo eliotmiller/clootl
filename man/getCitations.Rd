@@ -36,7 +36,7 @@ matter, but this has not yet been tested.
 \examples{
 \donttest{#pull the taxonomy file out
 data(dataStore)
-tax <- dataStore[['year2021']]$taxonomy.files$ebird.taxonomy
+tax <- dataStore$taxonomy.files$year2021
 
 #subset to species only
 tax <- tax[tax$CATEGORY=="species",]
@@ -47,7 +47,7 @@ spp <- temp$SCI_NAME
 
 #get your tree
 prunedTree <- extractTree(species=spp, output.type="scientific",
-   taxonomy.year="current", version="current")
+   taxonomy.year=2021, version="current")
 
 #get your citation DF
 yourCitations <- getCitations(tree=prunedTree)}
