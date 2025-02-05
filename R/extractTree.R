@@ -46,16 +46,27 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   #load the datastore
   data(dataStore)
   
+  versions <- c('0.1','1.0','1.2','1.3')
+  if (!is.element(version, versions)){    
+    stop("version not recognized: ", version)
+  }
+
+  tax_years <- c('2021','2022','2023', 'current')
+  if (!is.element(taxonmy.year, tax_years)){    
+    stop("year not recognized: ", tax_years)
+  }
   #pull the taxonomy file and subset to species. create the name needed to identify the right file
   if(taxonomy.year=="current")
   {
-    taxonomyYear <- names(dataStore$taxonomy.files)[1]
+    taxonomyYear <- '2023'
   }
-  else
-  {
-    taxonomyYear <- paste("year", taxonomy.year, sep="")
-  }
-  tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
+  
+  taxonomy_filename <- paste(data_source, '/Taxonomy_versions/Clements', taxonomy.year, , sep='')
+  if (!file.exists(filename)){    
+        stop("taxonomy file not found at: ", taxonomy_filename)
+      }
+  all_nodes <- jsonlite:::fromJSON(txt=filename)
+
 
   #subset to species
   tax <- tax[tax$CATEGORY=="species",]
