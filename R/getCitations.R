@@ -81,8 +81,7 @@ getCitations <- function(tree, version="1.3")
         stop("annotations file not found at: ", filename)
         }
       all_nodes <- jsonlite:::fromJSON(txt=filename)
-    }
-  }else{
+    } else{
       stop("Currently get citations needs you to run get_avesdata_repo() first")
   }
 
