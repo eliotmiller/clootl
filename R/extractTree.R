@@ -41,31 +41,49 @@
 #' ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
 #'    output.type="scientific", taxonomy.year="current", version="current")
 
-extractTree <- function(species, output.type, taxonomy.year, version, which.tree)
+extractTree <- function(species, output.type, taxonomy.year, version, which.tree = "summary")
 {
-  #load the datastore
-  data(dataStore)
   
-  versions <- c('0.1','1.0','1.2','1.3')
+  if (Sys.getenv('avesdata') != ""){
+    data_path = Sys.getenv('avesdata')
+    if (!file.exists(data_path)){    
+      stop("AvesData folder not found at: ", path)
+    }
+  }else{
+      data(dataStore)
+  }
+
+  versions <- c('0.1','1.0','1.2','1.3',"current")
   if (!is.element(version, versions)){    
     stop("version not recognized: ", version)
   }
 
-  tax_years <- c('2021','2022','2023', 'current')
-  if (!is.element(taxonmy.year, tax_years)){    
+
+
+  tax_years <- c(2021,2022,2023, 'current')
+  if (!is.element(taxonomy.year, tax_years)){    
     stop("year not recognized: ", tax_years)
   }
   #pull the taxonomy file and subset to species. create the name needed to identify the right file
-  if(taxonomy.year=="current")
-  {
-    taxonomyYear <- '2023'
+  if(taxonomy.year=="current"){
+    taxonomy.year <- 2023  ##TODO need to update
+  }
+  if(version=="current"){
+    version <- "1.3"  ##TODO need to update
   }
   
-  taxonomy_filename <- paste(data_source, '/Taxonomy_versions/Clements', taxonomy.year, , sep='')
-  if (!file.exists(filename)){    
+  taxonomy_filename <- paste(data_path, 
+                             '/Taxonomy_versions/Clements',
+                             as.character(taxonomy.year), 
+                             "/ebird_taxonomy_v",
+                             as.character(taxonomy.year),
+                             ".csv",
+                             sep='')
+  if (!file.exists(taxonomy_filename)){    
         stop("taxonomy file not found at: ", taxonomy_filename)
       }
-  all_nodes <- jsonlite:::fromJSON(txt=filename)
+
+  tax = read.csv(taxonomy_filename)
 
 
   #subset to species
@@ -75,17 +93,25 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
 
   #pull the tree file in the right version and taxonomy
-  if(version=="current")
-  {
+  if( (version=="current") & (Sys.getenv('avesdata') == "")){
     treeVersion <- names(dataStore$trees)[1]
+    fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
   }
-  else
-  {
-    treeVersion <- version
+  else if((version!="current") & (Sys.getenv('avesdata') == "")){
+      stop("To get alternate tree versions, run get_avesdata_repo() or set path to Aves Data repo using set_avesdata_repo_path(path)")
+    }else  {
+    tree_filename <- paste(data_path,
+                            "/Tree_versions/",
+                            "Aves_",
+                            version,
+                            "/Clements",
+                             as.character(taxonomy.year), 
+                             "/summary_dated_clements.nex",
+                             sep='')
+    fullTree <- read.nexus(tree_filename)
   }
   
-  #now pull the right tree
-  fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
+  
 
   #if species is set to all.species, redefine species as the full set of taxa
   if(species[1]=="all.species" & output.type=="code")

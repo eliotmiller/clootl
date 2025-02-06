@@ -1,3 +1,27 @@
+### Pulls down full AvesData repo to working dir
+## Will not redowload by default if path exists, unless refresh=TRUE
+
+get_avesdata_repo <- function(url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip",
+                              refresh=FALSE){
+  options(timeout=444) # This file is big and can take alittle while to download
+  if (file.exists("AvesData.zip") & (refresh == FALSE)){
+    stop("File AvesData.zip already exists. Use refresh = True to download a new version")
+  } else{
+    download.file(url, destfile = "AvesData.zip")
+    unzip(zipfile = "AvesData.zip", overwrite=TRUE) 
+    }
+  Sys.setenv(avesdata = "AvesData-main")
+  }
+
+### set path to repo already somewhere on your computer
+
+set_avesdata_repo_path <- function(path){
+  if (!file.exists(path)){    
+      stop("AvesData folder not found at: ", path)
+    }
+  Sys.setenv(avesdata = path)
+}
+
 bifurcatr <- function(phy, runs = 1) 
 {
   trees <- vector("list", length = runs)

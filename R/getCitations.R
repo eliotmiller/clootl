@@ -52,7 +52,7 @@
 #' yourCitations <- getCitations(tree=prunedTree)}
 
 
-getCitations <- function(tree, version="1.3", data_source = "internal")
+getCitations <- function(tree, version="1.3", data_source)
 {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
@@ -62,6 +62,13 @@ getCitations <- function(tree, version="1.3", data_source = "internal")
   taxonomyNodes <- sum(nodesToQuery == "NA")
   nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
   
+  if (Sys.getenv('avesdata') != ""){
+    data_path = Sys.getenv('avesdata')
+    if (!file.exists(data_path)){    
+      stop("AvesData folder not found at: ", path)
+    }
+  }
+
   versions <- c('0.1','1.0','1.2','1.3')
   if (!is.element(version, versions)){    
     stop("version not recognized: ", version)
@@ -73,7 +80,8 @@ getCitations <- function(tree, version="1.3", data_source = "internal")
         stop("annotations file not found at: ", filename)
       }
       all_nodes <- jsonlite:::fromJSON(txt=system.file("extdata", filename, package = "clootl"))
-    } else {
+    }
+    else {
       filename <- paste(data_source, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){    
         stop("annotations file not found at: ", filename)

@@ -1,8 +1,10 @@
 #load clootl
 library(clootl)
-library(phytools)
-library(phylolm)
-setwd("~/Documents/QSB_244_2024/Bird_comp_meth")
+
+
+setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
+
+
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
                    output.type="code", taxonomy.year="current", version="current")
 ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
