@@ -52,7 +52,7 @@
 #' yourCitations <- getCitations(tree=prunedTree)}
 
 
-getCitations <- function(tree, version="1.3", data_source)
+getCitations <- function(tree, version="1.3")
 {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
@@ -74,20 +74,18 @@ getCitations <- function(tree, version="1.3", data_source)
     stop("version not recognized: ", version)
   }
   
-  if (data_source == "internal"){
-      filename <- paste('AvesData/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
-      if (!file.exists(filename)){    
-        stop("annotations file not found at: ", filename)
-      }
-      all_nodes <- jsonlite:::fromJSON(txt=system.file("extdata", filename, package = "clootl"))
-    }
-    else {
-      filename <- paste(data_source, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
+  if (Sys.getenv('avesdata') != ""){
+    data_path = Sys.getenv('avesdata')
+      filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){    
         stop("annotations file not found at: ", filename)
         }
       all_nodes <- jsonlite:::fromJSON(txt=filename)
-      }
+    }
+  }else{
+      stop("Currently get citations needs you to run get_avesdata_repo() first")
+  }
+
 
 
   trees <- c()
