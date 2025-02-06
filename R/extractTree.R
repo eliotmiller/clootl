@@ -49,8 +49,16 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     if (!file.exists(data_path)){    
       stop("AvesData folder not found at: ", path)
     }
-  }else{
+  } else{
       data(dataStore)
+      if(taxonomy.year=="current")
+    {
+      taxonomyYear <- names(dataStore$taxonomy.files)[1]
+    }
+  else
+  {
+    taxonomyYear <- paste("year", taxonomy.year, sep="")
+  }
   }
 
   versions <- c('0.1','1.0','1.2','1.3',"current")
@@ -68,9 +76,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   if(taxonomy.year=="current"){
     taxonomy.year <- 2023  ##TODO need to update
   }
-  if(version=="current"){
-    version <- "1.3"  ##TODO need to update
-  }
+
   
   taxonomy_filename <- paste(data_path, 
                              '/Taxonomy_versions/Clements',
@@ -93,13 +99,16 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
 
   #pull the tree file in the right version and taxonomy
-  if( (version=="current") & (Sys.getenv('avesdata') == "")){
+  if((version=="current") & (Sys.getenv('avesdata') == "")){
     treeVersion <- names(dataStore$trees)[1]
     fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
   }
   else if((version!="current") & (Sys.getenv('avesdata') == "")){
       stop("To get alternate tree versions, run get_avesdata_repo() or set path to Aves Data repo using set_avesdata_repo_path(path)")
     }else  {
+        if(version=="current"){
+    version <- "1.3"  ##TODO need to update
+        }
     tree_filename <- paste(data_path,
                             "/Tree_versions/",
                             "Aves_",
