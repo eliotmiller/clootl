@@ -37,9 +37,9 @@
 #' 
 #' @examples
 #' ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-#'    output.type="code", taxonomy.year="current", version="current")
+#'    label_type="code")
 #' ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-#'    output.type="scientific", taxonomy.year="current", version="current")
+#'    label_type="scientific", taxonomy_year="2021", version="1.3")
 
 
 
@@ -83,17 +83,14 @@ taxonomyGet <- function(taxonomy_year){
 ## This will return a data object that has the requested tree
 treeGet <- function(version, taxonomy_year){
   #pull the tree file in the right version and taxonomy
-  if((version=="current") & (Sys.getenv('avesdata') == "")){
+  if((Sys.getenv('avesdata') == "")){
       ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    treeVersion <- names(dataStore$trees)[1]
-    fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
-  }
-  else if((version!="current") & (Sys.getenv('avesdata') == "")){
-      stop("To get alternate tree versions, run get_avesdata_repo() or set path to Aves Data repo using set_avesdata_repo_path(path)")
-    }else  {
-        if(version=="current"){
-    version <- "1.3"  ##TODO need to update
-        }
+    data(dataStore)
+    taxonomyYear <- paste("year", taxonomy_year, sep="")
+    version<-as.numeric(version)
+    fullTree <- dataStore$trees[[version]]$summary.trees[[taxonomyYear]]
+
+  } else {
    ##This needs an if statement for if it is looking for the object or the path
     tree_filename <- paste(data_path,
                             "/Tree_versions/",
@@ -105,13 +102,13 @@ treeGet <- function(version, taxonomy_year){
                              sep='')
     fullTree <- read.nexus(tree_filename)
   }
-  
+  return(fullTree)
   }
 
 #######################################
 extractTree <- function(species="all_species", label_type="scientific", taxonomy_year=2023, version="1.3", which.tree = "summary")
 {
-  match.arg(versions,c('0.1','1.0','1.2','1.3'))
+  label_type <- match.arg(label_type,c('code','scientific'))
 
   versions <- c('0.1','1.0','1.2','1.3')
   version <- as.character(version)
@@ -119,15 +116,24 @@ extractTree <- function(species="all_species", label_type="scientific", taxonomy
     stop("version not recognized: ", version) ## TODO print out actual list
   }
 
-
   tax_years <- c("2021","2022","2023")
   taxonomy_year <- as.character(taxonomy_year)
   if (!is.element(taxonomy_year, tax_years)){    
     stop("year not recognized: ", tax_years)
   }
 
-  tax <- taxonomyGet(taxonomy_year)
 
+  if((Sys.getenv('avesdata')) == "" & (version!='1.3')){
+      stop("Only tree version 1.3 is currently packaged with clootl.
+      To get alternate tree versions, run get_avesdata_repo() 
+      or set path to Aves Data repo using set_avesdata_repo_path(path)")
+    }
+
+
+  tax <- taxonomyGet(taxonomy_year)
+  fullTree <- treeGet(version, taxonomy_year)
+#  print("Tree has this many tips")
+#  print(length(fullTree$tip.label))
   
   species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
@@ -145,7 +151,7 @@ extractTree <- function(species="all_species", label_type="scientific", taxonomy
   {
     species <- species
   }
-      
+  
   #check whether the input species are valid
   if(label_type=="code")
   {
@@ -161,6 +167,8 @@ extractTree <- function(species="all_species", label_type="scientific", taxonomy
     #else might as well set a tree aside with codes instead of sci names
     else
     {
+ #     print("Swapping labels to code: NOW Tree has this many tips")
+ #     print(length(fullTree$tip.label))
       #swap the scientific names for species codes
       newNames <- data.frame(order=1:length(fullTree$tip.label), orig=fullTree$tip.label)
       
