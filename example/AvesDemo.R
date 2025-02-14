@@ -6,9 +6,9 @@ setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
 
 
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                   output.type="code", taxonomy.year="current", version="current")
+                  label_type="code")
 ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-                   output.type="scientific", taxonomy.year="current", version="current")
+                   label_type="scientific")
 
 
 ourTree <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
