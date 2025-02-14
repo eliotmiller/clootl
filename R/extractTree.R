@@ -5,8 +5,8 @@
 #' @param species A character vector either of scientific names (directly as they come out of the
 #' eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
 #' the species vector that do not match a species-level taxon in the specified eBird taxonomy
-#' will result in an error. Set to "all.species" if the complete tree is desired.
-#' @param output.type Either "scientific" or "code".
+#' will result in an error. Set to "all_species" if the complete tree is desired.
+#' @param label_type Either "scientific" or "code".
 #' @param taxonomy.year The eBird taxonomy year the tree should be output in. Set to "current"
 #' to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 #' passed in, e.g. 2021.
@@ -41,65 +41,50 @@
 #' ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
 #'    output.type="scientific", taxonomy.year="current", version="current")
 
-extractTree <- function(species, output.type, taxonomy.year, version, which.tree = "summary")
-{
-  
-  if (Sys.getenv('avesdata') != ""){
+
+
+
+## This will return a data object that has the requested taxonomy
+taxonomyGet <- function(taxonomy_year){
+  if (Sys.getenv('avesdata') == ""){
+   ##We should be in here if we DIDN"T download the data
+      data(dataStore)
+      taxonomyYear <- paste("year", taxonomy_year, sep="")
+      tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
+  } else{
+       ## We will be in here if we have run get_avesdata_repo and downloaded the data
     data_path = Sys.getenv('avesdata')
     if (!file.exists(data_path)){    
       stop("AvesData folder not found at: ", path)
-    }
-  } else{
-      data(dataStore)
-      if(taxonomy.year=="current")
-    {
-      taxonomyYear <- names(dataStore$taxonomy.files)[1]
-    }
-  else
-  {
-    taxonomyYear <- paste("year", taxonomy.year, sep="")
-  }
-  }
-
-  versions <- c('0.1','1.0','1.2','1.3',"current")
-  if (!is.element(version, versions)){    
-    stop("version not recognized: ", version)
-  }
-
-
-
-  tax_years <- c(2021,2022,2023, 'current')
-  if (!is.element(taxonomy.year, tax_years)){    
-    stop("year not recognized: ", tax_years)
-  }
-  #pull the taxonomy file and subset to species. create the name needed to identify the right file
-  if(taxonomy.year=="current"){
-    taxonomy.year <- 2023  ##TODO need to update
-  }
-
-  
-  taxonomy_filename <- paste(data_path, 
+    } else {
+       ##This needs an if statement for if it is looking for the object or the path
+      taxonomy_filename <- paste(data_path, 
                              '/Taxonomy_versions/Clements',
                              as.character(taxonomy.year), 
                              "/ebird_taxonomy_v",
                              as.character(taxonomy.year),
                              ".csv",
                              sep='')
-  if (!file.exists(taxonomy_filename)){    
-        stop("taxonomy file not found at: ", taxonomy_filename)
+        if (!file.exists(taxonomy_filename)){    
+          stop("taxonomy file not found at: ", taxonomy_filename)
+          }
+      ## ONce we have the tree and taxonomy, all this stuff can happen
+    tax = read.csv(taxonomy_filename)
       }
-
-  tax = read.csv(taxonomy_filename)
-
-
-  #subset to species
+    }
+     #subset to species
   tax <- tax[tax$CATEGORY=="species",]
   
   #create a convenience underscore column
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
+  return(tax)
+  }
 
+## This will return a data object that has the requested tree
+treeGet <- function(version, taxonomy_year){
   #pull the tree file in the right version and taxonomy
   if((version=="current") & (Sys.getenv('avesdata') == "")){
+      ## We will be in here if we have run get_avesdata_repo and downloaded the data
     treeVersion <- names(dataStore$trees)[1]
     fullTree <- dataStore$trees[[treeVersion]]$summary.trees[[taxonomyYear]]
   }
@@ -109,6 +94,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
         if(version=="current"){
     version <- "1.3"  ##TODO need to update
         }
+   ##This needs an if statement for if it is looking for the object or the path
     tree_filename <- paste(data_path,
                             "/Tree_versions/",
                             "Aves_",
@@ -120,15 +106,37 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     fullTree <- read.nexus(tree_filename)
   }
   
-  
+  }
 
+#######################################
+extractTree <- function(species="all_species", label_type="scientific", taxonomy_year=2023, version="1.3", which.tree = "summary")
+{
+  match.arg(versions,c('0.1','1.0','1.2','1.3'))
+
+  versions <- c('0.1','1.0','1.2','1.3')
+  version <- as.character(version)
+  if (!is.element(version, versions)){    
+    stop("version not recognized: ", version) ## TODO print out actual list
+  }
+
+
+  tax_years <- c("2021","2022","2023")
+  taxonomy_year <- as.character(taxonomy_year)
+  if (!is.element(taxonomy_year, tax_years)){    
+    stop("year not recognized: ", tax_years)
+  }
+
+  tax <- taxonomyGet(taxonomy_year)
+
+  
+  species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
-  if(species[1]=="all.species" & output.type=="code")
+  if(species[1]=="all_species" & label_type=="code")
   {
     species <- tax$SPECIES_CODE
   }
   
-  else if(species[1]=="all.species" & output.type=="scientific")
+  else if(species[1]=="all_species" & label_type=="scientific")
   {
     species <- tax$SCI_NAME
   }
@@ -139,7 +147,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   }
       
   #check whether the input species are valid
-  if(output.type=="code")
+  if(label_type=="code")
   {
     #identify mismatches
     issues <- setdiff(species, tax$SPECIES_CODE)
@@ -148,7 +156,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     if(length(issues) > 0)
     {
       stop("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
-    }
+    } ##TODO Say which ones failed!!
     
     #else might as well set a tree aside with codes instead of sci names
     else
@@ -165,7 +173,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
     }
   }
   
-  else if(output.type=="scientific")
+  else if(label_type=="scientific")
   {
     #identify mismatches
     issues <- setdiff(species, tax$SCI_NAME)
@@ -185,7 +193,7 @@ extractTree <- function(species, output.type, taxonomy.year, version, which.tree
   
   else
   {
-    stop("output.type must be set to either 'code' or 'scientific'")
+    stop("label_type must be set to either 'code' or 'scientific'")
   }
   
   #now prune the tree and extract. if species is the full set, no pruning will occur
