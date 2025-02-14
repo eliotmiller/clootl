@@ -7,7 +7,7 @@
 #' the species vector that do not match a species-level taxon in the specified eBird taxonomy
 #' will result in an error. Set to "all_species" if the complete tree is desired.
 #' @param label_type Either "scientific" or "code".
-#' @param taxonomy.year The eBird taxonomy year the tree should be output in. Set to "current"
+#' @param taxonomy_year The eBird taxonomy year the tree should be output in. Set to "current"
 #' to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 #' passed in, e.g. 2021.
 #' @param version The desired version of the tree. Set to current to extract the most recent
@@ -45,24 +45,26 @@
 
 
 ## This will return a data object that has the requested taxonomy
-taxonomyGet <- function(taxonomy_year){
-  if (Sys.getenv('avesdata') == ""){
+taxonomyGet <- function(taxonomy_year, data_path=FALSE){
+  if (data_path==FALSE){
+        data_path = Sys.getenv('avesdata') ## If you didn't download it, this will be ""
+       }
+  if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
       data(dataStore)
       taxonomyYear <- paste("year", taxonomy_year, sep="")
       tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
   } else{
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    data_path = Sys.getenv('avesdata')
-    if (!file.exists(data_path)){    
-      stop("AvesData folder not found at: ", path)
-    } else {
        ##This needs an if statement for if it is looking for the object or the path
+       if (!file.exists(data_path)){    
+          stop("AvesData folder not found at: ", data_path)
+        }
       taxonomy_filename <- paste(data_path, 
                              '/Taxonomy_versions/Clements',
-                             as.character(taxonomy.year), 
+                             as.character(taxonomy_year), 
                              "/ebird_taxonomy_v",
-                             as.character(taxonomy.year),
+                             as.character(taxonomy_year),
                              ".csv",
                              sep='')
         if (!file.exists(taxonomy_filename)){    
@@ -71,7 +73,6 @@ taxonomyGet <- function(taxonomy_year){
       ## ONce we have the tree and taxonomy, all this stuff can happen
     tax = read.csv(taxonomy_filename)
       }
-    }
      #subset to species
   tax <- tax[tax$CATEGORY=="species",]
   
@@ -81,9 +82,12 @@ taxonomyGet <- function(taxonomy_year){
   }
 
 ## This will return a data object that has the requested tree
-treeGet <- function(version, taxonomy_year){
+treeGet <- function(version, taxonomy_year, data_path=FALSE){
   #pull the tree file in the right version and taxonomy
-  if((Sys.getenv('avesdata') == "")){
+  if (data_path==FALSE){
+        data_path = Sys.getenv('avesdata') ## If you didn't download it, this will be ""
+       }
+  if(data_path == ""){
       ## We will be in here if we have run get_avesdata_repo and downloaded the data
     data(dataStore)
     taxonomyYear <- paste("year", taxonomy_year, sep="")
@@ -91,22 +95,30 @@ treeGet <- function(version, taxonomy_year){
     fullTree <- dataStore$trees[[version]]$summary.trees[[taxonomyYear]]
 
   } else {
+    if (!file.exists(data_path)){    
+      stop("AvesData folder not found at: ", data_path)
+    } else {
    ##This needs an if statement for if it is looking for the object or the path
-    tree_filename <- paste(data_path,
+        tree_filename <- paste(data_path,
                             "/Tree_versions/",
                             "Aves_",
                             version,
                             "/Clements",
-                             as.character(taxonomy.year), 
+                             as.character(taxonomy_year), 
                              "/summary_dated_clements.nex",
                              sep='')
     fullTree <- read.nexus(tree_filename)
+          }
   }
   return(fullTree)
   }
 
 #######################################
-extractTree <- function(species="all_species", label_type="scientific", taxonomy_year=2023, version="1.3", which.tree = "summary")
+extractTree <- function(species="all_species",
+                        label_type="scientific",
+                        taxonomy_year=2023, version="1.3",
+                        data_path=FALSE,
+                        which.tree = "summary")
 {
   label_type <- match.arg(label_type,c('code','scientific'))
 
@@ -123,15 +135,16 @@ extractTree <- function(species="all_species", label_type="scientific", taxonomy
   }
 
 
-  if((Sys.getenv('avesdata')) == "" & (version!='1.3')){
+  if((Sys.getenv('avesdata') == "") & (version!='1.3')){
       stop("Only tree version 1.3 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo() 
-      or set path to Aves Data repo using set_avesdata_repo_path(path)")
+      or set path to Aves Data repo using set_avesdata_repo(path),
+      or use th argument data_path = AvesData-path")
     }
 
 
-  tax <- taxonomyGet(taxonomy_year)
-  fullTree <- treeGet(version, taxonomy_year)
+  tax <- taxonomyGet(taxonomy_year, data_path)
+  fullTree <- treeGet(version, taxonomy_year, data_path)
 #  print("Tree has this many tips")
 #  print(length(fullTree$tip.label))
   
