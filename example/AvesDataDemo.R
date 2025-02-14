@@ -12,9 +12,10 @@ setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
 
 # this downloads all the data from the AvesData github repo
 # As a folder in your current working directory
-get_avesdata_repo()
+clootl:::get_avesdata_repo()
 
-
+## If you want it to re-download the git repo (to get new data) use:
+# get_avesdata_repo(refresh = True)
 
 
 
