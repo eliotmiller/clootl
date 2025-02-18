@@ -1,7 +1,7 @@
 #load clootl
 
 library(devtools)
-install_github("snacktavish/clootl@data-repo-clone")
+install_github("snacktavish/clootl")
 
 
 library(clootl)
