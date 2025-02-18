@@ -3,6 +3,8 @@
 export(extractTree)
 export(getCitations)
 export(initialProcessing)
+export(taxonomyGet)
+export(treeGet)
 import(ape)
 importFrom(RCurl,postForm)
 importFrom(dplyr,group_by)

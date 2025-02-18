@@ -4,17 +4,24 @@
 \alias{extractTree}
 \title{Randomly resolve polytomies and enforce ultrametric}
 \usage{
-extractTree(species, output.type, taxonomy.year, version, which.tree)
+extractTree(
+  species = "all_species",
+  label_type = "scientific",
+  taxonomy_year = 2023,
+  version = "1.3",
+  data_path = FALSE,
+  which.tree = "summary"
+)
 }
 \arguments{
 \item{species}{A character vector either of scientific names (directly as they come out of the
 eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
 the species vector that do not match a species-level taxon in the specified eBird taxonomy
-will result in an error. Set to "all.species" if the complete tree is desired.}
+will result in an error. Set to "all_species" if the complete tree is desired.}
 
-\item{output.type}{Either "scientific" or "code".}
+\item{label_type}{Either "scientific" or "code".}
 
-\item{taxonomy.year}{The eBird taxonomy year the tree should be output in. Set to "current"
+\item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Set to "current"
 to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 passed in, e.g. 2021.}
 
@@ -45,9 +52,9 @@ match your phylogeny.
 }
 \examples{
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-   output.type="code", taxonomy.year="current", version="current")
+   label_type="code")
 ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-   output.type="scientific", taxonomy.year="current", version="current")
+   label_type="scientific", taxonomy_year="2021", version="1.3")
 }
 \author{
 Eliot Miller
