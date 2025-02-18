@@ -53,7 +53,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
    ##We should be in here if we DIDN"T download the data
       data(clootl_data)
       taxonomyYear <- paste("year", taxonomy_year, sep="")
-      tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
+      tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else{
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
        ##This needs an if statement for if it is looking for the object or the path
@@ -90,8 +90,8 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
       ## We will be in here if we have run get_avesdata_repo and downloaded the data
     data(clootl_data)
     taxonomyYear <- paste("year", taxonomy_year, sep="")
-    version<-as.numeric(version)
-    fullTree <- dataStore$trees[[version]]$summary.trees[[taxonomyYear]]
+    version <- paste("Aves_", version, sep="")
+    fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
   } else {
     if (!file.exists(data_path)){    
       stop("AvesData folder not found at: ", data_path)
