@@ -82,7 +82,7 @@ getCitations <- function(tree, version="1.3", data_path=FALSE)
   if (data_path == ""){
     data(clootl_data)
     all_nodes <- clootl_data$trees$`Aves_1.3`$annotations
-    } else
+  } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){    
           stop("annotations file not found at: ", filename)
