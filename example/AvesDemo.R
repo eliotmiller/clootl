@@ -1,5 +1,6 @@
 #load clootl
 library(clootl)
+library(phytools)
 
 
 setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
@@ -49,9 +50,8 @@ contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
 dat <- read.csv("AVONET Supplementary dataset 1.csv")
 spp <- sample(dat$Species2, 100)
 subtree <- extractTree(species=spp,
-                      output.type="scientific", 
-                      taxonomy.year="2021", 
-                      version="current")
+                      label_type="scientific", 
+                      taxonomy_year="2021")
 
 
 
