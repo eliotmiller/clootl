@@ -7,7 +7,8 @@ install_github("snacktavish/clootl@data-repo-clone")
 library(clootl)
 library(ape)
 
-setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
+setwd("~/pj_clootl/lunasare/clootl")
+setwd("~/pj_clootl/demo")
 
 
 # this downloads all the data from the AvesData github repo
@@ -20,6 +21,6 @@ clootl:::get_avesdata_repo()
 
 
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                   output.type="code", taxonomy.year="2021", version="1.2")
+                   label_type="code", taxonomy_year="2021", version="1.2")
 
 getCitations(ex1, version="1.2")
