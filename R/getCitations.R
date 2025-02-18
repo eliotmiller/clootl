@@ -30,7 +30,7 @@
 #' @import ape
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom RCurl postForm
-#' @importFrom dplyr group_by summarize
+#' @importFrom dplyr group_by summarizedata
 #' 
 #' @examples
 #'\donttest{#pull the taxonomy file out
@@ -52,7 +52,7 @@
 #' yourCitations <- getCitations(tree=prunedTree)}
 
 
-getCitations <- function(tree, version="1.3")
+getCitations <- function(tree, version="1.3", data_path=FALSE)
 {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
@@ -62,34 +62,37 @@ getCitations <- function(tree, version="1.3")
   taxonomyNodes <- sum(nodesToQuery == "NA")
   nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
   
-  if (Sys.getenv('avesdata') != ""){
+  if (data_path==FALSE){
     data_path = Sys.getenv('avesdata')
-    if (!file.exists(data_path)){    
-      stop("AvesData folder not found at: ", path)
-    }
+    #TODO: do we want to set an internal path option??
   }
+
+  if (!file.exists(data_path) & version != "1.3"){    
+    stop("GetCitations for anything other than the current tree requires an Aves Data download.
+      Currently get citations needs you to run get_avesdata_repo() first 
+      or provide a path to the data repo using data_path=")
+    }
+  
 
   versions <- c('0.1','1.0','1.2','1.3')
   if (!is.element(version, versions)){    
     stop("version not recognized: ", version)
   }
   
-  if (Sys.getenv('avesdata') != ""){
-    data_path = Sys.getenv('avesdata')
+  if (data_path == ""){
+    data(clootl_data)
+    all_nodes <- clootl_data$trees$`Aves_1.3`$annotations ##ToDO not hardcode?
+  } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){    
-        stop("annotations file not found at: ", filename)
-        }
+          stop("annotations file not found at: ", filename)
+          }
       all_nodes <- jsonlite:::fromJSON(txt=filename)
-    } else{
-      stop("Currently get citations needs you to run get_avesdata_repo() first")
   }
-
-
 
   trees <- c()
   studies<-c()
-  #####for node in nodesToQuery
+  ##
   for (node in nodesToQuery){
     node_trees <- names(all_nodes$nodes[[node]]$supported_by)
     trees <- c(node_trees, trees)
@@ -103,13 +106,16 @@ getCitations <- function(tree, version="1.3")
   
   # now query the citations
   dois <- c()
+  refs <- c()
   for(i in 1:length(finalCounts$study))
   {
     #again, define some convenience variables
     url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
     headers <- c('Content-Type' = 'application/json')
-    body <- jsonlite::toJSON(list("property"="ot:studyId", "value"=finalCounts$study[i], "verbose"="true"),
-                             auto_unbox=TRUE)
+    body <- jsonlite::toJSON(list("property"="ot:studyId",
+                                  "value"=finalCounts$study[i],
+                                  "verbose"="true"),
+                                   auto_unbox=TRUE)
     
     response <- RCurl::postForm(uri = url,
                          .opts = list(
@@ -133,13 +139,24 @@ getCitations <- function(tree, version="1.3")
     {
       dois[i] <- doiTemp
     }
+    refTemp <- parsedJSON$matched_studies$`ot:studyPublicationReference`
+    if(is.null(refTemp))
+    {
+      refs[i] <- NA
+    }
+    else
+    {
+      refs[i] <- refTemp
+    }
   }
   
   #plug the dois in
+  finalCounts$reference <- refs
   finalCounts$doi <- dois
   
   #add a row for contributions by taxonomy
   toBind <- data.frame(study="Taxonomic additions", counts=taxonomyNodes,
+                       reference="Miller et al.",
                        doi="https://github.com/eliotmiller/addtaxa")
   finalCounts <- rbind(finalCounts, toBind)
   
