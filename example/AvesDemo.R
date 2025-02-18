@@ -5,15 +5,12 @@ library(clootl)
 setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
 
 
-ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                  label_type="code")
-ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-                   label_type="scientific")
 
 
 ourTree <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                       output.type="code", taxonomy.year="current", version="current")
-ourCitations <- getCitations(ourTree)
+                       label_type="code")
+
+
 
 #load the AVONET dataset
 ##Download AVONET Supplmentary dataset 1 from here 
@@ -34,7 +31,8 @@ row.names(datSubset) <- datSubset$underscores
 
 #grab a pruned tree
 pruned <- extractTree(species=datSubset$Species2,
-                      output.type="scientific", taxonomy.year="2021", version="current")
+                      label_type="scientific", taxonomy_year="2021")
+
 pruned$root.edge <- NULL
 
 summary(phylolm(log(Tarsus.Length)~Beak.Length_Culmen, data=datSubset, phy=pruned, model="BM"))

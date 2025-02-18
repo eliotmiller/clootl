@@ -51,7 +51,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
        }
   if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
-      data(dataStore)
+      data(clootl_data)
       taxonomyYear <- paste("year", taxonomy_year, sep="")
       tax <- dataStore$taxonomy.files[[`taxonomyYear`]]
   } else{
@@ -63,7 +63,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
       taxonomy_filename <- paste(data_path, 
                              '/Taxonomy_versions/Clements',
                              as.character(taxonomy_year), 
-                             "/ebird_taxonomy_v",
+                             "/OTT_crosswalk_",
                              as.character(taxonomy_year),
                              ".csv",
                              sep='')
@@ -74,7 +74,6 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
     tax = read.csv(taxonomy_filename)
       }
      #subset to species
-  tax <- tax[tax$CATEGORY=="species",]
   
   #create a convenience underscore column
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
@@ -89,11 +88,10 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
        }
   if(data_path == ""){
       ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    data(dataStore)
+    data(clootl_data)
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version<-as.numeric(version)
     fullTree <- dataStore$trees[[version]]$summary.trees[[taxonomyYear]]
-
   } else {
     if (!file.exists(data_path)){    
       stop("AvesData folder not found at: ", data_path)
@@ -145,8 +143,10 @@ extractTree <- function(species="all_species",
 
   tax <- taxonomyGet(taxonomy_year, data_path)
   fullTree <- treeGet(version, taxonomy_year, data_path)
-#  print("Tree has this many tips")
-#  print(length(fullTree$tip.label))
+  #print("Tree has this many tips")
+  #print(length(fullTree$tip.label))
+  #print(fullTree$tip.label)
+
   
   species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
@@ -216,7 +216,8 @@ extractTree <- function(species="all_species",
   {
     stop("label_type must be set to either 'code' or 'scientific'")
   }
-  
+  #print(species)
+  #print(fullTree$tip.label)
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
   pruned
