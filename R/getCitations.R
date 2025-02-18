@@ -30,7 +30,7 @@
 #' @import ape
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom RCurl postForm
-#' @importFrom dplyr group_by summarize
+#' @importFrom dplyr group_by summarizedata
 #' 
 #' @examples
 #'\donttest{#pull the taxonomy file out
@@ -51,7 +51,128 @@
 #' #get your citation DF
 #' yourCitations <- getCitations(tree=prunedTree)}
 
-getCitations <- function(tree, synth_id="aves_1.1" )
+
+getCitations <- function(tree, version="1.3", data_path=FALSE)
+{
+  # Data source can either be "internal" - packaged with the library
+  # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
+  #pull the node labels out. count any (character instances of) NA, as this should
+  #be the contribution of taxonomic additions and drop any NAs
+  nodesToQuery <- tree$node.label
+  taxonomyNodes <- sum(nodesToQuery == "NA")
+  nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
+  
+  if (data_path==FALSE){
+    data_path = Sys.getenv('avesdata')
+    #TODO: do we want to set an internal path option??
+  }
+
+  if (!file.exists(data_path) & version != "1.3"){    
+    stop("GetCitations for anything other than the current tree requires an Aves Data download.
+      Currently get citations needs you to run get_avesdata_repo() first 
+      or provide a path to the data repo using data_path=")
+    }
+  
+
+  versions <- c('0.1','1.0','1.2','1.3')
+  if (!is.element(version, versions)){    
+    stop("version not recognized: ", version)
+  }
+  
+  if (data_path == ""){
+    data(clootl_data)
+    all_nodes <- clootl_data$trees$`Aves_1.3`$annotations ##ToDO not hardcode?
+  } else{
+      filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
+      if (!file.exists(filename)){    
+          stop("annotations file not found at: ", filename)
+          }
+      all_nodes <- jsonlite:::fromJSON(txt=filename)
+  }
+
+  trees <- c()
+  studies<-c()
+  ##
+  for (node in nodesToQuery){
+    node_trees <- names(all_nodes$nodes[[node]]$supported_by)
+    trees <- c(node_trees, trees)
+    node_studies <- (unique(sub("@.*", "", node_trees)))
+    studies <-c(node_studies, studies)
+  }
+
+  ## So this just lists all the trees, and all the studies...
+  finalCounts <- as.data.frame(table(studies))
+  colnames(finalCounts) <- c("study", "counts")
+  
+  # now query the citations
+  dois <- c()
+  refs <- c()
+  for(i in 1:length(finalCounts$study))
+  {
+    #again, define some convenience variables
+    url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
+    headers <- c('Content-Type' = 'application/json')
+    body <- jsonlite::toJSON(list("property"="ot:studyId",
+                                  "value"=finalCounts$study[i],
+                                  "verbose"="true"),
+                                   auto_unbox=TRUE)
+    
+    response <- RCurl::postForm(uri = url,
+                         .opts = list(
+                           postfields = body,
+                           httpheader = headers
+                         ))
+    
+    #having trouble with weird end of line symbols
+    response <- gsub("\n", "", response)
+    
+    # Parse the response
+    parsedJSON <- jsonlite::fromJSON(response)
+    
+    # pull the doi
+    doiTemp <- parsedJSON$matched_studies$`ot:studyPublication`
+    if(is.null(doiTemp))
+    {
+      dois[i] <- NA
+    }
+    else
+    {
+      dois[i] <- doiTemp
+    }
+    refTemp <- parsedJSON$matched_studies$`ot:studyPublicationReference`
+    if(is.null(refTemp))
+    {
+      refs[i] <- NA
+    }
+    else
+    {
+      refs[i] <- refTemp
+    }
+  }
+  
+  #plug the dois in
+  finalCounts$reference <- refs
+  finalCounts$doi <- dois
+  
+  #add a row for contributions by taxonomy
+  toBind <- data.frame(study="Taxonomic additions", counts=taxonomyNodes,
+                       reference="Miller et al.",
+                       doi="https://github.com/eliotmiller/addtaxa")
+  finalCounts <- rbind(finalCounts, toBind)
+  
+  #order in decreasing order, strip row names, and return
+  finalCounts <- finalCounts[order(finalCounts$counts, decreasing=TRUE),]
+  row.names(finalCounts) <- NULL
+  
+  #finally divide through by the number of internal nodes
+  finalCounts$contribution <- (finalCounts$counts/tree$Nnode)*100
+  
+  #drop the raw counts and return
+  finalCounts$counts <- NULL
+  finalCounts
+}
+
+getCitations_api <- function(tree, synth_id="aves_1.1" )
 {
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs

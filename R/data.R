@@ -4,4 +4,4 @@
 #'
 #' @format List of csv files and Newick and Nexus hylogenies
 #' @source \url{https://github.com/eliotmiller/clootl}
-"dataStore"
+"clootl_data"
