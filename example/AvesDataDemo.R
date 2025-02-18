@@ -5,7 +5,6 @@ install_github("snacktavish/clootl")
 
 
 library(clootl)
-library(ape)
 
 setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
 
@@ -40,8 +39,7 @@ getCitations(ex3)
 
 
 ## IF you have downloaded the Aves Data Repo to your computer,
-## you can pass in the path to get other tree versions
-e.g.
+## you can pass in the path to get other tree versions e.g.
 ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
                                version=1.2,
                                data_path="~/projects/otapi/AvesData")
@@ -67,3 +65,4 @@ ex4 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
 
 ## To pull citations for older tree versions you need to include the version number
 getCitations(ex4, version="1.2")
+
