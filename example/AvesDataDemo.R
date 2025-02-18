@@ -33,6 +33,8 @@ ex3 <- extractTree(species=c("amerob",
                    label_type="code")
 
 
+
+
 ## Pulls the citations
 getCitations(ex3) 
 
@@ -40,10 +42,9 @@ getCitations(ex3)
 ## IF you have downloaded the Aves Data Repo to your computer,
 ## you can pass in the path to get other tree versions
 e.g.
-#ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-#                                       label_type="scientific", 
-#                               version=1.2,
-#                               data_path="~/projects/otapi/AvesData")
+ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
+                               version=1.2,
+                               data_path="~/projects/otapi/AvesData")
 
 
 

@@ -52,7 +52,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
   if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
       data(clootl_data)
-      taxonomyYear <- paste("year", taxonomy_year, sep="")
+      taxonomyYear <- paste("Year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else{
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
