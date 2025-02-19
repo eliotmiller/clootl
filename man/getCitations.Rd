@@ -4,7 +4,7 @@
 \alias{getCitations}
 \title{Get the DOIs and quantify the contribution of published studies}
 \usage{
-getCitations(tree, version = "1.3")
+getCitations(tree, version = "1.3", data_path = FALSE)
 }
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
