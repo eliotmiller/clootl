@@ -6,7 +6,8 @@ install_github("snacktavish/clootl")
 
 library(clootl)
 
-setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
+setwd("~/pj_clootl/lunasare/clootl")
+setwd("~/pj_clootl/demo")
 
 
 ##You should be able to get default trees (currently v 1.3) without downloading the data. 
