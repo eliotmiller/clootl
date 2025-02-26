@@ -176,7 +176,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
        }
   if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
-      data(clootl_data)
+      utils::data(clootl_data)
       taxonomyYear <- paste("Year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else {
@@ -196,7 +196,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
       ## ONce we have the tree and taxonomy, all this stuff can happen
-    tax = read.csv(taxonomy_filename)
+    tax = utils::read.csv(taxonomy_filename)
       }
      #subset to species
 
@@ -225,7 +225,7 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
        }
   if(data_path == ""){
       ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    data(clootl_data)
+    utils::data(clootl_data)
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]

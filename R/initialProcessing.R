@@ -34,7 +34,7 @@ initialProcessing <- function(orig.tree)
   resolved <- read.tree(paste(tempdir(),"temp.tre",sep="/"))
 
   #stepping into jonathan chang's code. convenience variables
-  resolved <- reorder(resolved, "postorder")
+  resolved <- stats::reorder(resolved, "postorder")
   e1 <- resolved$edge[, 1] # parent node
   e2 <- resolved$edge[, 2] # child node
   EL <- resolved$edge.length

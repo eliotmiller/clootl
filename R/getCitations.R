@@ -82,7 +82,7 @@ getCitations <- function(tree, version="1.3", data_path=FALSE) {
   }
 
   if (data_path == ""){
-    data(clootl_data)
+    utils::data(clootl_data)
     all_nodes <- clootl_data$trees$`Aves_1.3`$annotations ##ToDO not hardcode?
   } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')

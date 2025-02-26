@@ -10,8 +10,8 @@ get_avesdata_repo <- function(url = "https://github.com/McTavishLab/AvesData/arc
   if (file.exists("AvesData.zip") & (refresh == FALSE)){
     stop("File AvesData.zip already exists. Use refresh = TRUE to download a new version")
   } else {
-    download.file(url, destfile = "AvesData.zip")
-    unzip(zipfile = "AvesData.zip", overwrite=TRUE)
+    utils::download.file(url, destfile = "AvesData.zip")
+    utils::unzip(zipfile = "AvesData.zip", overwrite=TRUE)
   }
   Sys.setenv(avesdata = "AvesData-main")
 }
@@ -31,6 +31,7 @@ set_avesdata_repo_path <- function(path){
 
 ###########
 # Internal function, used in initialProcessing() function
+# developed in package PDcalc, not on CRAN atm, https://rdrr.io/github/davidnipperess/PDcalc/
 bifurcatr <- function(phy, runs = 1)
 {
   trees <- vector("list", length = runs)
@@ -50,7 +51,7 @@ bifurcatr <- function(phy, runs = 1)
       tree$edge[target_edges, 1] <- new_node
       new_edge <- c(target_polytomy, new_node)
       tree$edge <- rbind(tree$edge, new_edge)
-      new_length <- runif(n = 1, min = 0, max = min(tree$edge.length[target_edges]))
+      new_length <- stats::runif(n = 1, min = 0, max = min(tree$edge.length[target_edges]))
       tree$edge.length <- c(tree$edge.length, new_length)
       tree$edge.length[target_edges] <- tree$edge.length[target_edges] -
         new_length
