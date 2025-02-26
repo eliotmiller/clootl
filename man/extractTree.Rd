@@ -34,7 +34,7 @@ future, in addition to this summary tree, there will be the base tree from OpenT
 a small cloud of dated, complete trees (which
 can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
 function for that purpose). Note the small cloud of complete dated trees is currently
-included in the dataStore, and can be accessed by exploring the structure of data(dataStore)}
+included in the \code{clootl_data}, and can be accessed by exploring the structure of \code{data(clootl_data)}.}
 }
 \value{
 A phylogeny of the specified taxa in the specified eBird taxonomy version and clootl

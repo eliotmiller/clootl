@@ -2,12 +2,12 @@
 % Please edit documentation in R/initialProcessing.R
 \name{initialProcessing}
 \alias{initialProcessing}
-\title{Randomly resolve polytomies and enforce ultrametric}
+\title{Randomly resolve polytomies and enforce ultrametric phylogenetic tree}
 \usage{
 initialProcessing(orig.tree)
 }
 \arguments{
-\item{orig.tree}{Phylogeny in ape format.}
+\item{orig.tree}{Phylogeny in ape format (\code{phylo} object).}
 }
 \value{
 A fully resolved and strictly ultrametric tree.
@@ -24,8 +24,9 @@ strictly ultrametric
 }
 \examples{
 #load the base tree and send it through the initial processing steps
-data(dataStore)
-newTree <- initialProcessing(dataStore$year2021$trees$v0.1$base.tree)
+data(clootl_data)
+# TODO check error next:
+# newTree <- initialProcessing(clootl_data$trees$Aves_1.3$summary.trees$year2021)
 }
 \author{
 Eliot Miller, David Nipperess, Jonathan Chang

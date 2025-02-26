@@ -34,8 +34,8 @@
 #'
 #' @examples
 #'\donttest{#pull the taxonomy file out
-#' data(dataStore)
-#' tax <- dataStore$taxonomy.files$year2021
+#' data(clootl_data)
+#' tax <- clootl_data$taxonomy.files$Year2021
 #'
 #' #subset to species only
 #' tax <- tax[tax$CATEGORY=="species",]

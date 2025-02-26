@@ -18,7 +18,7 @@
 #' a small cloud of dated, complete trees (which
 #' can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
 #' function for that purpose). Note the small cloud of complete dated trees is currently
-#' included in the dataStore, and can be accessed by exploring the structure of data(dataStore)
+#' included in the `clootl_data`, and can be accessed by exploring the structure of `data(clootl_data)`.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -66,7 +66,7 @@ extractTree <- function(species="all_species",
       stop("Only tree version 1.3 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
-      or use th argument data_path = AvesData-path")
+      or use the argument data_path = AvesData-path")
     }
 
 
@@ -179,24 +179,24 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
   } else {
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
        ##This needs an if statement for if it is looking for the object or the path
-       if (!file.exists(data_path)){    
+       if (!file.exists(data_path)){
           stop("AvesData folder not found at: ", data_path)
         }
-      taxonomy_filename <- paste(data_path, 
+      taxonomy_filename <- paste(data_path,
                              '/Taxonomy_versions/Clements',
-                             as.character(taxonomy_year), 
+                             as.character(taxonomy_year),
                              "/OTT_crosswalk_",
                              as.character(taxonomy_year),
                              ".csv",
                              sep='')
-        if (!file.exists(taxonomy_filename)){    
+        if (!file.exists(taxonomy_filename)){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
       ## ONce we have the tree and taxonomy, all this stuff can happen
     tax = read.csv(taxonomy_filename)
       }
      #subset to species
-  
+
   #create a convenience underscore column
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
   return(tax)
@@ -227,7 +227,7 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
   } else {
-    if (!file.exists(data_path)){    
+    if (!file.exists(data_path)){
       stop("AvesData folder not found at: ", data_path)
     } else {
    ##This needs an if statement for if it is looking for the object or the path
@@ -236,7 +236,7 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
                             "Aves_",
                             version,
                             "/Clements",
-                             as.character(taxonomy_year), 
+                             as.character(taxonomy_year),
                              "/summary_dated_clements.nex",
                              sep='')
     fullTree <- read.nexus(tree_filename)
