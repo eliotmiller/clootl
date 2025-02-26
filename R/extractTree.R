@@ -10,9 +10,11 @@
 #' @param taxonomy_year The eBird taxonomy year the tree should be output in. Set to "current"
 #' to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 #' passed in, e.g. 2021.
-#' @param version The desired version of the tree. Set to current to extract the most recent
-#' version of the tree. Otherwise, the exact character string of the tree needs to be passed in
-#' here, e.g. "Aves_1.2".
+#' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
+#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' @param version The desired version of the tree. Default to the most recent
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.
 #' @param which.tree Not currently implemented, and defaults for now to the single summary tree. In the
 #' future, in addition to this summary tree, there will be the base tree from OpenTree, and
 #' a small cloud of dated, complete trees (which
@@ -43,7 +45,8 @@
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
-                        taxonomy_year=2023, version="1.3",
+                        taxonomy_year=2023,
+                        version="1.3",
                         data_path=FALSE,
                         which.tree = "summary")
 {
