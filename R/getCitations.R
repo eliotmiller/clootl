@@ -41,17 +41,18 @@
 #'\donttest{#pull the taxonomy file out
 #' data(clootl_data)
 #' tax <- clootl_data$taxonomy.files$Year2021
-#'
+#' ls(tax)
 #' #subset to species only
-#' tax <- tax[tax$CATEGORY=="species",]
+#' # TODO: this step seems no longer necessary, is it??
+#' # tax <- tax[tax$CATEGORY=="species",]
 #'
 #' #simulate extracting a tree for a particular family
 #' temp <- tax[tax$FAMILY=="Rhinocryptidae (Tapaculos)",]
 #' spp <- temp$SCI_NAME
 #'
 #' #get your tree
-#' prunedTree <- extractTree(species=spp, output.type="scientific",
-#'    taxonomy.year=2021, version="current")
+#' prunedTree <- extractTree(species=spp, label_type="scientific",
+#'    taxonomy_year=2021, version="1.3")
 #'
 #' #get your citation DF
 #' yourCitations <- getCitations(tree=prunedTree)}
