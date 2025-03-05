@@ -7,9 +7,8 @@
 treeGet(version, taxonomy_year, data_path = FALSE)
 }
 \arguments{
-\item{version}{The desired version of the tree. Set to current to extract the most recent
-version of the tree. Otherwise, the exact character string of the tree needs to be passed in
-here, e.g. "Aves_1.2".}
+\item{version}{The desired version of the tree. Default to the most recent
+version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.}
 
 \item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Set to "current"
 to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be

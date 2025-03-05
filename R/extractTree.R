@@ -1,3 +1,6 @@
+utils::globalVariables(c("clootl_data"))
+
+
 #' Randomly resolve polytomies and enforce ultrametric
 #'
 #' Initial tree processing
@@ -10,15 +13,11 @@
 #' @param taxonomy_year The eBird taxonomy year the tree should be output in. Set to "current"
 #' to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 #' passed in, e.g. 2021.
-#' @param version The desired version of the tree. Set to current to extract the most recent
-#' version of the tree. Otherwise, the exact character string of the tree needs to be passed in
-#' here, e.g. "Aves_1.2".
-#' @param which.tree Not currently implemented, and defaults for now to the single summary tree. In the
-#' future, in addition to this summary tree, there will be the base tree from OpenTree, and
-#' a small cloud of dated, complete trees (which
-#' can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-#' function for that purpose). Note the small cloud of complete dated trees is currently
-#' included in the dataStore, and can be accessed by exploring the structure of data(dataStore)
+#' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
+#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' @param version The desired version of the tree. Default to the most recent
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -38,14 +37,19 @@
 #' @examples
 #' ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
 #'    label_type="code")
-#' ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-#'    label_type="scientific", taxonomy_year="2021", version="1.3")
+#' ex2 <- extractTree(species=c("Turdus migratorius",
+#'                              "Setophaga dominica",
+#'                              "Setophaga ruticilla",
+#'                              "Sitta canadensis"),
+#'    label_type="scientific",
+#'    taxonomy_year="2021",
+#'    version="1.3")
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
-                        taxonomy_year=2023, version="1.3",
-                        data_path=FALSE,
-                        which.tree = "summary")
+                        taxonomy_year=2023,
+                        version="1.3",
+                        data_path=FALSE)
 {
   label_type <- match.arg(label_type,c('code','scientific'))
 
@@ -66,7 +70,7 @@ extractTree <- function(species="all_species",
       stop("Only tree version 1.3 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
-      or use th argument data_path = AvesData-path")
+      or use the argument data_path = AvesData-path")
     }
 
 
@@ -173,30 +177,30 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
        }
   if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
-      data(clootl_data)
+      utils::data("clootl_data")
       taxonomyYear <- paste("Year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else {
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
        ##This needs an if statement for if it is looking for the object or the path
-       if (!file.exists(data_path)){    
+       if (!file.exists(data_path)){
           stop("AvesData folder not found at: ", data_path)
         }
-      taxonomy_filename <- paste(data_path, 
+      taxonomy_filename <- paste(data_path,
                              '/Taxonomy_versions/Clements',
-                             as.character(taxonomy_year), 
+                             as.character(taxonomy_year),
                              "/OTT_crosswalk_",
                              as.character(taxonomy_year),
                              ".csv",
                              sep='')
-        if (!file.exists(taxonomy_filename)){    
+        if (!file.exists(taxonomy_filename)){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
       ## ONce we have the tree and taxonomy, all this stuff can happen
-    tax = read.csv(taxonomy_filename)
+    tax = utils::read.csv(taxonomy_filename)
       }
      #subset to species
-  
+
   #create a convenience underscore column
   tax$underscores <- sub(" ", "_", tax$SCI_NAME)
   return(tax)
@@ -221,13 +225,13 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
         data_path = Sys.getenv('avesdata') ## If you didn't download it, this will be ""
        }
   if(data_path == ""){
-      ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    data(clootl_data)
+    ## We will be in here if we have run get_avesdata_repo and downloaded the data
+    utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
   } else {
-    if (!file.exists(data_path)){    
+    if (!file.exists(data_path)){
       stop("AvesData folder not found at: ", data_path)
     } else {
    ##This needs an if statement for if it is looking for the object or the path
@@ -236,7 +240,7 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
                             "Aves_",
                             version,
                             "/Clements",
-                             as.character(taxonomy_year), 
+                             as.character(taxonomy_year),
                              "/summary_dated_clements.nex",
                              sep='')
     fullTree <- read.nexus(tree_filename)

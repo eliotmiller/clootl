@@ -4,10 +4,17 @@
 \alias{getCitations}
 \title{Get the DOIs and quantify the contribution of published studies}
 \usage{
-getCitations(tree, version = "1.3")
+getCitations(tree, version = "1.3", data_path = FALSE)
 }
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
+
+\item{version}{The desired version of the tree. Default to the most recent
+version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.}
+
+\item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
+If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
+If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file corresponding to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
 }
 \value{
 A dataframe of the percent of internal nodes supported by a given study, as well
@@ -35,19 +42,20 @@ matter, but this has not yet been tested.
 }
 \examples{
 \donttest{#pull the taxonomy file out
-data(dataStore)
-tax <- dataStore$taxonomy.files$year2021
-
+data(clootl_data)
+tax <- clootl_data$taxonomy.files$Year2021
+ls(tax)
 #subset to species only
-tax <- tax[tax$CATEGORY=="species",]
+# TODO: this step seems no longer necessary, is it??
+# tax <- tax[tax$CATEGORY=="species",]
 
 #simulate extracting a tree for a particular family
 temp <- tax[tax$FAMILY=="Rhinocryptidae (Tapaculos)",]
 spp <- temp$SCI_NAME
 
 #get your tree
-prunedTree <- extractTree(species=spp, output.type="scientific",
-   taxonomy.year=2021, version="current")
+prunedTree <- extractTree(species=spp, label_type="scientific",
+   taxonomy_year=2021, version="1.3")
 
 #get your citation DF
 yourCitations <- getCitations(tree=prunedTree)}

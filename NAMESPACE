@@ -2,7 +2,8 @@
 
 export(extractTree)
 export(getCitations)
-export(initialProcessing)
+export(get_avesdata_repo)
+export(set_avesdata_repo_path)
 export(taxonomyGet)
 export(treeGet)
 import(ape)

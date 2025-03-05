@@ -20,5 +20,5 @@ If the taxonomy has been downloaded using \code{\link[=get_avesdata_repo]{get_av
 as a \verb{data frame}, or loads the default taxonomy data object.
 }
 \details{
-This will return a data object that has the requested taxonomy
+This will return a data object that has the requested taxonomy.
 }
