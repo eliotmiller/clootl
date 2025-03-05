@@ -56,8 +56,13 @@ match your phylogeny.
 \examples{
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
    label_type="code")
-ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-   label_type="scientific", taxonomy_year="2021", version="1.3")
+ex2 <- extractTree(species=c("Turdus migratorius",
+                             "Setophaga dominica",
+                             "Setophaga ruticilla",
+                             "Sitta canadensis"),
+   label_type="scientific",
+   taxonomy_year="2021",
+   version="1.3")
 
 }
 \author{

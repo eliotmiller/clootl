@@ -17,7 +17,7 @@ clootl_data$taxonomy.files$Year2022 <- tax2022
 clootl_data$taxonomy.files$Year2023 <- tax2023
 
 annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.3/OpenTreeSynth/annotated_supertree/annotations.json"
-all_nodes <- jsonlite:::fromJSON(txt=annot_filename)
+all_nodes <- jsonlite::fromJSON(txt=annot_filename)
 
 clootl_data$trees$`Aves_1.3`$annotations <- all_nodes
 save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda")

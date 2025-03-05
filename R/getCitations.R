@@ -89,7 +89,7 @@ getCitations <- function(tree, version="1.3", data_path=FALSE) {
       if (!file.exists(filename)){
           stop("annotations file not found at: ", filename)
           }
-      all_nodes <- jsonlite:::fromJSON(txt=filename)
+      all_nodes <- jsonlite::fromJSON(txt=filename)
   }
 
   trees <- c()

@@ -15,6 +15,7 @@ Imports:
     dplyr,
     RCurl,
     jsonlite
+LazyData: true
 LazyDataCompression: xz
 Description: Extracts the clootl tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
 License: GPL-3
