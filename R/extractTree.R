@@ -18,12 +18,6 @@ utils::globalVariables(c("clootl_data"))
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
 #' version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.
-#' @param which.tree Not currently implemented, and defaults for now to the single summary tree. In the
-#' future, in addition to this summary tree, there will be the base tree from OpenTree, and
-#' a small cloud of dated, complete trees (which
-#' can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-#' function for that purpose). Note the small cloud of complete dated trees is currently
-#' included in the `clootl_data`, and can be accessed by exploring the structure of `data(clootl_data)`.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -55,8 +49,7 @@ extractTree <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year=2023,
                         version="1.3",
-                        data_path=FALSE,
-                        which.tree = "summary")
+                        data_path=FALSE)
 {
   label_type <- match.arg(label_type,c('code','scientific'))
 

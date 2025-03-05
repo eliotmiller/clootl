@@ -9,8 +9,7 @@ extractTree(
   label_type = "scientific",
   taxonomy_year = 2023,
   version = "1.3",
-  data_path = FALSE,
-  which.tree = "summary"
+  data_path = FALSE
 )
 }
 \arguments{
@@ -31,13 +30,6 @@ version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and c
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
 If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
 If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file corresponding to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
-
-\item{which.tree}{Not currently implemented, and defaults for now to the single summary tree. In the
-future, in addition to this summary tree, there will be the base tree from OpenTree, and
-a small cloud of dated, complete trees (which
-can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-function for that purpose). Note the small cloud of complete dated trees is currently
-included in the \code{clootl_data}, and can be accessed by exploring the structure of \code{data(clootl_data)}.}
 }
 \value{
 A phylogeny of the specified taxa in the specified eBird taxonomy version and clootl
