@@ -1,3 +1,6 @@
+utils::globalVariables(c("clootl_data"))
+
+
 #' Randomly resolve polytomies and enforce ultrametric
 #'
 #' Initial tree processing
@@ -181,7 +184,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
        }
   if (data_path == ""){
    ##We should be in here if we DIDN"T download the data
-      utils::data(clootl_data)
+      utils::data("clootl_data")
       taxonomyYear <- paste("Year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else {
@@ -229,8 +232,8 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
         data_path = Sys.getenv('avesdata') ## If you didn't download it, this will be ""
        }
   if(data_path == ""){
-      ## We will be in here if we have run get_avesdata_repo and downloaded the data
-    utils::data(clootl_data)
+    ## We will be in here if we have run get_avesdata_repo and downloaded the data
+    utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
