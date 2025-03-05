@@ -3,7 +3,6 @@
 export(extractTree)
 export(getCitations)
 export(get_avesdata_repo)
-export(initialProcessing)
 export(set_avesdata_repo_path)
 export(taxonomyGet)
 export(treeGet)
