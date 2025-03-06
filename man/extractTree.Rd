@@ -4,30 +4,32 @@
 \alias{extractTree}
 \title{Randomly resolve polytomies and enforce ultrametric}
 \usage{
-extractTree(species, output.type, taxonomy.year, version, which.tree)
+extractTree(
+  species = "all_species",
+  label_type = "scientific",
+  taxonomy_year = 2023,
+  version = "1.3",
+  data_path = FALSE
+)
 }
 \arguments{
 \item{species}{A character vector either of scientific names (directly as they come out of the
 eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
 the species vector that do not match a species-level taxon in the specified eBird taxonomy
-will result in an error. Set to "all.species" if the complete tree is desired.}
+will result in an error. Set to "all_species" if the complete tree is desired.}
 
-\item{output.type}{Either "scientific" or "code".}
+\item{label_type}{Either "scientific" or "code".}
 
-\item{taxonomy.year}{The eBird taxonomy year the tree should be output in. Set to "current"
+\item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Set to "current"
 to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
 passed in, e.g. 2021.}
 
-\item{version}{The desired version of the tree. Set to current to extract the most recent
-version of the tree. Otherwise, the exact character string of the tree needs to be passed in
-here, e.g. "Aves_1.2".}
+\item{version}{The desired version of the tree. Default to the most recent
+version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.}
 
-\item{which.tree}{Not currently implemented, and defaults for now to the single summary tree. In the
-future, in addition to this summary tree, there will be the base tree from OpenTree, and
-a small cloud of dated, complete trees (which
-can be replaced by downloading and plugging in a larger set of such trees using a to-be-written
-function for that purpose). Note the small cloud of complete dated trees is currently
-included in the dataStore, and can be accessed by exploring the structure of data(dataStore)}
+\item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
+If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
+If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file corresponding to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
 }
 \value{
 A phylogeny of the specified taxa in the specified eBird taxonomy version and clootl
@@ -45,9 +47,15 @@ match your phylogeny.
 }
 \examples{
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-   output.type="code", taxonomy.year="current", version="current")
-ex2 <- extractTree(species=c("Turdus migratorius", "Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-   output.type="scientific", taxonomy.year="current", version="current")
+   label_type="code")
+ex2 <- extractTree(species=c("Turdus migratorius",
+                             "Setophaga dominica",
+                             "Setophaga ruticilla",
+                             "Sitta canadensis"),
+   label_type="scientific",
+   taxonomy_year="2021",
+   version="1.3")
+
 }
 \author{
 Eliot Miller
