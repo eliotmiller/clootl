@@ -1,10 +1,10 @@
 Package: clootl
 Title: Fetches and Manipulates the clootl Avian Phylogeny
-Version: 0.0.0.9001
+Version: 0.0.1
 Authors@R: c(
   person("Eliot", "Miller", role=c("aut")),
   person("Emily Jane", "McTavish", role=c("aut")),
-  person("Luna L.", "Sanchez Reyes", role=c("ctb", "cre"), email = "sanchez.reyes.luna@gmail.com"))
+  person("Luna L.", "Sanchez Reyes", role=c("ctb", "cre","aut"), email = "sanchez.reyes.luna@gmail.com"))
 Maintainer: Eliot Miller <eliot.isaac@gmail.com>
 URL: https://github.com/eliotmiller/clootl
 Depends:
