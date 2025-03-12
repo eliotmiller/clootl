@@ -1,5 +1,8 @@
+if (is.null(meta[["Date/Publication"]])) {
+    meta["Date/Publication"] <- as.character(Sys.time())
+}
 bibentry("Manual",
-         other = unlist(citation(auto = meta), recursive = FALSE))
+         other = unlist(utils::citation(auto = meta), recursive = FALSE))
 
 bibentry("Misc",
          title        = "Clootl: R package for exploring the bird tree of life",
@@ -14,8 +17,8 @@ bibentry("Misc",
 
 bibentry("Article",
          title       = "A complete and dynamic tree of birds",
-         author      = "McTavish, Emily Jane and Gerbracht, Jeff A. and Holder, Mark T. and Iliff, Marshall J. and Lepage, Denis and Rasmussen, Pam and Redelings, Benjamin and Sanchez Reyes, Luna Luisa and Miller, Eliot T.",
+         author      = "McTavish, Emily Jane and Gerbracht, Jeff A. and Holder, Mark T. and Iliff, Marshall J. and Lepage, Denis and Rasmussen, Pam and Redelings, Benjamin and Sanchez-Reyes, Luna L and Miller, Eliot T.",
          journal     = "BioRxiv",
          year        = "2024",
          doi         = "10.1101/2024.05.20.595017")
-         
+
