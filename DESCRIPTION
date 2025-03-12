@@ -1,6 +1,6 @@
 Package: clootl
 Title: Fetches and Manipulates the clootl Avian Phylogeny
-Version: 0.0.0.9001
+Version: 0.0.1
 Authors@R: c(
   person("Eliot", "Miller", role=c("aut")),
   person("Emily Jane", "McTavish", role=c("aut")),
