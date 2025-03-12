@@ -1,0 +1,21 @@
+bibentry("Manual",
+         other = unlist(citation(auto = meta), recursive = FALSE))
+
+bibentry("Misc",
+         title        = "Clootl: R package for exploring the bird tree of life",
+         author       = c(person("Eliot", "Miller",
+                                 email = "eliot.isaac@gmail.com"),
+                          person("Luna", "Sanchez-Reyes"),
+                          person("Emily Jane", "McTavish")),
+         year         = "2025",
+         publisher    = "GitHub",
+         url = "https://github.com/eliotmiller/clootl")
+
+
+bibentry("Article",
+         title       = "A complete and dynamic tree of birds",
+         author      = "McTavish, Emily Jane and Gerbracht, Jeff A. and Holder, Mark T. and Iliff, Marshall J. and Lepage, Denis and Rasmussen, Pam and Redelings, Benjamin and Sanchez Reyes, Luna Luisa and Miller, Eliot T.",
+         journal     = "BioRxiv",
+         year        = "2024",
+         doi         = "10.1101/2024.05.20.595017")
+         
