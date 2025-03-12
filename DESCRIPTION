@@ -1,6 +1,6 @@
 Package: clootl
-Title: Fetches and Manipulates the clootl Avian Phylogeny
-Version: 0.0.1
+Title: A Complete and Dynamic Bird Tree of life
+Version: 0.1.0
 Authors@R: c(
   person("Eliot", "Miller", role=c("aut")),
   person("Emily Jane", "McTavish", role=c("aut")),
@@ -17,7 +17,7 @@ Imports:
     jsonlite
 LazyData: true
 LazyDataCompression: xz
-Description: Extracts the clootl tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
+Description: Extracts the Cornell Lab of Ornithology Open Tree of Life in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
