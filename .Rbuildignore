@@ -3,3 +3,5 @@
 Notes_on_updating_DataStore.md
 example/*
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
+^\.github$
