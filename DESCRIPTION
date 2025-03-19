@@ -1,11 +1,11 @@
 Package: clootl
-Title: Fetches and Manipulates the clootl Avian Phylogeny
+Title: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny
 Version: 0.1.1
 Authors@R: c(
-  person("Eliot", "Miller", role=c("aut")),
+  person("Eliot", "Miller", role=c("aut", "cre"), email = "clootlmaintainers@gmail.com"),
   person("Emily Jane", "McTavish", role=c("aut")),
-  person("Luna L.", "Sanchez Reyes", role=c("ctb", "cre","aut"), email = "sanchez.reyes.luna@gmail.com"))
-Maintainer: Eliot Miller <eliot.isaac@gmail.com>
+  person("Luna L.", "Sanchez Reyes", role=c("ctb", "aut")))
+Maintainer: Luna L. Sanchez Reyes <clootlmaintainers@gmail.com>
 URL: https://github.com/eliotmiller/clootl
 Depends:
     R (>= 4.3.0),
@@ -17,7 +17,7 @@ Imports:
     jsonlite
 LazyData: true
 LazyDataCompression: xz
-Description: Extracts the clootl tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
+Description: Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
