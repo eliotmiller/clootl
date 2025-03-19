@@ -3,8 +3,8 @@
     cit<-utils::citation(pkgname)
     txt<-paste(c(format(cit,"citation")),collapse="\n\n")
     txt<-paste(c(txt, "The current version of the Aves tree is v1.3.
-        Please specify the tree and taxonomy version used when using this tree.
-        When possible, cite all the studies supporting your subtree:
-        These citations are acessible using getCitations(yourtree)"),collapse="\n\n")
+        Please specify the tree and taxonomy version used when citing this R package.
+        When possible, cite all the original studies supporting your tree:
+        These citations are acessible using getCitations(your_tree)"),collapse="\n\n")
     packageStartupMessage(txt)
 }
