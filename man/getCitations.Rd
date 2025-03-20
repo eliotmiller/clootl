@@ -4,13 +4,13 @@
 \alias{getCitations}
 \title{Get the DOIs and quantify the contribution of published studies}
 \usage{
-getCitations(tree, version = "1.3", data_path = FALSE)
+getCitations(tree, version = "1.4", data_path = FALSE)
 }
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
 
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.}
+version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be passed as a character string or as numeric.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
 If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
@@ -55,7 +55,7 @@ spp <- temp$SCI_NAME
 
 #get your tree
 prunedTree <- extractTree(species=spp, label_type="scientific",
-   taxonomy_year=2021, version="1.3")
+   taxonomy_year=2021, version="1.4")
 
 #get your citation DF
 yourCitations <- getCitations(tree=prunedTree)}
