@@ -17,7 +17,7 @@ utils::globalVariables(c("clootl_data"))
 #' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4', and can be passed as a character string or as numeric.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -43,17 +43,17 @@ utils::globalVariables(c("clootl_data"))
 #'                              "Sitta canadensis"),
 #'    label_type="scientific",
 #'    taxonomy_year="2021",
-#'    version="1.3")
+#'    version="1.4")
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year=2023,
-                        version="1.3",
+                        version="1.4",
                         data_path=FALSE)
 {
   label_type <- match.arg(label_type,c('code','scientific'))
 
-  versions <- c('0.1','1.0','1.2','1.3')
+  versions <- c('0.1','1.0','1.2','1.3','1.4')
   version <- as.character(version)
   if (!is.element(version, versions)){
     stop("version not recognized: ", version) ## TODO print out actual list
@@ -66,8 +66,8 @@ extractTree <- function(species="all_species",
   }
 
 
-  if((Sys.getenv('avesdata') == "") & (data_path==FALSE) & (version!='1.3')){
-      stop("Only tree version 1.3 is currently packaged with clootl.
+  if((Sys.getenv('avesdata') == "") & (data_path==FALSE) & (version!='1.4')){
+      stop("Only tree version 1.4 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")

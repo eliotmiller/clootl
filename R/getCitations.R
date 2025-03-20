@@ -10,7 +10,7 @@ utils::globalVariables(c("clootl_data"))
 #' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3', and can be passed as a character string or as numeric.
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be passed as a character string or as numeric.
 #'
 #' @details Importantly: an internet connection is required for this function to work, as it
 #' relies on Open Tree of Life APIs. The function will determine what proportion of nodes in
@@ -55,11 +55,11 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your tree
 #' prunedTree <- extractTree(species=spp, label_type="scientific",
-#'    taxonomy_year=2021, version="1.3")
+#'    taxonomy_year=2021, version="1.4")
 #'
 #' #get your citation DF
 #' yourCitations <- getCitations(tree=prunedTree)}
-getCitations <- function(tree, version="1.3", data_path=FALSE) {
+getCitations <- function(tree, version="1.4", data_path=FALSE) {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
   #pull the node labels out. count any (character instances of) NA, as this should
@@ -73,20 +73,20 @@ getCitations <- function(tree, version="1.3", data_path=FALSE) {
     #TODO: do we want to set an internal path option??
   }
 
-  if (!file.exists(data_path) & version != "1.3"){
+  if (!file.exists(data_path) & version != "1.4"){
     stop("GetCitations for anything other than the current tree requires an Aves Data download.
       Currently get citations needs you to run get_avesdata_repo() first
       or provide a path to the data repo using data_path=")
     }
 
-  versions <- c('0.1','1.0','1.2','1.3')
+  versions <- c('0.1','1.0','1.2','1.3','1.4')
   if (!is.element(version, versions)){
     stop("version not recognized: ", version)
   }
 
   if (data_path == ""){
     utils::data("clootl_data")
-    all_nodes <- clootl_data$trees$`Aves_1.3`$annotations ##ToDO not hardcode?
+    all_nodes <- clootl_data$trees$`Aves_1.4`$annotations ##ToDO not hardcode?
   } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){

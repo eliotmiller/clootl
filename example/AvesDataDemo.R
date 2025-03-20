@@ -10,7 +10,7 @@ setwd("~/pj_clootl/lunasare/clootl")
 setwd("~/pj_clootl/demo")
 
 
-##You should be able to get default trees (currently v 1.3) without downloading the data. 
+##You should be able to get default trees (currently v 1.4) without downloading the data. 
 ex1 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
@@ -50,7 +50,7 @@ ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setopha
 ##To get other tree versions, and or the 100 tree dated sample sets, 
 # this downloads all the data from the AvesData github repo
 # As a folder in your current working directory
-clootl:::get_avesdata_repo() ## Currently I don't export this function correctly... gotta fix that
+get_avesdata_repo() 
 
 ## If you want it to re-download the git repo (e.g. to get new data) use:
 # get_avesdata_repo(refresh = TRUE)
@@ -62,8 +62,8 @@ clootl:::get_avesdata_repo() ## Currently I don't export this function correctly
 
 
 ex4 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                   label_type="code", taxonomy_year="2021", version="1.2")
+                   label_type="code", taxonomy_year="2021", version="1.3")
 
 ## To pull citations for older tree versions you need to include the version number
-getCitations(ex4, version="1.2")
+getCitations(ex4, version="1.3")
 

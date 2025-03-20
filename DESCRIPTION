@@ -1,11 +1,11 @@
 Package: clootl
 Title: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny
-Version: 0.1.1
+Version: 0.1.0
 Authors@R: c(
   person("Eliot", "Miller", role=c("aut", "cre"), email = "clootlmaintainers@gmail.com"),
   person("Emily Jane", "McTavish", role=c("aut")),
   person("Luna L.", "Sanchez Reyes", role=c("ctb", "aut")))
-Maintainer: Luna L. Sanchez Reyes <clootlmaintainers@gmail.com>
+Maintainer: Eliot Miller <clootlmaintainers@gmail.com>
 URL: https://github.com/eliotmiller/clootl
 Depends:
     R (>= 4.3.0),
