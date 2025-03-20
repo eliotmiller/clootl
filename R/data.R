@@ -26,6 +26,6 @@
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
 #'
 #' clootl_data$trees$`Aves_1.4`$annotations <- all_nodes
-#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda")
+#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda", compress="xz")
 #'
 "clootl_data"
