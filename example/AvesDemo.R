@@ -1,6 +1,7 @@
 #load clootl
 library(clootl)
 library(phytools)
+library(phylolm)
 
 
 setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
