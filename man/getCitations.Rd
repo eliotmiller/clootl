@@ -58,7 +58,7 @@ prunedTree <- extractTree(species=spp, label_type="scientific",
    taxonomy_year=2021, version="1.4")
 
 #get your citation DF
-yourCitations <- getCitations(tree=prunedTree)}
+# yourCitations <- getCitations(tree=prunedTree)}
 }
 \author{
 Eliot Miller, Emily Jane McTavish

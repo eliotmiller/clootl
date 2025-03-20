@@ -58,7 +58,7 @@ utils::globalVariables(c("clootl_data"))
 #'    taxonomy_year=2021, version="1.4")
 #'
 #' #get your citation DF
-#' yourCitations <- getCitations(tree=prunedTree)}
+#' # yourCitations <- getCitations(tree=prunedTree)}
 getCitations <- function(tree, version="1.4", data_path=FALSE) {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
