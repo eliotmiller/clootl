@@ -10,7 +10,7 @@ setwd("~/pj_clootl/lunasare/clootl")
 setwd("~/pj_clootl/demo")
 
 
-##You should be able to get default trees (currently v 1.3) without downloading the data. 
+##You should be able to get default trees (currently v 1.4) without downloading the data. 
 ex1 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
