@@ -72,7 +72,7 @@ extractTree <- function(species="all_species",
   }
 
 
-  if((Sys.getenv('avesdata') == "") & (data_path==FALSE) & (version!='1.4')){
+  if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.4')){
       stop("Only tree version 1.4 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
