@@ -7,10 +7,13 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' @param tree A phylogeny obtained from extractTree (see details).
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
-#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the 
+#' default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
+#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file 
+#' corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be passed as a character string or as numeric.
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
+#' passed as a character string or as numeric.
 #'
 #' @details Importantly: an internet connection is required for this function to work, as it
 #' relies on Open Tree of Life APIs. The function will determine what proportion of nodes in
