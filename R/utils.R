@@ -1,12 +1,13 @@
 #' Pull down full AvesData repository to a working directory
-#'
+#' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directoyr, use "."
 #' @param url Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/
 #' @param refresh Default to `FALSE`. Will not redownload the data by default if path exists, unless refresh=TRUE
-#' @param path Default to "tempdir". To download into your working directoyr, use "."
 #' @export
-get_avesdata_repo <- function(url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip",
-                              refresh=FALSE,
-                              path = tempdir()){
+get_avesdata_repo <- function(path,
+                              refresh=FALSE){
+  url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip",
+  old <- options() # save current options
+  on.exit(options(old)) #Revert to original options on exit
   options(timeout=444) # This file is big and can take a little while to download
   if (!file.exists(path)){
       stop("Directory to save AvesData not found:", path)
