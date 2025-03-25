@@ -2,18 +2,24 @@
 #'
 #' @param url Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/
 #' @param refresh Default to `FALSE`. Will not redownload the data by default if path exists, unless refresh=TRUE
-#'
+#' @param path Default to "tempdir". To download into your working directoyr, use "."
 #' @export
 get_avesdata_repo <- function(url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip",
-                              refresh=FALSE){
+                              refresh=FALSE,
+                              path = tempdir()){
   options(timeout=444) # This file is big and can take a little while to download
-  if (file.exists("AvesData.zip") & (refresh == FALSE)){
-    stop("File AvesData.zip already exists. Use refresh = TRUE to download a new version")
+  if (!file.exists(path)){
+      stop("Directory to save AvesData not found:", path)
+    }
+  zipfilepath = paste(path, "/", "AvesData.zip", sep="")
+  if (file.exists(zipfilepath) & (refresh == FALSE)){
+    message("File AvesData.zip already exists. Use refresh = TRUE to download a new version")
   } else {
-    utils::download.file(url, destfile = "AvesData.zip")
-    utils::unzip(zipfile = "AvesData.zip", overwrite=TRUE)
+    utils::download.file(url, destfile = zipfilepath)
+    utils::unzip(zipfile = zipfilepath, overwrite=TRUE)
   }
-  Sys.setenv(avesdata = "AvesData-main")
+  avesdata_path = paste(path,"/","AvesData-main", sep="")
+  Sys.setenv(avesdata = avesdata_path)
 }
 
 
