@@ -26,6 +26,17 @@
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
 #'
 #' clootl_data$trees$`Aves_1.4`$annotations <- all_nodes
+#'
+#' This part pre-processes all citations for studies in the tree
+#' so we don't need to do any API calls later.
+#' studies <-c()
+#' for (inputs in all_nodes$source_id_map){
+#'    studies<-c(studies, inputs$study_id)
+#' }
+#' studies <- unique(studies)
+#' study_info <- clootl:::api_studies_lookup(studies)
+#'
+#' clootl_data$study_info <- study_info
 #' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda", compress="xz")
 #'
 "clootl_data"

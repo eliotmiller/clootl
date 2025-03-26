@@ -72,8 +72,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
 
   if (data_path==FALSE){
-    data_path = Sys.getenv('avesdata')
-    #TODO: do we want to set an internal path option??
+    data_path = Sys.getenv('AVESDATA_PATH')
   }
 
   if (!file.exists(data_path) & version != "1.4"){
@@ -112,53 +111,18 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   finalCounts <- as.data.frame(table(studies))
   colnames(finalCounts) <- c("study", "counts")
 
-  # now query the citations
+  study_info <- clootl_data$study_info
+
   dois <- c()
   refs <- c()
   for(i in 1:length(finalCounts$study))
   {
-    #again, define some convenience variables
-    url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
-    headers <- c('Content-Type' = 'application/json')
-    body <- jsonlite::toJSON(list("property"="ot:studyId",
-                                  "value"=finalCounts$study[i],
-                                  "verbose"="true"),
-                                   auto_unbox=TRUE)
-
-    response <- RCurl::postForm(uri = url,
-                         .opts = list(
-                           postfields = body,
-                           httpheader = headers
-                         ))
-
-    #having trouble with weird end of line symbols
-    response <- gsub("\n", "", response)
-
-    # Parse the response
-    parsedJSON <- jsonlite::fromJSON(response)
-
-    # pull the doi
-    doiTemp <- parsedJSON$matched_studies$`ot:studyPublication`
-    if(is.null(doiTemp))
-    {
-      dois[i] <- NA
-    }
-    else
-    {
-      dois[i] <- doiTemp
-    }
-    refTemp <- parsedJSON$matched_studies$`ot:studyPublicationReference`
-    if(is.null(refTemp))
-    {
-      refs[i] <- NA
-    }
-    else
-    {
-      refs[i] <- refTemp
-    }
-  }
-
-  #plug the dois in
+    study_id <- finalCounts$study[i]
+    dois[i] <- study_info[study_info$study_id==study_id,'doi']
+    refs[i]<- study_info[study_info$study_id==study_id,'reference']
+      }
+    
+   #plug the dois in
   finalCounts$reference <- refs
   finalCounts$doi <- dois
 
@@ -179,3 +143,51 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   finalCounts$counts <- NULL
   finalCounts
 }
+
+
+## This is for internal use to set up the study_info data object
+api_studies_lookup <- function(studies){
+  study_info <- data.frame(matrix(vector(), 0, 3,
+                          dimnames=list(c(), c("study_id", "reference", "doi"))),
+                          stringsAsFactors=F)
+
+  studies <- as.vector(studies)
+  for(i in 1:length(studies))
+  {
+    #again, define some convenience variables
+    url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
+    headers <- c('Content-Type' = 'application/json')
+    body <- jsonlite::toJSON(list("property"="ot:studyId",
+                                  "value"=studies[i],
+                                  "verbose"="true"),
+                                   auto_unbox=TRUE)
+
+    response <- RCurl::postForm(uri = url,
+                         .opts = list(
+                           postfields = body,
+                           httpheader = headers
+                         ))
+
+    #having trouble with weird end of line symbols
+    response <- gsub("\n", "", response)
+
+    # Parse the response 
+    parsedJSON <- jsonlite::fromJSON(response)
+    doi <- parsedJSON$matched_studies$`ot:studyPublication`
+    if(is.null(doi))
+    {
+        doi <- NA
+      }
+    reference <- parsedJSON$matched_studies$`ot:studyPublicationReference`
+      if(is.null(reference))
+      {
+        reference <- NA
+      }
+
+    study_info <- rbind(study_info, data.frame(study_id =studies[i],
+                                              reference = reference, 
+                                              doi = doi))
+    }
+    return(study_info)
+  }
+
