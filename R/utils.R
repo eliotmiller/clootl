@@ -20,7 +20,7 @@ get_avesdata_repo <- function(path,
     utils::unzip(zipfile = zipfilepath, overwrite=TRUE)
   }
   avesdata_path = paste(path,"/","AvesData-main", sep="")
-  set_avesdata_repo_path(avesdata_path)
+  set_avesdata_repo_path(avesdata_path, overwrite=refresh)
   message("AvesData repo downloaded and upziped to:", path)
   invisible(avesdata_path)
 }
