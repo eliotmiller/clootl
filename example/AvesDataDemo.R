@@ -49,15 +49,16 @@ ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setopha
 
 ##To get other tree versions, and or the 100 tree dated sample sets, 
 # this downloads all the data from the AvesData github repo
-# As a folder in your current working directory
-get_avesdata_repo() 
+# As a folder in your current working directory named "AvesData-main"
+# (if you don't include a path it will write to a tmp directory)
+get_avesdata_repo(path=".") 
 
 ## If you want it to re-download the git repo (e.g. to get new data) use:
-# get_avesdata_repo(refresh = TRUE)
+# get_avesdata_repo(path=".", refresh = TRUE)
 
 
 ##or if you have the AvesData repo somewhere else and don't feel like typing it in each time
-# clootl:::set_avesdata_repo_path(PATH)
+# set_avesdata_repo_path(PATH)
 
 
 
