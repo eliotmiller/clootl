@@ -81,8 +81,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
       or provide a path to the data repo using data_path=")
     }
 
-  versions <- c('0.1','1.0','1.2','1.3','1.4')
-  if (!is.element(version, versions)){
+  if (!is.element(version, clootl_data$versions)){
     stop("version not recognized: ", version)
   }
 
