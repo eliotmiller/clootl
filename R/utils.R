@@ -5,6 +5,7 @@
 #' @export
 get_avesdata_repo <- function(path,
                               refresh=FALSE){
+  message("Downloading AvesData repo from github. This may take a minute or two.")
   url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip"
   old <- options() # save current options
   on.exit(options(old)) #Revert to original options on exit
@@ -20,8 +21,9 @@ get_avesdata_repo <- function(path,
     utils::unzip(zipfile = zipfilepath, overwrite=TRUE)
   }
   avesdata_path = paste(path,"/","AvesData-main", sep="")
+  avesdata_path = path.expand(avesdata_path)
   set_avesdata_repo_path(avesdata_path, overwrite=refresh)
-  message("AvesData repo downloaded and upziped to:", path)
+  message("AvesData repo downloaded and upzipped to:", avesdata_path)
   invisible(avesdata_path)
 }
 
@@ -43,6 +45,7 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE){
   # find .Renviron
   renv_path <- renv_file_path()
   renv_lines <- readLines(renv_path)
+  renv_path <- path.expand(renv_path)
   
   # look for existing entry, remove if overwrite = TRUE
   renv_exists <- grepl("^AVESDATA_PATH[[:space:]]*=.*", renv_lines)
