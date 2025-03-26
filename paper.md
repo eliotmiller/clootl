@@ -1,24 +1,26 @@
 ---
-title: 'Clootl: R package for exploring the bird tree of life'
+title: 'clootl: R package for accessing a dynamic avian phylogeny'
 tags:
   - phylogeny
 authors:
-  - name: Eliot Miller
+  - name: Eliot T Miller
     corresponding: true # (This is how to denote the corresponding author)
-    orcid: 0000-0000-0000-0000
-    affiliation: 1 # (Multiple affiliations must be quoted)
+    orcid: 0000-0001-7565-6336
+    affiliation: "1,2" # (Multiple affiliations must be quoted)
   - name: Luna Sanchez-Reyes
     orcid: 0000-0000-0000-0000
-    affiliation: 2
+    affiliation: 3
   - name: Emily Jane McTavish
     orcid: 0000-0001-9766-5727
-    affiliation: 2
+    affiliation: 3
 affiliations:
- - name: 
+ - name: Cornell Lab of Ornithology
    index: 1
- - name: University of California, Merced
+ - name: American Bird Conservancy
    index: 2
-date: 13 August 2017
+ - name: University of California, Merced
+   index: 3
+date: 26 March 2025
 bibliography: paper.bib
 ---
 
@@ -28,9 +30,64 @@ We present `clootl`, an R package to access a modern and dynamic phylogeny of th
 
 # Statement of need
 
-`Clootl` is an R package for
+A global avian phylogeny is a key resource for research and conservation. Existing examples are widely used, but also badly outdated. Because portions of the global phylogeny are perpetually being improved, rather than publishing a single global version that would quickly become outdated, we have built a dynamic resource that can be updated and improved over time. The immediate outputs from such a tool, however, are more extensive and not necessarily as easy to navigate as previously available global phylogenies. To simplify access, facilitate research reproducibility (access to specific tree versions and taxonomies), and ensure component datasets are properly attributed by users of the tree, we built the R package `clootl`.
 
-`Clootl` was designed to be used by
+# Example Use Case
+
+An important feature of our new phylogeny is its interoperability and connection to existing databases and resources. As an example of this feature, we illustrate how the phylogeny can be connected to AVONET, a database of morphological measurements for the world's birds.
+
+To access AVONET, use the `readxl` package to access the Figshare file.
+
+```         
+library(readxl)
+
+# Define the file URL and destination
+file_url <- "https://figshare.com/ndownloader/files/34480856"
+destfile <- tempfile(fileext = ".xlsx")
+
+# Download the file
+download.file(file_url, destfile, mode = "wb")
+
+# Read the sheet that corresponds to eBird taxonomy
+dat <- as.data.frame(read_excel(destfile, sheet = "AVONET2_eBird"))
+
+# Create a column with underscores for simplicity later
+dat$underscores <- sub(" ", "_", dat$Species2)
+```
+
+Importantly, AVONET was published in the 2021 version of the eBird/Clements taxonomy. While AVONET does contain Avibase taxon IDs that can be used to fast-forward the database to newer taxonomies–and we strongly recommend doing this for real research use–the simplest approach, for example purposes, is to extract a phylogeny in 2021 taxonomy.
+
+```         
+# Take a random sample of 50 species
+spp <- sample(dat$Species2, 50)
+
+# Extract a tree for these species
+prunedTree <- extractTree(species=spp, label_type="scientific", taxonomy_year=2021, version="1.4")
+```
+
+This leaves us with a paired dataset and phylogeny. Align these further, and use `phytools` to visualize the distribution of body mass across the phylogeny of these 50 random taxa.
+
+```         
+library(phytools)
+prunedDat <- dat[dat$Species2 %in% spp,]
+
+# Pull a vector of traits out, log transform for normality
+x <- log(prunedDat$Mass)
+names(x) <- prunedDat$underscores
+
+# Plot log body mass across the phylogeny
+contMap(prunedTree, x, fsize=0.5)
+```
+
+Insert saved figure here.
+
+Last, figure out what studies went into informing the pruned phylogeny. The output should look like the example below.
+
+```         
+toCite <- getCitations(prunedTree)
+```
+
+Insert screenshot of first 10 lines of the output from the RStudio viewer.
 
 # Discussion and Future Directions
 
