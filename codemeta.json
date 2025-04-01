@@ -1,0 +1,17 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/eliotmiller/clootl",
+  "datePublished": "2025-04-01",
+  "dateModified": "2025-04-01",
+  "dateCreated": "2025-04-01",
+  "description": "Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
+  "keywords": "phylogeny, evolution, birds, tree of life",
+  "license": "GPL-3",
+  "title": "Clootl",
+  "version": "v0.1.1"
+}
