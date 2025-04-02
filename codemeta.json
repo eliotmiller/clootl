@@ -12,6 +12,6 @@
   "description": "Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
   "keywords": "phylogeny, evolution, birds, tree of life",
   "license": "GPL-3",
-  "title": "Clootl",
+  "title": "clootl",
   "version": "v0.1.1"
 }
