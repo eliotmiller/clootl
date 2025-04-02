@@ -10,8 +10,6 @@ get_avesdata_repo(path, refresh = FALSE)
 \item{path}{Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."}
 
 \item{refresh}{Default to \code{FALSE}. Will not redownload the data by default if path exists, unless refresh=TRUE}
-
-\item{url}{Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/}
 }
 \value{
 No return value, called to download the Aves Data repository.

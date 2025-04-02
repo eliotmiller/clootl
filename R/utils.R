@@ -1,6 +1,5 @@
 #' Pull down full AvesData repository to a working directory
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
-#' @param url Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/
 #' @param refresh Default to `FALSE`. Will not redownload the data by default if path exists, unless refresh=TRUE
 #' @return No return value, called to download the Aves Data repository.
 #' @export
@@ -32,6 +31,7 @@ get_avesdata_repo <- function(path,
 #' Set path to Aves Data folder already somewhere on your computer
 #' Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
 #' @param path A character vector with the path to the Aves Data folder.
+#' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @return No return value, called to set the path to the Aves Data folder.
 #' @export
 #' @examples

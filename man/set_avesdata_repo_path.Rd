@@ -9,6 +9,8 @@ set_avesdata_repo_path(path, overwrite = FALSE)
 }
 \arguments{
 \item{path}{A character vector with the path to the Aves Data folder.}
+
+\item{overwrite}{Boolean, default to \code{FALSE}, does not overwrite an existing Aves Data folder. Set to \code{TRUE} to overwrite.}
 }
 \value{
 No return value, called to set the path to the Aves Data folder.
