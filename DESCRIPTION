@@ -17,8 +17,11 @@ Imports:
     jsonlite
 LazyData: true
 LazyDataCompression: xz
-Description: Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
+Description: Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree. Tree generated as descibed in McTavish et al. (2024) doi:https://doi.org/10.1101/2024.05.20.595017
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
