@@ -79,7 +79,7 @@ names(x) <- prunedDat$underscores
 contMap(prunedTree, x, fsize=0.5)
 ```
 
-![A continuous stochastic character map of the natural logarithm of body mass for 50 randomly sampled bird species.\label{fig:contmap}](log_body_mass.png)
+![A continuous stochastic character map of the natural logarithm of body mass for 50 randomly sampled bird species.\label{fig:contmap}](figs/log_body_mass.png)
 
 Last, figure out what studies went into informing the pruned phylogeny. The output should look like the example below.
 
@@ -87,7 +87,7 @@ Last, figure out what studies went into informing the pruned phylogeny. The outp
 toCite <- getCitations(prunedTree)
 ```
 
-![Screenshot of first 10 lines of the output from getCitations(), as viewed in the native the RStudio viewer.\label{fig:citations}](citation_example.png)
+![Screenshot of first 10 lines of the output from getCitations(), as viewed in the native the RStudio viewer.\label{fig:citations}](figs/citation_example.png)
 
 # Discussion
 
