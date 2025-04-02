@@ -1,10 +1,15 @@
 #' Pull down full AvesData repository to a working directory
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
-#' @param refresh Default to `FALSE`. Will not redownload the data by default if path exists, unless refresh=TRUE
+#' @param overwrite Default to `FALSE`. Will not redownload the data by default if path exists, unless overwrite=TRUE
 #' @return No return value, called to download the Aves Data repository.
 #' @export
 get_avesdata_repo <- function(path,
-                              refresh=FALSE){
+                              overwrite=FALSE){
+  if (Sys.getenv("AVESDATA_PATH") != "" & (overwrite == FALSE)){
+    stop(paste("AVESDATA_PATH already set to:",
+                 Sys.getenv("AVESDATA_PATH"),
+                 "use overwrite = TRUE to overwite existing path."))
+  }
   message("Downloading AvesData repo from github. This may take a minute or two.")
   url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip"
   old <- options() # save current options
@@ -14,15 +19,15 @@ get_avesdata_repo <- function(path,
       stop("Directory to save AvesData not found:", path)
     }
   zipfilepath = paste(path, "/", "AvesData.zip", sep="")
-  if (file.exists(zipfilepath) & (refresh == FALSE)){
-    message("File AvesData.zip already exists. Use refresh = TRUE to download a new version")
-  } else {
-    utils::download.file(url, destfile = zipfilepath)
-    utils::unzip(zipfile = zipfilepath, overwrite=TRUE)
-  }
   avesdata_path = paste(path,"/","AvesData-main", sep="")
   avesdata_path = path.expand(avesdata_path)
-  set_avesdata_repo_path(avesdata_path, overwrite=refresh)
+  if (file.exists(zipfilepath) & (overwrite == FALSE)){
+    message("File AvesData.zip already exists. Use overwite = TRUE to download a new version")
+  } else {
+    utils::download.file(url, destfile = zipfilepath)
+    utils::unzip(zipfile = zipfilepath, exdir = path, overwrite=TRUE)
+  }
+  set_avesdata_repo_path(avesdata_path, overwrite=overwrite)
   message("AvesData repo downloaded and upzipped to:", avesdata_path)
   invisible(avesdata_path)
 }
