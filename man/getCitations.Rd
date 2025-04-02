@@ -10,11 +10,14 @@ getCitations(tree, version = "1.4", data_path = FALSE)
 \item{tree}{A phylogeny obtained from extractTree (see details).}
 
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be passed as a character string or as numeric.}
+version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
+passed as a character string or as numeric.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
-If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
-If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file corresponding to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
+If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the
+default tree using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
+If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file
+corresponding to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
 }
 \value{
 A dataframe of the percent of internal nodes supported by a given study, as well
@@ -58,7 +61,7 @@ prunedTree <- extractTree(species=spp, label_type="scientific",
    taxonomy_year=2021, version="1.4")
 
 #get your citation DF
-# yourCitations <- getCitations(tree=prunedTree)}
+ yourCitations <- getCitations(tree=prunedTree)}
 }
 \author{
 Eliot Miller, Emily Jane McTavish

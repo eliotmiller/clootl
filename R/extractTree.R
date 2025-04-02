@@ -14,12 +14,12 @@ utils::globalVariables(c("clootl_data"))
 #' include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
 #' aside from these years will result in an error. Default is set 2023.
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree 
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree
 #' using [utils::data()] and `version` and `taxonomy_year` will be ignored??
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding
 #' to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as 
+#' version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
 #' a character string or as numeric.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
@@ -59,7 +59,7 @@ extractTree <- function(species="all_species",
 {
   label_type <- match.arg(label_type,c('code','scientific'))
   utils::data("clootl_data")
-  
+
   version <- as.character(version)
   if (!is.element(version, clootl_data$versions)){
     stop("version not recognized: ", version) ## TODO print out actual list
@@ -162,12 +162,13 @@ extractTree <- function(species="all_species",
 #'
 #' @inheritParams extractTree
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird taxonomy.
-#' If the taxonomy has not been downloaded yet using [get_avesdata_repo()], it will load the 
+#' If the taxonomy has not been downloaded yet using [get_avesdata_repo()], it will load the
 #' default taxonomy using [utils::data()] and `taxonomy_year` will be ignored??
-#' If the taxonomy has been downloaded using [get_avesdata_repo()], it will read the taxonomy 
+#' If the taxonomy has been downloaded using [get_avesdata_repo()], it will read the taxonomy
 #' file corresponding to the year given in `taxonomy_year` and load it as a `data frame` object.
 #'
-#' @details This will return a data object that has the requested taxonomy.
+#' @details This will return a data object that has the taxonomy of the requested year.
+#' @return A `data.frame` with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
 #' @export
 #'
 taxonomyGet <- function(taxonomy_year, data_path=FALSE){
@@ -212,12 +213,13 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
 #'
 #' @inheritParams extractTree
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the 
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the
 #' default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
-#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree 
+#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree
 #' file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #'
 #' @details This will return a data object that has the requested tree.
+#' @return A `phylo` object with the requested version and taxonomy.
 #' @export
 #'
 treeGet <- function(version, taxonomy_year, data_path=FALSE){

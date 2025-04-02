@@ -7,18 +7,23 @@
 taxonomyGet(taxonomy_year, data_path = FALSE)
 }
 \arguments{
-\item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Set to "current"
-to extract a tree in the most recent taxonomic version. Otherwise, a numeric should be
-passed in, e.g. 2021.}
+\item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Current options
+include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
+aside from these years will result in an error. Default is set 2023.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird taxonomy.
-If the taxonomy has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default taxonomy using \code{\link[utils:data]{utils::data()}} and \code{taxonomy_year} will be ignored??
-If the taxonomy has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the taxonomy file corresponding to the year given in \code{taxonomy_year} and load it as a \verb{data frame} object.}
+If the taxonomy has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the
+default taxonomy using \code{\link[utils:data]{utils::data()}} and \code{taxonomy_year} will be ignored??
+If the taxonomy has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the taxonomy
+file corresponding to the year given in \code{taxonomy_year} and load it as a \verb{data frame} object.}
+}
+\value{
+A \code{data.frame} with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
 }
 \description{
 \code{taxonomyGet} either reads a taxonomy file and loads it
 as a \verb{data frame}, or loads the default taxonomy data object.
 }
 \details{
-This will return a data object that has the requested taxonomy.
+This will return a data object that has the taxonomy of the requested year.
 }

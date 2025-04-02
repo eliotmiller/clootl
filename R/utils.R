@@ -1,7 +1,8 @@
 #' Pull down full AvesData repository to a working directory
-#' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directoyr, use "."
+#' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
 #' @param url Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/
 #' @param refresh Default to `FALSE`. Will not redownload the data by default if path exists, unless refresh=TRUE
+#' @return No return value, called to download the Aves Data repository.
 #' @export
 get_avesdata_repo <- function(path,
                               refresh=FALSE){
@@ -31,7 +32,7 @@ get_avesdata_repo <- function(path,
 #' Set path to Aves Data folder already somewhere on your computer
 #' Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
 #' @param path A character vector with the path to the Aves Data folder.
-#'
+#' @return No return value, called to set the path to the Aves Data folder.
 #' @export
 #' @examples
 #' \dontrun{
@@ -46,7 +47,7 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE){
   renv_path <- renv_file_path()
   renv_lines <- readLines(renv_path)
   renv_path <- path.expand(renv_path)
-  
+
   # look for existing entry, remove if overwrite = TRUE
   renv_exists <- grepl("^AVESDATA_PATH[[:space:]]*=.*", renv_lines)
   if (any(renv_exists)) {
@@ -74,7 +75,7 @@ renv_file_path <- function() {
   } else {
     renv <- path.expand(file.path("~", ".Renviron"))
   }
-  
+
   if (!file.exists(renv)) {
     file.create(renv)
   }

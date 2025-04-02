@@ -2,13 +2,23 @@
 % Please edit documentation in R/utils.R
 \name{set_avesdata_repo_path}
 \alias{set_avesdata_repo_path}
-\title{Set path to Aves Data folder already somewhere on your computer}
+\title{Set path to Aves Data folder already somewhere on your computer
+Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r}
 \usage{
-set_avesdata_repo_path(path)
+set_avesdata_repo_path(path, overwrite = FALSE)
 }
 \arguments{
 \item{path}{A character vector with the path to the Aves Data folder.}
 }
+\value{
+No return value, called to set the path to the Aves Data folder.
+}
 \description{
 Set path to Aves Data folder already somewhere on your computer
+Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+}
+\examples{
+\dontrun{
+set_avesdata_repo_path("/home/ejmctavish/AvesData")
+}
 }
