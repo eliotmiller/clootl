@@ -1,9 +1,6 @@
 if (is.null(meta[["Date/Publication"]])) {
     meta["Date/Publication"] <- as.character(Sys.time())
 }
-bibentry("Manual",
-         other = unlist(utils::citation(auto = meta), recursive = FALSE))
-
 bibentry("Misc",
          title        = "clootl: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
          author       = c(person("Eliot", "Miller",
