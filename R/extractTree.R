@@ -108,7 +108,7 @@ extractTree <- function(species="all_species",
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:"),
+      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
       stop(paste(issues, collapse = "\n"))
     } 
 
