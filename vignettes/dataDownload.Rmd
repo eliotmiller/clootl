@@ -1,16 +1,19 @@
 ---
 title: "BasicTutorial"
-output: html_document
+output: github_document
 date: "2025-04-03"
 ---
 
 
 ## Install clootl
 
-
-```{r}
+```{r, eval = FALSE}
+install.packages("devtools")
 library(devtools)  
 install_github("eliotmiller/clootl")
+```
+
+```{r}
 library(clootl)
 ```
 
@@ -33,7 +36,7 @@ Alternately, you can automatically download all the data from the AvesData githu
 It will be unpacked as folder in whatever directory you pass in. 
 This example creates a folder in your current working directory with the data named "AvesData-main".
 It will also save the location to your R environment file, so that clootl automatically knows where to look for the data.
-```{r}
+```{r, eval=FALSE}
 get_avesdata_repo(path=".") 
 ```
 Then you can use extractTree to get other versions of the tree.
@@ -60,5 +63,6 @@ ex1 <- sampleTrees(species=c("Turdus migratorius",
 
 getCitations is only expecting one tree - but all trees in the set have the same citations, so you can use 
 ```{r}
-getCitations(ex1[[1]])
+cites<-getCitations(ex1[[1]])
+cites
 ```

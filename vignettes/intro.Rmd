@@ -1,6 +1,6 @@
 ---
 title: "BasicTutorial"
-output: html_document
+output: github_document
 date: "2025-04-03"
 ---
 
@@ -9,13 +9,15 @@ date: "2025-04-03"
 
 clootl is currently in review at CRAN. For the time being you can install it from Github using devtools
 
-```{r}
+```{r, eval = FALSE}
 install.packages("devtools")
 library(devtools)  
 install_github("eliotmiller/clootl")
-library(clootl)
 ```
 
+```{r}
+library(clootl)
+```
 ## Getting a tree
 
 The most recent version of the tree is available with the package.

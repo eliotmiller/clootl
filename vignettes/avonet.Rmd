@@ -1,6 +1,6 @@
 ---
 title: "AvonetTutorial"
-output: html_document
+output: github_document
 date: "2025-04-03"
 ---
 
@@ -12,12 +12,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 clootl is currently in review at CRAN. For the time being you can install it from Github using devtools. We also need a few other packages for this demo
 
-```{r install,  include=FALSE}
-library(devtools)
-install_github("eliotmiller/clootl")
+```{r install, echo=FALSE}
 install.packages("phytools")
 install.packages("readxl")
 library("phytools")
+```
+
+```{r, eval = FALSE}
+install.packages("devtools")
+library(devtools)  
+install_github("eliotmiller/clootl")
+```
+
+```{r}
+library(clootl)
 ```
 
 ## Getting avonet data
