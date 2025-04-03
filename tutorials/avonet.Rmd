@@ -1,0 +1,43 @@
+---
+title: "AvonetTutorial"
+output: html_document
+date: "2025-04-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installing clootl
+
+clootl is currently in review at CRAN. For the time being you can install it from Github using devtools
+
+```{r install,  include=FALSE}
+library(devtools)
+install_github("eliotmiller/clootl")
+```
+
+## Getting avonet data
+
+An important feature of our new phylogeny is its interoperability and connection to existing databases and resources. As an example of this feature, we illustrate how the phylogeny can be connected to AVONET [@tobias_avonet_2022], a database of morphological measurements for the world's birds.
+
+To access AVONET, use the `readxl` [@wickham2019package] package to access the database directly from Figshare.
+
+```{r}
+library(readxl)
+
+# Define the file URL and destination
+file_url <- "https://figshare.com/ndownloader/files/34480856"
+destfile <- tempfile(fileext = ".xlsx")
+
+# Download the file
+download.file(file_url, destfile, mode = "wb")
+
+# Read the sheet that corresponds to eBird taxonomy
+dat <- as.data.frame(read_excel(destfile, sheet = "AVONET2_eBird"))
+
+# Create a column with underscores for simplicity later
+dat$underscores <- sub(" ", "_", dat$Species2)
+```
+
+
