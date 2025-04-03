@@ -93,13 +93,16 @@ This leaves us with a paired dataset and phylogeny. Align these further,
 and use phytools \[@revell2024phytools\] to visualize the distribution
 of body mass across the phylogeny of these 50 random taxa.
 
-\`\`{r} library(phytools) prunedDat \<- dat\[dat\$Species2 %in% spp,\]
+``` r
+library(phytools)
+prunedDat <- dat[dat$Species2 %in% spp,]
 
 # Pull a vector of traits out, log transform for normality
-
-x \<- log(prunedDat$Mass)
+x <- log(prunedDat$Mass)
 names(x) <- prunedDat$underscores
 
 # Plot log body mass across the phylogeny
+contMap(prunedTree, x, fsize=0.5)
+```
 
-contMap(prunedTree, x, fsize=0.5) \`\`\`
+![](avonet_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

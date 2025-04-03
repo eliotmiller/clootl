@@ -65,7 +65,7 @@ prunedTree <- extractTree(species=spp, label_type="scientific", taxonomy_year=20
 
 This leaves us with a paired dataset and phylogeny. Align these further, and use phytools [@revell2024phytools] to visualize the distribution of body mass across the phylogeny of these 50 random taxa.
 
-``{r}
+```{r}
 library(phytools)
 prunedDat <- dat[dat$Species2 %in% spp,]
 
