@@ -53,10 +53,12 @@ to the public in October or November 2025. The intention is to release a tree in
 concurrently with the publication of the taxonomy itself.
 }
 \examples{
-ex2 <- sampleTrees(species=c("Turdus migratorius",
+if (Sys.getenv("AVESDATA_PATH") != "") {
+  ex2 <- sampleTrees(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
                              "Sitta canadensis"))
+ }
 }
 \author{
 Eliot Miller, Luna Sanchez Reyes, Emily Jane McTavish

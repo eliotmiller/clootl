@@ -39,10 +39,12 @@ utils::globalVariables(c("clootl_data"))
 #' @import ape
 #'
 #' @examples
-#' ex2 <- sampleTrees(species=c("Turdus migratorius",
+#' if (Sys.getenv("AVESDATA_PATH") != "") {
+#'   ex2 <- sampleTrees(species=c("Turdus migratorius",
 #'                              "Setophaga dominica",
 #'                              "Setophaga ruticilla",
 #'                              "Sitta canadensis"))
+#'  }
 
 sampleTrees <- function(species="all_species",
                         label_type="scientific",

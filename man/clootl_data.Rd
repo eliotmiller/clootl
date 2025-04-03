@@ -44,7 +44,7 @@ clootl_data$trees$\code{Aves_1.4}$annotations <- all_nodes
 This part pre-processes all citations for studies in the tree
 so we don't need to do any API calls later.
 studies <-c()
-for (inputs in all_nodes$source_id_map){
+for (inputs in all_nodes$source_id_map) {
 studies<-c(studies, inputs$study_id)
 }
 studies <- unique(studies)
