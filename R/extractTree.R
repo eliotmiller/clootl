@@ -1,9 +1,6 @@
 utils::globalVariables(c("clootl_data"))
 
 
-#' Randomly resolve polytomies and enforce ultrametric
-#'
-#' Initial tree processing
 #'
 #' @param species A character vector either of scientific names (directly as they come out of the
 #' eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
