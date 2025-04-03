@@ -1,0 +1,70 @@
+---
+title: "BasicTutorial"
+output: github_document
+date: "2025-04-03"
+---
+
+
+## Installing clootl
+
+clootl is currently in review at CRAN. For the time being you can install it from Github using devtools
+
+```{r, eval = FALSE}
+install.packages("devtools")
+library(devtools)  
+install_github("eliotmiller/clootl")
+```
+
+```{r}
+library(clootl)
+```
+## Getting a tree
+
+The most recent version of the tree is available with the package.
+You can easily get a subtree using "extractTree" and a list of scientific names.
+This defaults tree version 1.4 and to the names in the 2023 taxonomy.
+
+If you don't give it any arguments, it will return the whole tree (~11,000 tips)
+
+```{r}
+
+ex1 <- extractTree(species=c("Turdus migratorius",
+                             "Setophaga dominica",
+                             "Setophaga ruticilla",
+                             "Sitta canadensis"))
+
+plot(ex1)
+```
+
+You should cite the author's whose work went into generating these relationships whenever possible. You can get the citations to the input phylogenies using 'getCitations'.
+
+```{r}
+
+cites <- getCitations(ex1)
+cites
+
+```
+
+To get the tree using a different taxonomy year, use the argument "taxonomy_year".
+Current options are 2021, 2022. And 2024 is coming soon.
+
+```{r}
+
+ex2 <- extractTree(species=c("Turdus migratorius",
+                             "Setophaga dominica",
+                             "Setophaga ruticilla",
+                             "Sitta canadensis"),
+                             taxonomy_year = 2021)
+
+```
+
+You can also use eBird codes as tip labels,.
+```{r}
+ex3 <- extractTree(species=c("amerob",
+                             "canwar",
+                             "reevir1",
+                             "yerwar",
+                             "gockin"), 
+                              label_type="code")
+plot(ex3)
+```
