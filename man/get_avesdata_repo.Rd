@@ -4,12 +4,12 @@
 \alias{get_avesdata_repo}
 \title{Pull down full AvesData repository to a working directory}
 \usage{
-get_avesdata_repo(path, refresh = FALSE)
+get_avesdata_repo(path, overwrite = FALSE)
 }
 \arguments{
 \item{path}{Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."}
 
-\item{refresh}{Default to \code{FALSE}. Will not redownload the data by default if path exists, unless refresh=TRUE}
+\item{overwrite}{Default to \code{FALSE}. Will not redownload the data by default if path exists, unless overwrite=TRUE}
 }
 \value{
 No return value, called to download the Aves Data repository.
