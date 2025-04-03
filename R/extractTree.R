@@ -15,7 +15,7 @@ utils::globalVariables(c("clootl_data"))
 #' aside from these years will result in an error. Default is set 2023.
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
 #' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree
-#' using [utils::data()] and `version` and `taxonomy_year` will be ignored??
+#' using [utils::data()] as long as `version` and `taxonomy_year` are empty or match the default version.
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding
 #' to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
@@ -108,8 +108,9 @@ extractTree <- function(species="all_species",
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      stop("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
-    } ##TODO Say which ones failed!!
+      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:"),
+      stop(paste(issues, collapse = "\n"))
+    } 
 
     #else might as well set a tree aside with codes instead of sci names
     else
@@ -134,7 +135,8 @@ extractTree <- function(species="all_species",
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      stop("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
+      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
+      stop(paste(issues, collapse = "\n"))
     }
 
     #else plug in underscores
@@ -163,7 +165,7 @@ extractTree <- function(species="all_species",
 #' @inheritParams extractTree
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird taxonomy.
 #' If the taxonomy has not been downloaded yet using [get_avesdata_repo()], it will load the
-#' default taxonomy using [utils::data()] and `taxonomy_year` will be ignored??
+#' default taxonomy using [utils::data()] as long as `taxonomy_year` as empty or matches the default version.
 #' If the taxonomy has been downloaded using [get_avesdata_repo()], it will read the taxonomy
 #' file corresponding to the year given in `taxonomy_year` and load it as a `data frame` object.
 #'
