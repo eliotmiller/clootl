@@ -31,7 +31,7 @@ utils::globalVariables(c("clootl_data"))
 #' @return A set of [count] phylogenies of the specified taxa in the specified eBird taxonomy version and clootl
 #' tree version.
 #'
-#' @author Eliot Miller
+#' @author Eliot Miller, Luna Sanchez Reyes, Emily Jane McTavish
 #'
 #' @export
 #'
