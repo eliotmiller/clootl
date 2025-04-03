@@ -19,4 +19,4 @@ library(clootl)
 
 - [Getting Started](examples/intro.md)
 - [Downloading the Data Repository](examples/dataDownload.md)
-- [Mapping traits to a subtree](examples/avonet.md)
+- [Mapping Traits to a Subtree](examples/avonet.md)

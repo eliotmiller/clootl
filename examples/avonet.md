@@ -1,4 +1,4 @@
-AvonetTutorial
+Mapping Traits to a Subtree
 ================
 2025-04-03
 
@@ -12,15 +12,17 @@ for this demo
 install.packages("phytools")
 ```
 
-    ## Installing package into '/home/ejmctavish/R/x86_64-pc-linux-gnu-library/4.4'
-    ## (as 'lib' is unspecified)
+    ## 
+    ## The downloaded binary packages are in
+    ##  /var/folders/ss/2tpkp325521_kfgn59g44vd80000gn/T//RtmpuAyGNF/downloaded_packages
 
 ``` r
 install.packages("readxl")
 ```
 
-    ## Installing package into '/home/ejmctavish/R/x86_64-pc-linux-gnu-library/4.4'
-    ## (as 'lib' is unspecified)
+    ## 
+    ## The downloaded binary packages are in
+    ##  /var/folders/ss/2tpkp325521_kfgn59g44vd80000gn/T//RtmpuAyGNF/downloaded_packages
 
 ``` r
 library("phytools")

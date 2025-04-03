@@ -1,5 +1,5 @@
 ---
-title: "BasicTutorial"
+title: "Getting Started"
 output: github_document
 date: "2025-04-03"
 ---
