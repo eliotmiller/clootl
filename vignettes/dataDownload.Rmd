@@ -51,10 +51,14 @@ plot(ex2_1_3)
 
 Once you have the whole repo you can also same across the uncertainty in taxonomically placed species, and in dates, using sampleTrees. This will return 100 sampled trees.
 
-```
+```{r}
 ex1 <- sampleTrees(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
                              "Sitta canadensis"))
 ```
 
+getCitations is only expecting one tree - but all trees in the set have the same citations, so you can use 
+```{r}
+getCitations(ex1[[1]])
+```
