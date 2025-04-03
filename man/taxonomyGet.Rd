@@ -13,7 +13,7 @@ aside from these years will result in an error. Default is set 2023.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird taxonomy.
 If the taxonomy has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the
-default taxonomy using \code{\link[utils:data]{utils::data()}} and \code{taxonomy_year} will be ignored??
+default taxonomy using \code{\link[utils:data]{utils::data()}} as long as \code{taxonomy_year} as empty or matches the default version.
 If the taxonomy has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the taxonomy
 file corresponding to the year given in \code{taxonomy_year} and load it as a \verb{data frame} object.}
 }

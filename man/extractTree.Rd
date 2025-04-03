@@ -30,7 +30,7 @@ a character string or as numeric.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
 If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree
-using \code{\link[utils:data]{utils::data()}} and \code{version} and \code{taxonomy_year} will be ignored??
+using \code{\link[utils:data]{utils::data()}} as long as \code{version} and \code{taxonomy_year} are empty or match the default version.
 If the tree has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the tree file corresponding
 to the \code{version} and \code{taxonomy_year} provided and load it as a \code{phylo} object.}
 }
@@ -64,5 +64,5 @@ ex2 <- extractTree(species=c("Turdus migratorius",
 
 }
 \author{
-Eliot Miller
+Eliot Miller, Luna Sanchez Reyes, Emily Jane McTavish
 }

@@ -71,6 +71,9 @@ sampleTrees <- function(species="all_species",
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
     }
+    else {
+        data_path = Sys.getenv('AVESDATA_PATH') 
+    }
 
   if(label_type=="code")
   {
@@ -129,13 +132,13 @@ sampleTrees <- function(species="all_species",
                                sep='')
     fullTreeSet <- read.tree(sample_tree_filename,skip=1)
   #now prune the tree and extract. if species is the full set, no pruning will occur
-  pruned <- drop.tip.multiPhylo(fullTreeSet, setdiff(fullTreeSet[[1]]$tip.label, species))
+  pruned <- dropTipMultiPhylo(fullTreeSet, setdiff(fullTreeSet[[1]]$tip.label, species))
   pruned
 }
 
 
 # from http://blog.phytools.org/2020/06/pruning-tips-from-multiphylo-object.html
-drop.tip.multiPhylo<-function(phy, tip, ...){
+dropTipMultiPhylo<-function(phy, tip, ...){
     if(!inherits(phy,"multiPhylo"))
         stop("phy is not an object of class \"multiPhylo\".")
     else {
