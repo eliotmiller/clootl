@@ -14,3 +14,9 @@ install_github("eliotmiller/clootl")
 library(clootl)
 ?getCitations
 ```
+
+### Tutorials
+
+- [Getting Started](examples/intro.md)
+- [Downloading the Data Repository](examples/dataDownload.md)
+- [Mapping traits to a subtree](examples/avonet.md)
