@@ -1,6 +1,7 @@
 utils::globalVariables(c("clootl_data"))
 
 
+#' Extract a tree from the complete Avian Phylogeny for a set of species
 #'
 #' @param species A character vector either of scientific names (directly as they come out of the
 #' eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
@@ -107,7 +108,7 @@ extractTree <- function(species="all_species",
     {
       message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
       stop(paste(issues, collapse = "\n"))
-    } 
+    }
 
     #else might as well set a tree aside with codes instead of sci names
     else

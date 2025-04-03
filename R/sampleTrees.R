@@ -2,6 +2,7 @@ utils::globalVariables(c("clootl_data"))
 
 
 
+#' Extract a cloud of trees from the complete Avian Phylogeny for a set of species
 #'
 #' @param species A character vector either of scientific names (directly as they come out of the
 #' eBird taxonomy, i.e. without underscores) or of six-letter eBird species codes. Any elements of
@@ -17,7 +18,7 @@ utils::globalVariables(c("clootl_data"))
 #' @param version The desired version of the tree. Default to the most recent
 #' version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
 #' a character string or as numeric.
-#' @param count The desired number of sampled trees. Default to 100.
+#' @param count Work in progress, can only sample 100 for now. Eventually: The desired number of sampled trees.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -28,7 +29,7 @@ utils::globalVariables(c("clootl_data"))
 #' to the public in October or November 2025. The intention is to release a tree in 2025 taxonomy
 #' concurrently with the publication of the taxonomy itself.
 #'
-#' @return A set of [count] phylogenies of the specified taxa in the specified eBird taxonomy version and clootl
+#' @return A set of phylogenies determined in `count` of the specified taxa in the specified eBird taxonomy version and clootl
 #' tree version.
 #'
 #' @author Eliot Miller, Luna Sanchez Reyes, Emily Jane McTavish
@@ -65,14 +66,14 @@ sampleTrees <- function(species="all_species",
 
 
   if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE)){
-      stop("AvesData repo not found. 
+      stop("AvesData repo not found.
         To sample across trees you need to download the Aves data repo.
       Either run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
     }
     else {
-        data_path = Sys.getenv('AVESDATA_PATH') 
+        data_path = Sys.getenv('AVESDATA_PATH')
     }
 
   if(label_type=="code")
