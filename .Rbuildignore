@@ -11,3 +11,4 @@ codemeta.json
 log_body_mass.png
 paper.bib
 paper.md
+^codemeta\.json$
