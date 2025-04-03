@@ -5,3 +5,9 @@ example/*
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^\.github$
+AvesData.zip
+AvesData-main/*
+codemeta.json
+log_body_mass.png
+paper.bib
+paper.md

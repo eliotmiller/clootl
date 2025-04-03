@@ -7,10 +7,13 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' @param tree A phylogeny obtained from extractTree (see details).
 #' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
-#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the 
+#' default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
+#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file 
+#' corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be passed as a character string or as numeric.
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
+#' passed as a character string or as numeric.
 #'
 #' @details Importantly: an internet connection is required for this function to work, as it
 #' relies on Open Tree of Life APIs. The function will determine what proportion of nodes in
@@ -58,7 +61,7 @@ utils::globalVariables(c("clootl_data"))
 #'    taxonomy_year=2021, version="1.4")
 #'
 #' #get your citation DF
-#' # yourCitations <- getCitations(tree=prunedTree)}
+#'  yourCitations <- getCitations(tree=prunedTree)}
 getCitations <- function(tree, version="1.4", data_path=FALSE) {
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
@@ -69,8 +72,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
 
   if (data_path==FALSE){
-    data_path = Sys.getenv('avesdata')
-    #TODO: do we want to set an internal path option??
+    data_path = Sys.getenv('AVESDATA_PATH')
   }
 
   if (!file.exists(data_path) & version != "1.4"){
@@ -79,8 +81,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
       or provide a path to the data repo using data_path=")
     }
 
-  versions <- c('0.1','1.0','1.2','1.3','1.4')
-  if (!is.element(version, versions)){
+  if (!is.element(version, clootl_data$versions)){
     stop("version not recognized: ", version)
   }
 
@@ -109,53 +110,18 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   finalCounts <- as.data.frame(table(studies))
   colnames(finalCounts) <- c("study", "counts")
 
-  # now query the citations
+  study_info <- clootl_data$study_info
+
   dois <- c()
   refs <- c()
   for(i in 1:length(finalCounts$study))
   {
-    #again, define some convenience variables
-    url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
-    headers <- c('Content-Type' = 'application/json')
-    body <- jsonlite::toJSON(list("property"="ot:studyId",
-                                  "value"=finalCounts$study[i],
-                                  "verbose"="true"),
-                                   auto_unbox=TRUE)
-
-    response <- RCurl::postForm(uri = url,
-                         .opts = list(
-                           postfields = body,
-                           httpheader = headers
-                         ))
-
-    #having trouble with weird end of line symbols
-    response <- gsub("\n", "", response)
-
-    # Parse the response
-    parsedJSON <- jsonlite::fromJSON(response)
-
-    # pull the doi
-    doiTemp <- parsedJSON$matched_studies$`ot:studyPublication`
-    if(is.null(doiTemp))
-    {
-      dois[i] <- NA
-    }
-    else
-    {
-      dois[i] <- doiTemp
-    }
-    refTemp <- parsedJSON$matched_studies$`ot:studyPublicationReference`
-    if(is.null(refTemp))
-    {
-      refs[i] <- NA
-    }
-    else
-    {
-      refs[i] <- refTemp
-    }
-  }
-
-  #plug the dois in
+    study_id <- finalCounts$study[i]
+    dois[i] <- study_info[study_info$study_id==study_id,'doi']
+    refs[i]<- study_info[study_info$study_id==study_id,'reference']
+      }
+    
+   #plug the dois in
   finalCounts$reference <- refs
   finalCounts$doi <- dois
 
@@ -176,3 +142,51 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
   finalCounts$counts <- NULL
   finalCounts
 }
+
+
+## This is for internal use to set up the study_info data object
+api_studies_lookup <- function(studies){
+  study_info <- data.frame(matrix(vector(), 0, 3,
+                          dimnames=list(c(), c("study_id", "reference", "doi"))),
+                          stringsAsFactors=F)
+
+  studies <- as.vector(studies)
+  for(i in 1:length(studies))
+  {
+    #again, define some convenience variables
+    url <- "https://api.opentreeoflife.org/v3/studies/find_studies"
+    headers <- c('Content-Type' = 'application/json')
+    body <- jsonlite::toJSON(list("property"="ot:studyId",
+                                  "value"=studies[i],
+                                  "verbose"="true"),
+                                   auto_unbox=TRUE)
+
+    response <- RCurl::postForm(uri = url,
+                         .opts = list(
+                           postfields = body,
+                           httpheader = headers
+                         ))
+
+    #having trouble with weird end of line symbols
+    response <- gsub("\n", "", response)
+
+    # Parse the response 
+    parsedJSON <- jsonlite::fromJSON(response)
+    doi <- parsedJSON$matched_studies$`ot:studyPublication`
+    if(is.null(doi))
+    {
+        doi <- NA
+      }
+    reference <- parsedJSON$matched_studies$`ot:studyPublicationReference`
+      if(is.null(reference))
+      {
+        reference <- NA
+      }
+
+    study_info <- rbind(study_info, data.frame(study_id =studies[i],
+                                              reference = reference, 
+                                              doi = doi))
+    }
+    return(study_info)
+  }
+
