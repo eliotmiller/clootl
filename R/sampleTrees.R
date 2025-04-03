@@ -85,7 +85,7 @@ sampleTrees <- function(species="all_species",
   species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
 
-  else if(species[1]=="all_species" & label_type=="scientific")
+  if(species[1]=="all_species" & label_type=="scientific")
   {
     species <- tax$SCI_NAME
   }
