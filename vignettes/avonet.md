@@ -8,10 +8,23 @@ clootl is currently in review at CRAN. For the time being you can
 install it from Github using devtools. We also need a few other packages
 for this demo
 
+``` r
+install.packages("phytools")
+```
+
     ## Installing package into '/home/ejmctavish/R/x86_64-pc-linux-gnu-library/4.4'
     ## (as 'lib' is unspecified)
+
+``` r
+install.packages("readxl")
+```
+
     ## Installing package into '/home/ejmctavish/R/x86_64-pc-linux-gnu-library/4.4'
     ## (as 'lib' is unspecified)
+
+``` r
+library("phytools")
+```
 
     ## Loading required package: ape
 

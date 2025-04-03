@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 clootl is currently in review at CRAN. For the time being you can install it from Github using devtools. We also need a few other packages for this demo
 
-```{r install, echo=FALSE}
+```{r install}
 install.packages("phytools")
 install.packages("readxl")
 library("phytools")
