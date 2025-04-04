@@ -14,9 +14,9 @@ We have addressed all comments that were kindly provided by the reviewer:
 ## Test environments:
 
 * local OS X install, R 4.3.3
-* github actions: macOS Big Sur 10.16, x86_64-apple-darwin17.0, R 4.2.2
-* github actions: Ubuntu 20.04.5, x86_64-pc-linux-gnu, release, old release and development, R 4.2.2
-* github actions: Windows Server x64 (build 20348), x86_64-w64-mingw32, R 4.2.2
+* github actions: macOS Big Sur 10.16, x86_64-apple-darwin17.0, R 4.3.3
+* github actions: Ubuntu 20.04.5, x86_64-pc-linux-gnu, R development
+* github actions: Windows Server x64 (build 20348), x86_64-w64-mingw32, R development
 
 * Note 1:
 ```
