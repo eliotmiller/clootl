@@ -11,16 +11,26 @@ We have addressed all comments that were kindly provided by the reviewer:
 - Updated function to not write any files into home filespace by default
 - We make sure that when user's options are changed they go back to the default on exit
 
-Note 1:
+## Test environments:
+
+* local OS X install, R 4.3.3
+* github actions: macOS Big Sur 10.16, x86_64-apple-darwin17.0, R 4.2.2
+* github actions: Ubuntu 20.04.5, x86_64-pc-linux-gnu, release, old release and development, R 4.2.2
+* github actions: Windows Server x64 (build 20348), x86_64-w64-mingw32, R 4.2.2
+
+* Note 1:
+```
 Possibly misspelled words in DESCRIPTION:
   McTavish (16:277)
   al (16:289)
   clootl (16:72)
   et (16:286)
-
+```
+**Comments**: <br/>
 All these words are OK. 
 
-Note 2: 
+* Note 2: 
+```
 Found the following (possibly) invalid file URIs:
   URI: examples/intro.md
     From: README.md
@@ -28,12 +38,14 @@ Found the following (possibly) invalid file URIs:
     From: README.md
   URI: examples/avonet.md
     From: README.md
-
+```
+**Comments**: <br/>
 All URIs are valid
 
-Note 3:
+* Note 3:
+```
 checkRd: (-1) clootl_data.Rd:47-49: Lost braces
     47 | for (inputs in all_nodes$source_id_map) {
        |                                         ^
-       
+```      
 There are no missing brackets. 
