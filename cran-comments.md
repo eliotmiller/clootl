@@ -1,6 +1,6 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 3 notes
+0 errors | 0 warnings | 2 notes
 
 * This is a new release.
 
@@ -42,10 +42,3 @@ Found the following (possibly) invalid file URIs:
 **Comments**: <br/>
 All URIs are valid
 
-* Note 3:
-```
-checkRd: (-1) clootl_data.Rd:47-49: Lost braces
-    47 | for (inputs in all_nodes$source_id_map) {
-       |                                         ^
-```      
-There are no missing brackets. 
