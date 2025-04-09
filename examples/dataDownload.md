@@ -1,4 +1,4 @@
-BasicTutorial
+Downloading the Data Repository
 ================
 2025-04-03
 
@@ -7,7 +7,7 @@ BasicTutorial
 ``` r
 install.packages("devtools")
 library(devtools)  
-install_github("eliotmiller/clootl")
+devtools::install_github("eliotmiller/clootl")
 ```
 
 ``` r
@@ -84,13 +84,17 @@ ex1 <- sampleTrees(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
                              "Sitta canadensis"))
+ex1
 ```
+
+    ## 100 phylogenetic trees
 
 getCitations is only expecting one tree - but all trees in the set have
 the same citations, so you can use
 
 ``` r
-getCitations(ex1[[1]])
+cites<-getCitations(ex1[[1]])
+cites
 ```
 
     ##                  study

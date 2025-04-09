@@ -1,7 +1,5 @@
 utils::globalVariables(c("clootl_data"))
 
-
-
 #' Extract a cloud of trees from the complete Avian Phylogeny for a set of species
 #'
 #' @param species A character vector either of scientific names (directly as they come out of the
@@ -45,7 +43,6 @@ utils::globalVariables(c("clootl_data"))
 #'                              "Setophaga ruticilla",
 #'                              "Sitta canadensis"))
 #'  }
-
 sampleTrees <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year=2023,
