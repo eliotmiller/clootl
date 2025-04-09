@@ -1,10 +1,11 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note
 
 * This is a new release.
 
 We have addressed all comments that were kindly provided by the reviewer:
+- Changed relative URIs to absolute on README.
 - Added reference to description and doi
 - Added value to Rd files that were missing the tag
 - We uncommented examples in getCitations.Rd
@@ -29,16 +30,5 @@ Possibly misspelled words in DESCRIPTION:
 **Comments**: <br/>
 All these words are OK. 
 
-* Note 2: 
-```
-Found the following (possibly) invalid file URIs:
-  URI: examples/intro.md
-    From: README.md
-  URI: examples/dataDownload.md
-    From: README.md
-  URI: examples/avonet.md
-    From: README.md
-```
-**Comments**: <br/>
-All URIs are valid
+
 
