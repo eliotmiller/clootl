@@ -25,8 +25,7 @@ include 2021, 2022, and 2023. Both numeric and character inputs are acceptable h
 aside from these years will result in an error. Default is set 2023.}
 
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
-a character string or as numeric.}
+version of the tree. Other versions available are 1.2','1.3','1.4','1.5' and can be passed as a character string or as numeric.}
 
 \item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird tree.
 If the tree has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the default tree

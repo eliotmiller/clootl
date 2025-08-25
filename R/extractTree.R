@@ -17,8 +17,7 @@ utils::globalVariables(c("clootl_data"))
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding
 #' to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
-#' a character string or as numeric.
+#' version of the tree. Other versions available are 1.2','1.3','1.4','1.5' and can be passed as a character string or as numeric.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -58,10 +57,12 @@ extractTree <- function(species="all_species",
   label_type <- match.arg(label_type,c('code','scientific'))
   utils::data("clootl_data")
 
+
   version <- as.character(version)
   if (!is.element(version, clootl_data$versions)){
     stop("version not recognized: ", version) ## TODO print out actual list
   }
+
 
   taxonomy_year <- as.character(taxonomy_year)
   if (!is.element(taxonomy_year, clootl_data$tax_years)){
@@ -70,7 +71,7 @@ extractTree <- function(species="all_species",
 
 
   if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.4')){
-      stop("Only tree version 1.4 is currently packaged with clootl.
+      stop("Only tree version 1.5 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
