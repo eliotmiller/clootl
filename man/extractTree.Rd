@@ -7,8 +7,8 @@
 extractTree(
   species = "all_species",
   label_type = "scientific",
-  taxonomy_year = 2023,
-  version = "1.3",
+  taxonomy_year = 2024,
+  version = "1.5",
   data_path = FALSE
 )
 }
