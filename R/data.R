@@ -15,6 +15,7 @@
 #' clootl_data$trees$`Aves_1.5`$summary.trees$year2021 <- fullTree2021
 #' clootl_data$trees$`Aves_1.5`$summary.trees$year2022 <- fullTree2022
 #' clootl_data$trees$`Aves_1.5`$summary.trees$year2023 <- fullTree2023
+#' clootl_data$trees$`Aves_1.5`$summary.trees$year2024 <- fullTree2024
 #'
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
@@ -24,6 +25,7 @@
 #' clootl_data$taxonomy.files$Year2021 <- tax2021
 #' clootl_data$taxonomy.files$Year2022 <- tax2022
 #' clootl_data$taxonomy.files$Year2023 <- tax2023
+#' clootl_data$taxonomy.files$Year2024 <- tax2024
 #'
 #' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.5/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
