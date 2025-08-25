@@ -53,21 +53,21 @@ extractTree <- function(species="all_species",
 {
   label_type <- match.arg(label_type,c('code','scientific'))
 
-  versions <- c('0.1','1.0','1.2','1.3')
+  versions <- c('0.1','1.0','1.2','1.3', '1.4', '1.5')
   version <- as.character(version)
   if (!is.element(version, versions)){
     stop("version not recognized: ", version) ## TODO print out actual list
   }
 
-  tax_years <- c("2021","2022","2023")
+  tax_years <- c("2021","2022","2023", "2024")
   taxonomy_year <- as.character(taxonomy_year)
   if (!is.element(taxonomy_year, tax_years)){
     stop("year not recognized: ", tax_years)
   }
 
 
-  if((Sys.getenv('avesdata') == "") & (data_path==FALSE) & (version!='1.3')){
-      stop("Only tree version 1.3 is currently packaged with clootl.
+  if((Sys.getenv('avesdata') == "") & (data_path==FALSE) & (version!='1.5')){
+      stop("Only tree version 1.5 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
