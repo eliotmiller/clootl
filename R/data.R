@@ -9,7 +9,13 @@
 #'
 #'
 #' clootl_data$versions <- c('1.2','1.3','1.4', '1.5')
-#
+#''
+#'
+#' fullTree2021 <- treeGet("1.5","2021", data_path="~/projects/otapi/AvesData")
+#' fullTree2022 <- treeGet("1.5","2022", data_path="~/projects/otapi/AvesData")
+#' fullTree2023 <- treeGet("1.5","2023", data_path="~/projects/otapi/AvesData")
+#' fullTree2024 <- treeGet("1.5","2024", data_path="~/projects/otapi/AvesData")
+
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
 #' tax2023 <- taxonomyGet(2023, data_path="~/projects/otapi/AvesData")
@@ -23,8 +29,16 @@
 #' clootl_data$tax_years <- c("2021","2022","2023","2024")
 #' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.5/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
-#'
 #' clootl_data$trees$`Aves_1.5`$annotations <- all_nodes
-#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda")
+#'
+#' This part pre-processes all citations for studies in the tree
+#' so we don't need to do any API calls later.
+#' studies <-c()
+#' for (inputs in all_nodes$source_id_map) studies<-c(studies, inputs$study_id)
+#' studies <- unique(studies)
+#' study_info <- clootl:::api_studies_lookup(studies)
+#'
+#' clootl_data$study_info <- study_info
+#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda", compress="xz")
 #'
 "clootl_data"
