@@ -58,11 +58,11 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your tree
 #' prunedTree <- extractTree(species=spp, label_type="scientific",
-#'    taxonomy_year=2021, version="1.4")
+#'    taxonomy_year=2021, version="1.5")
 #'
 #' #get your citation DF
 #'  yourCitations <- getCitations(tree=prunedTree)}
-getCitations <- function(tree, version="1.4", data_path=FALSE) {
+getCitations <- function(tree, version="1.5", data_path=FALSE) {##ToDO not hardcode?
   # Data source can either be "internal" - packaged with the library
   # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
   #pull the node labels out. count any (character instances of) NA, as this should
@@ -75,7 +75,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
     data_path = Sys.getenv('AVESDATA_PATH')
   }
 
-  if (!file.exists(data_path) & version != "1.4"){
+  if (!file.exists(data_path) & version != "1.5"){##ToDO not hardcode?
     stop("GetCitations for anything other than the current tree requires an Aves Data download.
       Currently get citations needs you to run get_avesdata_repo() first
       or provide a path to the data repo using data_path=")
@@ -87,7 +87,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
 
   if (data_path == ""){
     utils::data("clootl_data")
-    all_nodes <- clootl_data$trees$`Aves_1.4`$annotations ##ToDO not hardcode?
+    all_nodes <- clootl_data$trees$`Aves_1.5`$annotations ##ToDO not hardcode?
   } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){

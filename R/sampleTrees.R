@@ -14,7 +14,7 @@ utils::globalVariables(c("clootl_data"))
 #' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding
 #' to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
+#' version of the tree. Other versions available are '1.2','1.3','1.4','1.5', and can be passed as
 #' a character string or as numeric.
 #' @param count Work in progress, can only sample 100 for now. Eventually: The desired number of sampled trees.
 #'
@@ -45,8 +45,8 @@ utils::globalVariables(c("clootl_data"))
 #'  }
 sampleTrees <- function(species="all_species",
                         label_type="scientific",
-                        taxonomy_year=2023,
-                        version="1.4",
+                        taxonomy_year=2024,
+                        version="1.5",
                         count=100,
                         data_path=FALSE)
 {

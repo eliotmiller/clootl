@@ -8,8 +8,7 @@ treeGet(version, taxonomy_year, data_path = FALSE)
 }
 \arguments{
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '1.2','1.3','1.4', and can be passed as
-a character string or as numeric.}
+version of the tree. Other versions available are 1.2','1.3','1.4','1.5' and can be passed as a character string or as numeric.}
 
 \item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Current options
 include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
