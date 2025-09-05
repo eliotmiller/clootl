@@ -10,12 +10,18 @@ utils::globalVariables(c("clootl_data"))
 #' @param taxonomy_year The eBird taxonomy year the tree should be output in. Current options
 #' include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
 #' aside from these years will result in an error. Default is set 2023.
-#' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file corresponding
-#' to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' @param data_path Default to FALSE. If a summary, dated tree is desired, this is sufficient
+#' and does not need to be modified. However, if a user wishes to extract a set of complete
+#' dated trees, for example to iterate an analysis across a cloud of trees, or to use an
+#' older version of the tree than the current one packed in the data object, this function
+#' can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
+#' available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
+#' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
+#' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
+#' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '1.2','1.3','1.4','1.5', and can be passed as
-#' a character string or as numeric.
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
+#' passed as a character string or as numeric.
 #' @param count Work in progress, can only sample 100 for now. Eventually: The desired number of sampled trees.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
