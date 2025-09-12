@@ -1,13 +1,14 @@
-#' Pull down full AvesData repository to a working directory
+#' Download the AvesData full repository
+#' @description Pull down full AvesData repository to a working directory
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
-#' @param overwrite Default to `FALSE`. Will not redownload the data by default if path exists, unless overwrite=TRUE
-#' @return No return value, called to download the Aves Data repository.
+#' @param overwrite Default to `FALSE`. If path exists, will not re-download the data unless overwrite=`TRUE`.
+#' @return No return value. This function is used to download the Aves Data repository.
 #' @details Will download full data repo from https://github.com/McTavishLab/AvesData. 
-#' This data is required to use "sampleTrees()" to sample from the distribution of dated trees,
+#' This data is required to use [sampleTrees()] to sample from the distribution of dated trees,
 #' or to access earlier versions of the complete tree. 
-#' This function will download the data and set an environmental variable AVESDATA_PATH to the location of the data download.
-#' When AVESDATA_PATH is set, the data_path in any clootl functions with a 'data_path' argument will default to this value.
-#' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
+#' This function will download the data and set an environmental variable `AVESDATA_PATH` to the location of the data download.
+#' When `AVESDATA_PATH` is set, the data_path in any clootl functions with a `data_path` argument will default to this value.
+#' To manually set `AVESDATA_PATH` to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @export
 get_avesdata_repo <- function(path,
                               overwrite=FALSE){
@@ -39,13 +40,15 @@ get_avesdata_repo <- function(path,
 }
 
 
-#' Set path to Aves Data folder already somewhere on your computer
-#' Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+#' 
+#' Set path to Aves Data folder
+#' @description Set path to Aves Data folder already somewhere on your computer
 #' @param path A character vector with the path to the Aves Data folder.
 #' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @return No return value, called to set the path to the Aves Data folder.
-#' @details  Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
-#' When AVESDATA_PATH is set, the data_path in any clootl functions with a 'data_path' argument will default to this value.
+#' @details  Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+#' Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+#' When `AVESDATA_PATH` is set, the data_path in any clootl functions with a `data_path` argument will default to this value.
 #' @export
 #' @examples
 #' \dontrun{
