@@ -2,6 +2,12 @@
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
 #' @param overwrite Default to `FALSE`. Will not redownload the data by default if path exists, unless overwrite=TRUE
 #' @return No return value, called to download the Aves Data repository.
+#' @details Will download full data repo from https://github.com/McTavishLab/AvesData. 
+#' This data is required to use "sampleTrees()" to sample from the distribution of dated trees,
+#' or to access earlier versions of the complete tree. 
+#' This function will download the data and set an environmental variable AVESDATA_PATH to the location of the data download.
+#' When AVESDATA_PATH is set, the data_path in any clootl functions with a 'data_path' argument will default to this value.
+#' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @export
 get_avesdata_repo <- function(path,
                               overwrite=FALSE){
@@ -38,6 +44,8 @@ get_avesdata_repo <- function(path,
 #' @param path A character vector with the path to the Aves Data folder.
 #' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @return No return value, called to set the path to the Aves Data folder.
+#' @details  Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+#' When AVESDATA_PATH is set, the data_path in any clootl functions with a 'data_path' argument will default to this value.
 #' @export
 #' @examples
 #' \dontrun{
