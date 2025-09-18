@@ -17,11 +17,12 @@ utils::globalVariables(c("clootl_data"))
 #' When AVESDATA_PATH is set, the data_path argument will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo 
 #' use [set_avesdata_repo_path()]
-#' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
-#' passed as a character string or as numeric.
+#' @param version The version of the tree used in extract tree. Default to the most recent
+#' version of the tree. and can be passed as a character string or as numeric. If an alternate 
+#' version was used to create the tree this function may fail or give incomplete or incorrect 
+#' citation information.
 #'
-#' @details No longer requires an internet connection. The function will determine
+#' @details The function will determine
 #' what proportion of nodes in your phylogeny are supported by each study that goes into
 #' creating the final clootl tree. We use 'supported by' in the sense described in
 #' Redelings and Holder, PeerJ (2017) https://peerj.com/articles/3058/, and as shown in the
