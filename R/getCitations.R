@@ -1,34 +1,34 @@
 utils::globalVariables(c("clootl_data"))
 
 
-#' Get the DOIs and quantify the contribution of published studies
+#' Identify contributing studies
 #'
-#' Standing on the shoulders of giants
+#' Quantify the contribution of studies informing an extracted tree,
+#' and obtain DOI and citation information for those studies.
 #'
 #' @param tree A phylogeny obtained from extractTree (see details).
-#' @param data_path Default to `FALSE`, it will look for a path containing the bird tree.
-#' If the tree has not been downloaded yet using [get_avesdata_repo()], it will load the 
-#' default tree using [utils::data()] and `version` and `taxonomy_year` will be ignored??
-#' If the tree has been downloaded using [get_avesdata_repo()], it will read the tree file 
-#' corresponding to the `version` and `taxonomy_year` provided and load it as a `phylo` object.
+#' @param data_path Default to FALSE. If a summary, dated tree is desired, this is sufficient
+#' and does not need to be modified. However, if a user wishes to extract a set of complete
+#' dated trees, for example to iterate an analysis across a cloud of trees, or to use an
+#' older version of the tree than the current one packed in the data object, this function
+#' can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
+#' available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
+#' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
+#' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
+#' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @param version The desired version of the tree. Default to the most recent
 #' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
 #' passed as a character string or as numeric.
 #'
-#' @details Importantly: an internet connection is required for this function to work, as it
-#' relies on Open Tree of Life APIs. The function will determine what proportion of nodes in
-#' your phylogeny (possibly
+#' @details No longer requires an internet connection. The function will determine
+#' what proportion of nodes in your phylogeny (possibly
 #' but not necessarily pruned to a set of study taxa) are supported by each study that goes into
-#' creating the final clootl tree. In any resulting publication, you should always cite the
-#' clootl tree, and
-#' you should also "always" cite all the trees/DOIs that contributed to your phylogeny. That
+#' creating the final clootl tree. In any resulting publication, please cite both the
+#' clootl tree (McTavish et al. 2025), and "all" the trees/DOIs that contributed to your phylogeny. That
 #' said, we are well aware of citation and word count limits that plague modern publishing,
 #' and for this reason we quantify the contribution of each study; depending on your phylogeny,
-#' it is very possible that one or two studies contributed the majority of information. Currently,
-#' this function assumes your output tree matches the taxonomy of the corresponding tree on the
-#' OpenTree server. Since the function is actually using the named internal nodes for the API
-#' query, and these should not be lost between tree versions and taxonomies, this should not
-#' matter, but this has not yet been tested.
+#' it is very possible that one or two studies contributed the majority of information. This function
+#' is theoretically agnostic to taxonomy version.
 #'
 #' @return A dataframe of the percent of internal nodes supported by a given study, as well
 #' as the DOI of that study. The proportion of taxa in the tree supported by taxonomic
@@ -58,13 +58,11 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your tree
 #' prunedTree <- extractTree(species=spp, label_type="scientific",
-#'    taxonomy_year=2021, version="1.4")
+#'    taxonomy_year=2021, version="1.5")
 #'
 #' #get your citation DF
 #'  yourCitations <- getCitations(tree=prunedTree)}
-getCitations <- function(tree, version="1.4", data_path=FALSE) {
-  # Data source can either be "internal" - packaged with the library
-  # OR a path to a clone of the Aves Data repo https://github.com/McTavishLab/AvesData
+getCitations <- function(tree, version="1.5", data_path=FALSE) {##ToDO not hardcode?
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs
   nodesToQuery <- tree$node.label
@@ -75,7 +73,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
     data_path = Sys.getenv('AVESDATA_PATH')
   }
 
-  if (!file.exists(data_path) & version != "1.4"){
+  if (!file.exists(data_path) & version != "1.5"){##ToDO not hardcode?
     stop("GetCitations for anything other than the current tree requires an Aves Data download.
       Currently get citations needs you to run get_avesdata_repo() first
       or provide a path to the data repo using data_path=")
@@ -87,7 +85,7 @@ getCitations <- function(tree, version="1.4", data_path=FALSE) {
 
   if (data_path == ""){
     utils::data("clootl_data")
-    all_nodes <- clootl_data$trees$`Aves_1.4`$annotations ##ToDO not hardcode?
+    all_nodes <- clootl_data$trees$`Aves_1.5`$annotations ##ToDO not hardcode?
   } else{
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
       if (!file.exists(filename)){

@@ -2,8 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{set_avesdata_repo_path}
 \alias{set_avesdata_repo_path}
-\title{Set path to Aves Data folder already somewhere on your computer
-Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r}
+\title{Set path to Aves Data folder}
 \usage{
 set_avesdata_repo_path(path, overwrite = FALSE)
 }
@@ -17,7 +16,11 @@ No return value, called to set the path to the Aves Data folder.
 }
 \description{
 Set path to Aves Data folder already somewhere on your computer
+}
+\details{
 Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+When \code{AVESDATA_PATH} is set, the data_path in any clootl functions with a \code{data_path} argument will default to this value.
 }
 \examples{
 \dontrun{

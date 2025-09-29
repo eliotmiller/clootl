@@ -1,7 +1,14 @@
-#' Pull down full AvesData repository to a working directory
+#' Download the AvesData full repository
+#' @description Pull down full AvesData repository to a working directory
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
-#' @param overwrite Default to `FALSE`. Will not redownload the data by default if path exists, unless overwrite=TRUE
-#' @return No return value, called to download the Aves Data repository.
+#' @param overwrite Default to `FALSE`. If path exists, will not re-download the data unless overwrite=`TRUE`.
+#' @return No return value. This function is used to download the Aves Data repository.
+#' @details Will download full data repo from https://github.com/McTavishLab/AvesData. 
+#' This data is required to use [sampleTrees()] to sample from the distribution of dated trees,
+#' or to access earlier versions of the complete tree. 
+#' This function will download the data and set an environmental variable `AVESDATA_PATH` to the location of the data download.
+#' When `AVESDATA_PATH` is set, the data_path in any clootl functions with a `data_path` argument will default to this value.
+#' To manually set `AVESDATA_PATH` to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @export
 get_avesdata_repo <- function(path,
                               overwrite=FALSE){
@@ -33,11 +40,15 @@ get_avesdata_repo <- function(path,
 }
 
 
-#' Set path to Aves Data folder already somewhere on your computer
-#' Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+#' 
+#' Set path to Aves Data folder
+#' @description Set path to Aves Data folder already somewhere on your computer
 #' @param path A character vector with the path to the Aves Data folder.
 #' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @return No return value, called to set the path to the Aves Data folder.
+#' @details  Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
+#' Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+#' When `AVESDATA_PATH` is set, the data_path in any clootl functions with a `data_path` argument will default to this value.
 #' @export
 #' @examples
 #' \dontrun{
@@ -88,44 +99,3 @@ renv_file_path <- function() {
 }
 
 
-
-
-###########
-# Internal function, used in initialProcessing() function
-# developed in package PDcalc, not on CRAN atm, https://rdrr.io/github/davidnipperess/PDcalc/
-bifurcatr <- function(phy, runs = 1)
-{
-  trees <- vector("list", length = runs)
-  for (i in 1:runs) {
-    tree <- phy
-    resolves <- Ntip(tree) - Nnode(tree) - 1
-    for (j in 1:resolves) {
-      descendent_counts <- rle(sort(tree$edge[, 1]))
-      polytomies <- descendent_counts$values[which(descendent_counts$lengths >
-                                                     2)]
-      if (length(polytomies) > 1)
-        target_polytomy <- sample(polytomies, size = 1)
-      else target_polytomy <- polytomies
-      polytomy_edges <- which(tree$edge[, 1] == target_polytomy)
-      target_edges <- sample(polytomy_edges, size = 2)
-      new_node <- max(tree$edge) + 1
-      tree$edge[target_edges, 1] <- new_node
-      new_edge <- c(target_polytomy, new_node)
-      tree$edge <- rbind(tree$edge, new_edge)
-      new_length <- stats::runif(n = 1, min = 0, max = min(tree$edge.length[target_edges]))
-      tree$edge.length <- c(tree$edge.length, new_length)
-      tree$edge.length[target_edges] <- tree$edge.length[target_edges] -
-        new_length
-      tree$Nnode <- tree$Nnode + 1
-    }
-    trees[[i]] <- tree
-  }
-  if (runs == 1) {
-    trees <- trees[[1]]
-    class(trees) <- "phylo"
-  }
-  else {
-    class(trees) <- "multiPhylo"
-  }
-  return(trees)
-}

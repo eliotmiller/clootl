@@ -8,14 +8,18 @@ taxonomyGet(taxonomy_year, data_path = FALSE)
 }
 \arguments{
 \item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Current options
-include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
-aside from these years will result in an error. Default is set 2023.}
+are 2021-2024. Both numeric and character inputs are acceptable here. Any value
+aside from these years will result in an error. Default is most recent year.}
 
-\item{data_path}{Default to \code{FALSE}, it will look for a path containing the bird taxonomy.
-If the taxonomy has not been downloaded yet using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will load the
-default taxonomy using \code{\link[utils:data]{utils::data()}} as long as \code{taxonomy_year} as empty or matches the default version.
-If the taxonomy has been downloaded using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}, it will read the taxonomy
-file corresponding to the year given in \code{taxonomy_year} and load it as a \verb{data frame} object.}
+\item{data_path}{Default to FALSE. If a summary, dated tree is desired, this is sufficient
+and does not need to be modified. However, if a user wishes to extract a set of complete
+dated trees, for example to iterate an analysis across a cloud of trees, or to use an
+older version of the tree than the current one packed in the data object, this function
+can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
+available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
+Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}. This approach will download the data and
+set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
+To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
 }
 \value{
 A \code{data.frame} with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.

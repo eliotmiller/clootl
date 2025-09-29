@@ -10,7 +10,7 @@ setwd("~/pj_clootl/lunasare/clootl")
 setwd("~/pj_clootl/demo")
 
 
-##You should be able to get default trees (currently v 1.4) without downloading the data. 
+##You should be able to get default trees (currently v 1.5) without downloading the data. 
 ex1 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
@@ -40,9 +40,10 @@ getCitations(ex3)
 
 
 ## IF you have downloaded the Aves Data Repo to your computer,
-## you can pass in the path to get other tree versions e.g.
+## you can pass in the path to get older tree versions e.g.
 ex3 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
                                version=1.2,
+                               taxonomy_year=2023,
                                data_path="~/projects/otapi/AvesData")
 
 
