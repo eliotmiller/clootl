@@ -1,3 +1,6 @@
+# clootl v0.1.5
+- Updates data to version 1.5, containing 2024 taxonomy and tree version 1.5
+
 # clootl v0.1.1
 - Initial CRAN submission.
 - Default Tree and Taxonomy data is available as an R data object named `clootl_data`
