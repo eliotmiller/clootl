@@ -50,11 +50,11 @@ ex_1_2 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Seto
                                data_path="~/projects/otapi/AvesData")
 ```
 
-Alternately, you can automatically download all the data from the
-AvesData github repo. It will be unpacked as folder in whatever
+Alternatively, you can automatically download all the data from the
+AvesData github repo. It will be unpacked as a folder in whatever
 directory you pass in. This example creates a folder in your current
 working directory with the data named “AvesData-main”. It will also save
-the location to your R environment file, so that clootl automatically
+the location to your R environment file, so that `clootl` automatically
 knows where to look for the data.
 
 ``` r
