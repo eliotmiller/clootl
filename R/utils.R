@@ -17,11 +17,11 @@ get_avesdata_repo <- function(path,
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to overwite existing path."))
   }
-  message("Downloading AvesData repo from github. This may take a minute or two.")
+  message("Downloading AvesData repo from github. This may take several minutes depending on your connection.")
   url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip"
   old <- options() # save current options
   on.exit(options(old)) #Revert to original options on exit
-  options(timeout=444) # This file is big and can take a little while to download
+  options(timeout=720) # This file is big and can take a little while to download
   if (!file.exists(path)){
       stop("Directory to save AvesData not found:", path)
     }
