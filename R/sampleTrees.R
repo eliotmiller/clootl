@@ -136,7 +136,12 @@ sampleTrees <- function(species="all_species",
                                as.character(taxonomy_year),
                                "/dated_rand_sample_clements.tre",
                                sep='')
+    if (!file.exists(sample_tree_filename)){
+      stop("Tree set file:", sample_tree_filename,
+        " is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")
+    } else {
     fullTreeSet <- read.tree(sample_tree_filename,skip=1)
+  }
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- dropTipMultiPhylo(fullTreeSet, setdiff(fullTreeSet[[1]]$tip.label, species))
   pruned
