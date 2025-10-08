@@ -251,7 +251,12 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
                              as.character(taxonomy_year),
                              "/summary_dated_clements.nex",
                              sep='')
+    if (!file.exists(tree_filename)){
+      stop("Tree :", tree_filename,
+        "is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")
+    } else {
     fullTree <- read.nexus(tree_filename)
+  }
           }
   }
   return(fullTree)

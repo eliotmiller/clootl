@@ -9,39 +9,47 @@ getCitations(tree, version = "1.5", data_path = FALSE)
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
 
-\item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
-passed as a character string or as numeric.}
+\item{version}{The version of the tree used in extract tree. Default to the most recent
+version of the tree. and can be passed as a character string or as numeric. If an alternate
+version was used to create the tree this function may fail or give incomplete or incorrect
+citation information.}
 
-\item{data_path}{Default to FALSE. If a summary, dated tree is desired, this is sufficient
-and does not need to be modified. However, if a user wishes to extract a set of complete
-dated trees, for example to iterate an analysis across a cloud of trees, or to use an
-older version of the tree than the current one packed in the data object, this function
-can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
-available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
-Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}. This approach will download the data and
-set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
-To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
+\item{data_path}{Default to FALSE. If you are gathering citations for an
+older version of the tree than the current one packed in the data object, you will have
+already downloaded the data repo in order to generate that tree.
+The data is available at https://github.com/McTavishLab/AvesData.
+If you have manually downloaded the repo, use data_path= the path to the download location.
+Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}.
+This approach will download the data and set an environmental variable AVESDATA_PATH.
+When AVESDATA_PATH is set, the data_path argument will default to this value.
+To manually set AVESDATA_PATH to the location of your downloaded AvesData repo
+use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
 }
 \value{
 A dataframe of the percent of internal nodes supported by a given study, as well
 as the DOI of that study. The proportion of taxa in the tree supported by taxonomic
-addition only is included in the dataframe.
+addition only is also included in the dataframe.
 }
 \description{
 Quantify the contribution of studies informing an extracted tree,
 and obtain DOI and citation information for those studies.
 }
 \details{
-No longer requires an internet connection. The function will determine
-what proportion of nodes in your phylogeny (possibly
-but not necessarily pruned to a set of study taxa) are supported by each study that goes into
-creating the final clootl tree. In any resulting publication, please cite both the
-clootl tree (McTavish et al. 2025), and "all" the trees/DOIs that contributed to your phylogeny. That
-said, we are well aware of citation and word count limits that plague modern publishing,
-and for this reason we quantify the contribution of each study; depending on your phylogeny,
-it is very possible that one or two studies contributed the majority of information. This function
-is theoretically agnostic to taxonomy version.
+The function will determine
+what proportion of nodes in your phylogeny are supported by each study that goes into
+creating the final clootl tree. We use 'supported by' in the sense described in
+Redelings and Holder, PeerJ (2017) https://peerj.com/articles/3058/, and as shown in the
+tree.opentreeoflife.org tree viewer. We normalize these values to
+a percentage of internal nodes in the target tree supported by each study.
+In any resulting publication, please cite both the
+synthetic tree (McTavish et al. 2025), clootl (Miller et al. 2025) and
+"all" the trees/DOIs that contributed to
+your phylogeny. That said, we are well aware of citation and word count
+limits that plague modern publishing, and for this reason we quantify the
+contribution of each study; depending on your phylogeny,
+it is very possible that one or two studies contributed the majority of information.
+This function relies on the phylogenetic synthesis information directly,
+and is agnostic to taxonomy version.
 }
 \examples{
 \donttest{#pull the taxonomy file out

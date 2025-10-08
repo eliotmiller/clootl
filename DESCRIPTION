@@ -12,7 +12,6 @@ Depends:
     R (>= 4.3.0),
     ape
 Imports:
-    stats,
     dplyr,
     RCurl,
     jsonlite
