@@ -15,7 +15,8 @@ test_that(desc = "sci name tree extract", code = {
 
     sci_name_tree14_2021 <- extractTree(species=sci_name_spp, taxonomy_year=2021)
     sci_name_tree14_2022 <- extractTree(species=sci_name_spp, taxonomy_year=2022)
-    sci_name_tree14_2023 <- extractTree(species=sci_name_spp, version=1.4, taxonomy_year=2023)
+    #sci_name_tree13_2023 <- extractTree(species=sci_name_spp, version=1.4, taxonomy_year=2023)
+    sci_name_tree15_2023 <- extractTree(species=sci_name_spp, version=1.5, taxonomy_year=2023)
 
         # expect_identical(sci_name_tree, sci_name_tree14_2023)
         expect_equal( length(sci_name_tree14_2021), 6 )
