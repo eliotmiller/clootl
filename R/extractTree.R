@@ -24,7 +24,7 @@ utils::globalVariables(c("clootl_data"))
 #' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
+#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
 #' passed as a character string or as numeric.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
@@ -56,7 +56,7 @@ utils::globalVariables(c("clootl_data"))
 #'                              "Sitta canadensis"),
 #'    label_type="scientific",
 #'    taxonomy_year="2021",
-#'    version="1.4")
+#'    version="1.5")
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
@@ -226,7 +226,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
 #' Not exported. Internal use only.
 #'
 #' @keywords internal
-#' 
+#'
 treeGet <- function(version, taxonomy_year, data_path=FALSE){
   #pull the tree file in the right version and taxonomy
   if (data_path==FALSE){

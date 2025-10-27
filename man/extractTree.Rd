@@ -68,7 +68,7 @@ ex2 <- extractTree(species=c("Turdus migratorius",
                              "Sitta canadensis"),
    label_type="scientific",
    taxonomy_year="2021",
-   version="1.4")
+   version="1.5")
 
 }
 \author{
