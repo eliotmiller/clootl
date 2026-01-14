@@ -1,24 +1,28 @@
 Package: clootl
-Title: A Complete and Dynamic Bird Tree of life
-Version: 0.1.0
+Title: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny
+Version: 0.1.2
 Authors@R: c(
-  person("Eliot", "Miller", role=c("aut")),
+  person("Eliot", "Miller", role=c("aut", "cre"), email = "clootlmaintainers@gmail.com"),
   person("Emily Jane", "McTavish", role=c("aut")),
-  person("Luna L.", "Sanchez Reyes", role=c("ctb", "cre","aut"), email = "sanchez.reyes.luna@gmail.com"))
-Maintainer: Eliot Miller <eliot.isaac@gmail.com>
+  person("Luna L.", "Sanchez Reyes", role=c("ctb", "aut")))
+Maintainer: Eliot Miller <clootlmaintainers@gmail.com>
 URL: https://github.com/eliotmiller/clootl
+BugReports: https://github.com/eliotmiller/clootl/issues
 Depends:
     R (>= 4.3.0),
     ape
 Imports:
-    stats,
     dplyr,
     RCurl,
     jsonlite
 LazyData: true
 LazyDataCompression: xz
-Description: Extracts the Cornell Lab of Ornithology Open Tree of Life in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree.
+Description: Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree. Tree generated as described in McTavish et al. (2024) <doi:10.1101/2024.05.20.595017>.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
+Suggests: 
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

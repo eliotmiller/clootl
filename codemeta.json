@@ -1,0 +1,239 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "clootl",
+  "description": "Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree. Tree generated as described in McTavish et al. (2024) <doi:https://doi.org/10.1101/2024.05.20.595017>.",
+  "name": "clootl: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
+  "codeRepository": "https://github.com/eliotmiller/clootl",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.1.1",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Eliot",
+      "familyName": "Miller",
+      "email": "clootlmaintainers@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Emily Jane",
+      "familyName": "McTavish"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Luna L.",
+      "familyName": "Sanchez Reyes"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Luna L.",
+      "familyName": "Sanchez Reyes"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Eliot",
+      "familyName": "Miller",
+      "email": "clootlmaintainers@gmail.com"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 4.3.0"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "ape",
+      "name": "ape",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ape"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "RCurl",
+      "name": "RCurl",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=RCurl"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "jsonlite",
+      "name": "jsonlite",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=jsonlite"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "1426.519KB",
+  "citation": [
+    {
+      "@type": "CreativeWork",
+      "datePublished": "2025",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Eliot",
+          "familyName": "Miller",
+          "email": "eliot.isaac@gmail.com"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Emily Jane",
+          "familyName": "McTavish"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Luna L.",
+          "familyName": "Sanchez-Reyes"
+        }
+      ],
+      "name": "clootl: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
+      "url": "https://github.com/eliotmiller/clootl"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2025",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Emily Jane",
+          "familyName": "McTavish"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Jeff A.",
+          "familyName": "Gerbracht"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Mark T.",
+          "familyName": "Holder"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Marshall J.",
+          "familyName": "Iliff"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Denis",
+          "familyName": "Lepage"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Pam",
+          "familyName": "Rasmussen"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Benjamin",
+          "familyName": "Redelings"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Luna L.",
+          "familyName": "Sanchez-Reyes"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Eliot T.",
+          "familyName": "Miller"
+        }
+      ],
+      "name": "A complete and dynamic tree of birds",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2025",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "Proceedings of the National Academy of Sciences"
+        }
+      }
+    }
+  ],
+  "releaseNotes": "https://github.com/eliotmiller/clootl/blob/master/NEWS.md",
+  "readme": "https://github.com/eliotmiller/clootl/blob/master/README.md"
+}

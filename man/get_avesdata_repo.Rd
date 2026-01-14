@@ -2,18 +2,26 @@
 % Please edit documentation in R/utils.R
 \name{get_avesdata_repo}
 \alias{get_avesdata_repo}
-\title{Pull down full AvesData repository to a working directory}
+\title{Download the AvesData full repository}
 \usage{
-get_avesdata_repo(
-  url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip",
-  refresh = FALSE
-)
+get_avesdata_repo(path, overwrite = FALSE)
 }
 \arguments{
-\item{url}{Web address of the Aves Data repository at https://github.com/McTavishLab/AvesData/}
+\item{path}{Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."}
 
-\item{refresh}{Default to \code{FALSE}. Will not redownload the data by default if path exists, unless refresh=TRUE}
+\item{overwrite}{Default to \code{FALSE}. If path exists, will not re-download the data unless overwrite=\code{TRUE}.}
+}
+\value{
+No return value. This function is used to download the Aves Data repository.
 }
 \description{
 Pull down full AvesData repository to a working directory
+}
+\details{
+Will download full data repo from https://github.com/McTavishLab/AvesData.
+This data is required to use \code{\link[=sampleTrees]{sampleTrees()}} to sample from the distribution of dated trees,
+or to access earlier versions of the complete tree.
+This function will download the data and set an environmental variable \code{AVESDATA_PATH} to the location of the data download.
+When \code{AVESDATA_PATH} is set, the data_path in any clootl functions with a \code{data_path} argument will default to this value.
+To manually set \code{AVESDATA_PATH} to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}
 }

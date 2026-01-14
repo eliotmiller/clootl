@@ -1,15 +1,12 @@
 if (is.null(meta[["Date/Publication"]])) {
     meta["Date/Publication"] <- as.character(Sys.time())
 }
-bibentry("Manual",
-         other = unlist(utils::citation(auto = meta), recursive = FALSE))
-
 bibentry("Misc",
-         title        = "Clootl: R package for exploring the bird tree of life",
+         title        = "clootl: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
          author       = c(person("Eliot", "Miller",
                                  email = "eliot.isaac@gmail.com"),
-                          person("Luna", "Sanchez-Reyes"),
-                          person("Emily Jane", "McTavish")),
+                          person("Emily Jane", "McTavish"),
+                          person("Luna L.", "Sanchez-Reyes")),
          year         = "2025",
          publisher    = "GitHub",
          url = "https://github.com/eliotmiller/clootl")
@@ -28,4 +25,3 @@ bibentry("Article",
                          person("Eliot T.", "Miller")),
          journal     = "Proceedings of the National Academy of Sciences",
          year        = "2025")
-

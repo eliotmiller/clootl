@@ -1,21 +1,80 @@
 #' A complex data store used in the package.
 #'
-#' Taxonomy files and phylogenies.
-#'
-#' @format List of csv files and Newick and Nexus phylogenies
+#' @description A dataset containing taxonomy files, summary phylogenies, constituent study
+#' information, and other data needed for the package to function properly.
+#' @format List of csv files, phylogenies, and other data components.
 #' @source \url{https://github.com/eliotmiller/clootl}
 #' @details
+#' The data object, \code{clootl_data}, stores the most up-to-date stable version of the
+#' tree mapped to each of the different taxonomy years, the annotations of how each
+#' study contributed to the tree, the citation information for each study that
+#' contributed to the tree, the taxonomy crosswalks for different years, and
+#' some other variables.
+#'
+#' The structure of the data store (a list) is as follows:
+#'
+#' \describe{
+#'   \item{\code{clootl_data$taxonomy.files}}{
+#'     A list of data frames. Each element corresponds to a taxonomy year:
+#'     \itemize{
+#'       \item \code{Year2024}
+#'       \item \code{Year2023}
+#'       \item \code{Year2022}
+#'       \item \code{Year2021}
+#'     }
+#'     These originate as CSV files linking the Clements taxonomy
+#'     for each of these years to OTT ids, Avibase ids, and other bird taxonomies
+#'     (see README of \url{https://github.com/McTavishLab/AvesData}).
+#'   }
+#'
+#'   \item{\code{clootl_data$trees}}{
+#'     \describe{
+#'       \item{\code{summary.trees}}{
+#'         Phylo objects of complete dated trees mapped to the Clements taxonomy year:
+#'         \itemize{
+#'           \item \code{year2024}
+#'           \item \code{year2023}
+#'           \item \code{year2022}
+#'           \item \code{year2021}
+#'         }
+#'         These are generated from \code{summary_dated_clements.nex}
+#'         (see \url{https://github.com/McTavishLab/AvesData} README).
+#'       }
+#'       \item{\code{annotations}}{
+#'         Complete annotations of the OpenTree synthetic tree for this version,
+#'         used to determine appropriate subtree citations.
+#'       }
+#'     }
+#'   }
+#'
+#'   \item{\code{clootl_data$study_info}}{
+#'     A mapping of OpenTree study ids to full citations. Used with annotations to
+#'     generate appropriate citations for trees and subtrees.
+#'   }
+#'
+#'   \item{\code{clootl_data$versions}}{
+#'     A character vector of all possible tree versions. To access older versions,
+#'     download the data repository using \code{get_avesdata_repo()}.
+#'   }
+#'
+#'   \item{\code{clootl_data$tax_years}}{
+#'     A character vector of all available taxonomies. The current tree version is
+#'     mapped to each of these taxonomies, along with crosswalks linking the Clements
+#'     taxonomy for each year to other identifiers.
+#'   }
+#' }
+#'
+#' This data object is generated using the following code:
+#'
+#' \preformatted{
 #' clootl_data = list()
+#'
+#' clootl_data$versions <- c("1.2","1.3","1.4","1.5")
 #'
 #' fullTree2021 <- treeGet("1.5","2021", data_path="~/projects/otapi/AvesData")
 #' fullTree2022 <- treeGet("1.5","2022", data_path="~/projects/otapi/AvesData")
 #' fullTree2023 <- treeGet("1.5","2023", data_path="~/projects/otapi/AvesData")
 #' fullTree2024 <- treeGet("1.5","2024", data_path="~/projects/otapi/AvesData")
-
-#' clootl_data$trees$`Aves_1.5`$summary.trees$year2021 <- fullTree2021
-#' clootl_data$trees$`Aves_1.5`$summary.trees$year2022 <- fullTree2022
-#' clootl_data$trees$`Aves_1.5`$summary.trees$year2023 <- fullTree2023
-#' clootl_data$trees$`Aves_1.5`$summary.trees$year2024 <- fullTree2024
 #'
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
@@ -27,10 +86,18 @@
 #' clootl_data$taxonomy.files$Year2023 <- tax2023
 #' clootl_data$taxonomy.files$Year2024 <- tax2024
 #'
+#' clootl_data$tax_years <- c("2021","2022","2023","2024")
+#'
 #' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.5/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
+#' clootl_data$trees$Aves_1.5$annotations <- all_nodes
 #'
-#' clootl_data$trees$`Aves_1.5`$annotations <- all_nodes
-#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda")
+#' studies <- c()
+#' for (inputs in all_nodes$source_id_map) studies <- c(studies, inputs$study_id)
+#' studies <- unique(studies)
+#' study_info <- clootl:::api_studies_lookup(studies)
 #'
+#' clootl_data$study_info <- study_info
+#' save(clootl_data, file="~/projects/otapi/clootl/data/clootl_data.rda", compress="xz")
+#' }
 "clootl_data"
