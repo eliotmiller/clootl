@@ -80,7 +80,7 @@ extractTree <- function(species="all_species",
   }
 
 
-  if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.5')){
+  if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.6')){
       stop("Only tree version 1.6 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
@@ -88,8 +88,18 @@ extractTree <- function(species="all_species",
     }
 
 
-  tax <- taxonomyGet(taxonomy_year, data_path)
-  fullTree <- treeGet(version, taxonomy_year, data_path)
+  
+  if((version=='1.6') & (taxonomy_year==2025)){
+    utils::data("clootl_data")
+    taxonomyYear <- paste("year", taxonomy_year, sep="")
+    tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
+    version <- paste("Aves_", version, sep="")
+    fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
+  }
+  else{
+      tax <- taxonomyGet(taxonomy_year, data_path)
+      fullTree <- treeGet(version, taxonomy_year, data_path)
+  }
 
   species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
@@ -193,7 +203,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
   if (data_path == ""){
    ##We should be in here if we DIDN'T download the data
       utils::data("clootl_data")
-      taxonomyYear <- paste("Year", taxonomy_year, sep="")
+      taxonomyYear <- paste("year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
   } else {
        ## We will be in here if we have run get_avesdata_repo and downloaded the data

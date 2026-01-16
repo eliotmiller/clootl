@@ -33,7 +33,7 @@
 #'       \item{\code{summary.trees}}{
 #'         Phylo objects of complete dated trees mapped to the Clements taxonomy year:
 #'         \itemize{
-#'           \item \code{year2025}
+#'           \item \code{Year2025}
 #'         }
 #'         These are generated from \code{summary_dated_clements.nex}
 #'         (see \url{https://github.com/McTavishLab/AvesData} README).
@@ -78,17 +78,17 @@
 #' tax2024 <- taxonomyGet(2024, data_path="~/projects/otapi/AvesData")
 #' tax2025 <- taxonomyGet(2025, data_path="~/projects/otapi/AvesData")
 #'
-#' clootl_data$taxonomy.files$Year2021 <- tax2021
-#' clootl_data$taxonomy.files$Year2022 <- tax2022
-#' clootl_data$taxonomy.files$Year2023 <- tax2023
-#' clootl_data$taxonomy.files$Year2024 <- tax2024
-#' clootl_data$taxonomy.files$Year2025 <- tax2025
+#' clootl_data$taxonomy.files$year2021 <- tax2021
+#' clootl_data$taxonomy.files$year2022 <- tax2022
+#' clootl_data$taxonomy.files$year2023 <- tax2023
+#' clootl_data$taxonomy.files$year2024 <- tax2024
+#' clootl_data$taxonomy.files$year2025 <- tax2025
 #'
 #' clootl_data$tax_years <- c("2021","2022","2023","2024", "2025")
 #'
 #' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.6/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
-#' clootl_data$trees$Aves_1.5$annotations <- all_nodes
+#' clootl_data$trees$Aves_1.6$annotations <- all_nodes
 #'
 #' studies <- c()
 #' for (inputs in all_nodes$source_id_map) studies <- c(studies, inputs$study_id)
