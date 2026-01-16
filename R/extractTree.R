@@ -211,6 +211,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
        if (!file.exists(data_path)){
           stop("AvesData folder not found at: ", data_path)
         }
+      message("Using data download for taxonomy in")
       taxonomy_filename <- paste(data_path,
                              '/Taxonomy_versions/Clements',
                              as.character(taxonomy_year),
@@ -218,6 +219,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
                              as.character(taxonomy_year),
                              ".csv",
                              sep='')
+      message(taxonomy_filename)
         if (!file.exists(taxonomy_filename)){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
@@ -261,6 +263,8 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
                              as.character(taxonomy_year),
                              "/summary_dated_clements.nex",
                              sep='')
+          message("Using data download for tree in")
+          message(tree_filename)
     if (!file.exists(tree_filename)){
       stop("Tree :", tree_filename,
         "is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")

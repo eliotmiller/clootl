@@ -70,32 +70,34 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your citation DF
 #'  yourCitations <- getCitations(tree=prunedTree)}
-getCitations <- function(tree, version="1.5", data_path=FALSE) {##ToDO not hardcode?
+getCitations <- function(tree, version=1.6, data_path=FALSE) {##ToDO not hardcode?
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs
   nodesToQuery <- tree$node.label
   taxonomyNodes <- sum(nodesToQuery == "NA")
   nodesToQuery <- nodesToQuery[nodesToQuery != "NA"]
 
-  if (data_path==FALSE){
-    data_path = Sys.getenv('AVESDATA_PATH')
-  }
-
-  if (!file.exists(data_path) & version != "1.5"){##ToDO not hardcode?
-    stop("GetCitations for anything other than the current tree requires an Aves Data download.
-      Currently get citations needs you to run get_avesdata_repo() first
-      or provide a path to the data repo using data_path=")
-    }
-
   if (!is.element(version, clootl_data$versions)){
     stop("version not recognized: ", version)
   }
 
-  if (data_path == ""){
-    utils::data("clootl_data")
-    all_nodes <- clootl_data$trees$`Aves_1.5`$annotations ##ToDO not hardcode?
-  } else{
+  if (data_path==FALSE){
+          data_path = Sys.getenv('AVESDATA_PATH')
+      }
+
+  if (version == 1.6){ ##not hardcode
+      utils::data("clootl_data")
+      all_nodes <- clootl_data$trees$`Aves_1.6`$annotations ##ToDO not hardcode?
+  } 
+  else if (!file.exists(data_path)){##ToDO not hardcode?
+    stop("GetCitations for anything other than the current tree requires an Aves Data download.
+      Currently get citations needs you to run get_avesdata_repo() first
+      or provide a path to the data repo using data_path=")
+    }
+  else{
+      message("Using data download for annotations in")
       filename <- paste(data_path, '/Tree_versions/Aves_', version, '/OpenTreeSynth/annotated_supertree/annotations.json', sep='')
+      message(filename)
       if (!file.exists(filename)){
           stop("annotations file not found at: ", filename)
           }
@@ -110,6 +112,9 @@ getCitations <- function(tree, version="1.5", data_path=FALSE) {##ToDO not hardc
     trees <- c(node_trees, trees)
     node_studies <- (unique(sub("@.*", "", node_trees)))
     studies <-c(node_studies, studies)
+    if (length(studies) <= 1) {
+      stop("Error: no studies found")
+      }
   }
 
   ## So this just lists all the trees, and all the studies...
