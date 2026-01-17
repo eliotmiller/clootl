@@ -112,10 +112,10 @@ getCitations <- function(tree, version=1.6, data_path=FALSE) {##ToDO not hardcod
     trees <- c(node_trees, trees)
     node_studies <- (unique(sub("@.*", "", node_trees)))
     studies <-c(node_studies, studies)
-    if (length(studies) <= 1) {
+  }
+  if (length(studies) <= 1) {
       stop("Error: no studies found")
       }
-  }
 
   ## So this just lists all the trees, and all the studies...
   finalCounts <- as.data.frame(table(studies))
