@@ -1,16 +1,14 @@
 #load clootl
 
 library(devtools)
-install_github("snacktavish/clootl")
 
 
 library(clootl)
 
-setwd("~/pj_clootl/lunasare/clootl")
-setwd("~/pj_clootl/demo")
 
 
-##You should be able to get default trees (currently v 1.5) without downloading the data. 
+
+##You should be able to get default trees without downloading the data. 
 ex1 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",

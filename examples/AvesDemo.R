@@ -29,6 +29,9 @@ row.names(datSubset) <- datSubset$underscores
 
 #grab a pruned tree
 ## We're using an older tree version for the exact match to the taxonomy used for avonet
+#This requires downloading the data repo
+get_avesdata_repo(path=".") 
+
 pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",
                       version=1.5,
