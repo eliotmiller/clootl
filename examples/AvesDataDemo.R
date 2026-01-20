@@ -1,16 +1,14 @@
 #load clootl
 
 library(devtools)
-install_github("snacktavish/clootl")
 
 
 library(clootl)
 
-setwd("~/pj_clootl/lunasare/clootl")
-setwd("~/pj_clootl/demo")
 
 
-##You should be able to get default trees (currently v 1.5) without downloading the data. 
+
+##You should be able to get default trees without downloading the data. 
 ex1 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
@@ -23,20 +21,12 @@ ex2 <- extractTree(species=c("amerob",
                              "gockin"), 
                               label_type="code")
 
-#Defaults to most recent (2023) taxonomy, but 2021, 2022, and 2023 taxonomies are available
-ex3 <- extractTree(species=c("amerob",
-                             "canwar",
-                             "reevir1",
-                             "yerwar",
-                             "gockin"), 
-                   taxonomy_year = 2021,
-                   label_type="code")
-
-
-
 
 ## Pulls the citations
-getCitations(ex3) 
+getCitations(ex2)
+
+
+
 
 
 ## IF you have downloaded the Aves Data Repo to your computer,

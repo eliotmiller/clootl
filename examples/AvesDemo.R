@@ -4,10 +4,6 @@ library(phytools)
 library(phylolm)
 
 
-setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
-
-
-
 
 ourTree <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
                        label_type="code")
@@ -32,8 +28,14 @@ datSubset <- dat[dat$Species2 %in% spp,]
 row.names(datSubset) <- datSubset$underscores
 
 #grab a pruned tree
+## We're using an older tree version for the exact match to the taxonomy used for avonet
+#This requires downloading the data repo
+get_avesdata_repo(path=".") 
+
 pruned <- extractTree(species=datSubset$Species2,
-                      label_type="scientific", taxonomy_year="2021")
+                      label_type="scientific",
+                      version=1.5,
+                      taxonomy_year="2021")
 
 pruned$root.edge <- NULL
 
@@ -51,8 +53,9 @@ contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
 dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
 spp <- sample(dat$Species2, 100)
 subtree <- extractTree(species=spp,
-                      label_type="scientific",
-                      taxonomy_year="2021")
+                       version=1.5,
+                       label_type="scientific",
+                       taxonomy_year="2021")
 
 
 
