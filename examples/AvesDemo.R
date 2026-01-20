@@ -4,10 +4,6 @@ library(phytools)
 library(phylolm)
 
 
-setwd("~/projects/otapi/OpenTreeCLO/clootlDemo")
-
-
-
 
 ourTree <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
                        label_type="code")
