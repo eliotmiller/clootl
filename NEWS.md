@@ -1,3 +1,6 @@
+# clootl v0.1.3
+- Updates data to version 1.6, containing 2025 taxonomy and tree version 1.6
+
 # clootl v0.1.2
 - Updates data to version 1.5, containing 2024 taxonomy and tree version 1.5
 

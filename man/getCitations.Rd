@@ -4,7 +4,7 @@
 \alias{getCitations}
 \title{Identify contributing studies}
 \usage{
-getCitations(tree, version = "1.5", data_path = FALSE)
+getCitations(tree, version = 1.6, data_path = FALSE)
 }
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
