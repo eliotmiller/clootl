@@ -39,7 +39,7 @@ library(clootl)
 
 The most recent version of the tree (currently 1.4) is available with
 the package. If you want other versions, you need to use the GitHub repo
-<https://github.com/McTavishLab/AvesData> If you have already downloaded
+<https://github.com/AvesTree/AvesData> If you have already downloaded
 the Aves Data Repo to your computer, you can pass in the path to that
 directory to get other tree versions The data repo also contains the 100
 tree dated sample sets.

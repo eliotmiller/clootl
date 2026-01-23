@@ -3,7 +3,7 @@
 #' @param path Path to download data zipfile to, and where it will be unpacked.  To download into your working directory, use "."
 #' @param overwrite Default to `FALSE`. If path exists, will not re-download the data unless overwrite=`TRUE`.
 #' @return No return value. This function is used to download the Aves Data repository.
-#' @details Will download full data repo from https://github.com/McTavishLab/AvesData. 
+#' @details Will download full data repo from https://github.com/AvesTree/AvesData. 
 #' This data is required to use [sampleTrees()] to sample from the distribution of dated trees,
 #' or to access earlier versions of the complete tree. 
 #' This function will download the data and set an environmental variable `AVESDATA_PATH` to the location of the data download.
@@ -18,7 +18,7 @@ get_avesdata_repo <- function(path,
                  "use overwrite = TRUE to overwite existing path."))
   }
   message("Downloading AvesData repo from github. This may take several minutes depending on your connection.")
-  url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip"
+  url = "https://github.com/AvesTree/AvesData/archive/refs/heads/main.zip"
   old <- options() # save current options
   on.exit(options(old)) #Revert to original options on exit
   options(timeout=720) # This file is big and can take a little while to download
@@ -47,7 +47,7 @@ get_avesdata_repo <- function(path,
 #' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @return No return value, called to set the path to the Aves Data folder.
 #' @details  Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
-#' Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+#' Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/AvesTree/AvesData.
 #' When `AVESDATA_PATH` is set, the data_path in any clootl functions with a `data_path` argument will default to this value.
 #' @export
 #' @examples

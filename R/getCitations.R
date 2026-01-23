@@ -54,7 +54,7 @@ utils::globalVariables(c("clootl_data"))
 #' @examples
 #'\donttest{#pull the taxonomy file out
 #' data(clootl_data)
-#' tax <- clootl_data$taxonomy.files$Year2021
+#' tax <- clootl_data$taxonomy.files$year2025
 #' ls(tax)
 #' #subset to species only
 #' # TODO: this step seems no longer necessary, is it??
@@ -66,7 +66,7 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your tree
 #' prunedTree <- extractTree(species=spp, label_type="scientific",
-#'    taxonomy_year=2021, version="1.5")
+#'    taxonomy_year=2025, version="1.6")
 #'
 #' #get your citation DF
 #'  yourCitations <- getCitations(tree=prunedTree)}

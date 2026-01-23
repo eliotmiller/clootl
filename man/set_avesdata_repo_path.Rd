@@ -19,7 +19,7 @@ Set path to Aves Data folder already somewhere on your computer
 }
 \details{
 Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
-Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/McTavishLab/AvesData.
+Use this function to manually set or update location of a downloaded AvesData folder from https://github.com/AvesTree/AvesData.
 When \code{AVESDATA_PATH} is set, the data_path in any clootl functions with a \code{data_path} argument will default to this value.
 }
 \examples{

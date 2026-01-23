@@ -17,15 +17,15 @@
 #'   \item{\code{clootl_data$taxonomy.files}}{
 #'     A list of data frames. Each element corresponds to a taxonomy year:
 #'     \itemize{
-#'       \item \code{Year2025}
-#'       \item \code{Year2024}
-#'       \item \code{Year2023}
-#'       \item \code{Year2022}
-#'       \item \code{Year2021}
+#'       \item \code{year2025}
+#'       \item \code{year2024}
+#'       \item \code{year2023}
+#'       \item \code{year2022}
+#'       \item \code{year2021}
 #'     }
 #'     These originate as CSV files linking the Clements taxonomy
 #'     for each of these years to OTT ids, Avibase ids, and other bird taxonomies
-#'     (see README of \url{https://github.com/McTavishLab/AvesData}).
+#'     (see README of \url{https://github.com/AvesTree/AvesData}).
 #'   }
 #'
 #'   \item{\code{clootl_data$trees}}{
@@ -33,10 +33,10 @@
 #'       \item{\code{summary.trees}}{
 #'         Phylo objects of complete dated trees mapped to the Clements taxonomy year:
 #'         \itemize{
-#'           \item \code{Year2025}
+#'           \item \code{year2025}
 #'         }
 #'         These are generated from \code{summary_dated_clements.nex}
-#'         (see \url{https://github.com/McTavishLab/AvesData} README).
+#'         (see \url{https://github.com/AvesTree/AvesData} README).
 #'       }
 #'       \item{\code{annotations}}{
 #'         Complete annotations of the OpenTree synthetic tree for this version,

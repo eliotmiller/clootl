@@ -18,7 +18,7 @@ No return value. This function is used to download the Aves Data repository.
 Pull down full AvesData repository to a working directory
 }
 \details{
-Will download full data repo from https://github.com/McTavishLab/AvesData.
+Will download full data repo from https://github.com/AvesTree/AvesData.
 This data is required to use \code{\link[=sampleTrees]{sampleTrees()}} to sample from the distribution of dated trees,
 or to access earlier versions of the complete tree.
 This function will download the data and set an environmental variable \code{AVESDATA_PATH} to the location of the data download.
