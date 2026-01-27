@@ -1,7 +1,5 @@
 # Getting Started
 
-2025-04-03
-
 ## Installing clootl
 
 We recommend installing clootl directly from GitHub.
@@ -41,9 +39,13 @@ library(clootl)
 
 ## Getting a tree
 
-The most recent version of the tree is available with the package. You can easily get a subtree using `extractTree` and a list of scientific names of species codes. This defaults tree version 1.6 and to the names and codes in the 2025 Clements taxonomy.
+The most recent version of the tree is available with the package. You can easily get a subtree using `extractTree` and a list of scientific names of species codes. This defaults to tree version 1.6 and to the names and codes in the 2025 Clements taxonomy. The official version of that file can be found [here](https://www.birds.cornell.edu/clementschecklist/introduction/updateindex/october-2025/2025-citation-checklist-downloads/), and the version used by clootl, which also provides a match to Open Tree taxonomy, can be found in clootl itself:
 
-If you don’t give `extractTree` any arguments, it will return the whole tree (\~11,000 tips)
+``` r
+head(clootl_data$taxonomy.files$year2025)
+```
+
+If you don’t give `extractTree` any arguments, it will return the whole tree (\~11,000 tips). Here's a much smaller tree (for example purposes):
 
 ``` r
 ex1 <- extractTree(species=c("Turdus migratorius",
@@ -56,13 +58,13 @@ plot(ex1)
 
 ![](intro_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-You should cite the author’s whose work went into generating these relationships whenever possible. You can get the citations to the input phylogenies using `getCitations`.
+You should cite all the critical contributing papers that went into generating these relationships whenever possible. You can get the citations of the input phylogenies using `getCitations`.
 
 ``` r
 # get the citation information
 cites <- getCitations(ex1)
 
-# abbreviate what prints to screen for example purposes only
+# abbreviate what prints to screen (for example purposes only)
 cites$reference.trunc <- stringr::str_trunc(cites$reference, 30)
 
 # print to screen
@@ -89,7 +91,7 @@ cites[,c("study", "reference.trunc", "doi", "contribution")]
 16 Taxonomic additions                  Miller et al.        https://github.com/eliotmiller/addtaxa      0.00000
 ```
 
-To get the tree using a different taxonomy year, use the argument “taxonomy_year”. Current options are 2021-2025, though not all topology/taxonomy combinations are available.
+To get the tree using a different taxonomy year, use the argument “taxonomy_year”. Current options are 2021-2025, though not all topology/taxonomy combinations are available. We are in the process of updating how different tree versions are accessed, so the naming convention here may change in the near future.
 
 ``` r
 ex2 <- extractTree(species=c("Turdus migratorius",
@@ -99,7 +101,7 @@ ex2 <- extractTree(species=c("Turdus migratorius",
                              taxonomy_year = 2021)
 ```
 
-You can also use eBird codes as tip labels,.
+You can also use eBird codes as tip labels:
 
 ``` r
 ex3 <- extractTree(species=c("amerob",
