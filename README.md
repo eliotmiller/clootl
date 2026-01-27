@@ -43,4 +43,3 @@ library(clootl)
 
 -   [Getting Started](https://github.com/eliotmiller/clootl/blob/master/examples/intro.md)
 -   [Downloading the Data Repository](https://github.com/eliotmiller/clootl/blob/master/examples/dataDownload.md)
--   [Mapping Traits to a Subtree](https://github.com/eliotmiller/clootl/blob/master/examples/avonet.md)
