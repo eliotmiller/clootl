@@ -15,7 +15,7 @@ utils::globalVariables(c("clootl_data"))
 #' dated trees, for example to iterate an analysis across a cloud of trees, or to use an
 #' older version of the tree than the current one packed in the data object, this function
 #' can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
-#' available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
+#' available at https://github.com/AvesTree/AvesData use data_path= the path to the download location.
 #' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
 #' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]

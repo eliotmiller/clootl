@@ -1,26 +1,19 @@
 ---
 title: "Downloading the Data Repository"
 output: github_document
-date: "2025-04-03"
 ---
 
 
 ## Install clootl
 
 ```{r, eval = FALSE}
-install.packages("devtools")
-library(devtools)  
-devtools::install_github("eliotmiller/clootl")
-```
-
-```{r}
 library(clootl)
 ```
 
 ## Getting the data repo
 
-The most recent version of the tree (currently 1.4) is available with the package.
-If you want other versions, you need to use the GitHub repo https://github.com/McTavishLab/AvesData
+The most recent version of the tree is available with the package.
+If you want other versions, you need to use the GitHub repo https://github.com/AvesTree/AvesData
 If you have already downloaded the Aves Data Repo to your computer,
 you can pass in the path to that directory to get other tree versions
 The data repo also contains the 100 tree dated sample sets. 
@@ -28,6 +21,7 @@ The data repo also contains the 100 tree dated sample sets.
 ```{r, eval=FALSE}
 ex_1_2 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
                                version=1.2,
+                               taxonomy=2021,
                                data_path="~/projects/otapi/AvesData")
 ```
 
@@ -36,6 +30,7 @@ Alternately, you can automatically download all the data from the AvesData githu
 It will be unpacked as folder in whatever directory you pass in. 
 This example creates a folder in your current working directory with the data named "AvesData-main".
 It will also save the location to your R environment file, so that clootl automatically knows where to look for the data.
+
 ```{r, eval=FALSE}
 get_avesdata_repo(path=".") 
 ```
