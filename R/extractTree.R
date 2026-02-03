@@ -63,8 +63,7 @@ extractTree <- function(species="all_species",
                         taxonomy_year=2025,
                         version="1.6",
                         data_path=FALSE,
-                        force=FALSE)
-{
+                        force=FALSE){
   label_type <- match.arg(label_type,c('code','scientific'))
   utils::data("clootl_data")
 
@@ -81,6 +80,11 @@ extractTree <- function(species="all_species",
   }
 
 
+  if (!is.element(label_type, c("code", "scientific")))
+  {
+    stop("label_type must be set to either 'code' or 'scientific'")
+  }
+
   if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.6')){
       stop("Only tree version 1.6 is currently packaged with clootl.
       To get alternate tree versions, run get_avesdata_repo()
@@ -88,8 +92,6 @@ extractTree <- function(species="all_species",
       or use the argument data_path = AvesData-path")
     }
 
-
-  
   if((version=='1.6') & (taxonomy_year==2025)){
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
@@ -102,58 +104,15 @@ extractTree <- function(species="all_species",
       fullTree <- treeGet(version, taxonomy_year, data_path)
   }
 
+
   species <- as.list(species)
+  if(species[1]=="all_species" & label_type=="scientific")
+  {
+    return(fullTree)
+  }
+
   #if species is set to all.species, redefine species as the full set of taxa
-  if(species[1]=="all_species" & label_type=="code")
-  {
-    species <- tax$SPECIES_CODE
-  }
-
-  else if(species[1]=="all_species" & label_type=="scientific")
-  {
-    species <- tax$SCI_NAME
-  }
-
-  else
-  {
-    species <- species
-  }
-
-  #check whether the input species are valid
-  if(label_type=="code")
-  {
-    #identify mismatches
-    issues <- setdiff(species, tax$SPECIES_CODE)
-    species <- intersect(tax$SPECIES_CODE, species)
-
-    #if there are any, throw an error
-    if(length(issues) > 0 & force==FALSE)
-    {
-      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
-      message(paste(length(issues),"codes did not match.", length(species), "codes did match", sep=" ")) 
-      message("These codes did not match:")
-      message(paste(issues, collapse = "\n"))
-      stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
-
-
-    }
-
-    #else might as well set a tree aside with codes instead of sci names
-    else
-    {
-      #swap the scientific names for species codes
-      newNames <- data.frame(order=1:length(fullTree$tip.label), orig=fullTree$tip.label)
-
-      #merge and re-sort
-      newNames <- merge(newNames, tax[,c("underscores","SPECIES_CODE")], by.x="orig", by.y="underscores")
-      newNames <- newNames[order(newNames$order),]
-
-      #swap names
-      fullTree$tip.label <- newNames$SPECIES_CODE
-    }
-  }
-
-  else if(label_type=="scientific")
+  if(label_type=="scientific")
   {
     #identify mismatches
 
@@ -168,22 +127,62 @@ extractTree <- function(species="all_species",
       message(paste(issues, collapse = "\n"))
       stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
     }
-
-    #else plug in underscores
-    else
+      else if(length(issues) > 0 & force==TRUE)
     {
-      species <- sub(" ", "_", species)
+      message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message("These names did not match:")
+      message(paste(issues, collapse = "\n"))
+      message("force=TRUE, returning a tree for the species that match.")
     }
-  }
 
-  else
+    #plug in underscores
+    species <- sub(" ", "_", species)
+  }  
+  #check whether the input species are valid
+  if(label_type=="code")
   {
-    stop("label_type must be set to either 'code' or 'scientific'")
-  }
+     if(species[1]=="all_species" & label_type=="scientific")
+     {
+    species <- tax$SPECIES_CODE    }
+
+    #identify mismatches
+    issues <- setdiff(species, tax$SPECIES_CODE)
+    species <- intersect(tax$SPECIES_CODE, species)
+
+    #if there are any, throw an error
+    if(length(issues) > 0 & force==FALSE)
+    {
+      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
+      message(paste(length(issues),"codes did not match.", length(species), "codes did match", sep=" ")) 
+      message("These codes did not match:")
+      message(paste(issues, collapse = "\n"))
+      stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
+    }
+    if(length(issues) > 0 & force==TRUE)
+    {
+      message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message("These names did not match:")
+      message(paste(issues, collapse = "\n"))
+      message("Argument force=TRUE, returning a tree for the species that match.")
+    }
+    #might as well set a tree aside with codes instead of sci names
+      #swap the scientific names for species codes
+      newNames <- data.frame(order=1:length(fullTree$tip.label), orig=fullTree$tip.label)
+
+      #merge and re-sort
+      newNames <- merge(newNames, tax[,c("underscores","SPECIES_CODE")], by.x="orig", by.y="underscores")
+      newNames <- newNames[order(newNames$order),]
+
+      #swap names
+      fullTree$tip.label <- newNames$SPECIES_CODE
+    }
+  
 
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
-  pruned
+  return(pruned)
 }
 
 
