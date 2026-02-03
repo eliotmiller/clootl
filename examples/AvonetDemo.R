@@ -27,6 +27,35 @@ spp <- sample(dat$Species2, 100)
 datSubset <- dat[dat$Species2 %in% spp,]
 row.names(datSubset) <- datSubset$underscores
 
+
+
+pruned <- extractTree(species=datSubset$Species2,
+                      label_type="scientific",
+                      force=TRUE)
+
+pruned$root.edge <- NULL
+
+summary(phylolm(log(Tarsus.Length)~Beak.Length_Culmen, data=datSubset, phy=pruned, model="BM"))
+
+x <- log(datSubset$Mass)
+names(x) <- datSubset$underscores
+contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
+
+
+x <- log(datSubset$Beak.Length_Culmen)
+names(x) <- datSubset$underscores
+contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
+
+dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
+spp <- sample(dat$Species2, 100)
+subtree <- extractTree(species=spp,
+                       label_type="scientific")
+
+
+
+
+
+
 #grab a pruned tree
 ## We're using an older tree version for the exact match to the taxonomy used for avonet
 #This requires downloading the data repo

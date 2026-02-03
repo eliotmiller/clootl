@@ -62,7 +62,8 @@ extractTree <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year=2025,
                         version="1.6",
-                        data_path=FALSE)
+                        data_path=FALSE,
+                        force=FALSE)
 {
   label_type <- match.arg(label_type,c('code','scientific'))
   utils::data("clootl_data")
@@ -123,12 +124,18 @@ extractTree <- function(species="all_species",
   {
     #identify mismatches
     issues <- setdiff(species, tax$SPECIES_CODE)
+    species <- intersect(tax$SPECIES_CODE, species)
 
     #if there are any, throw an error
-    if(length(issues) > 0)
+    if(length(issues) > 0 & force==FALSE)
     {
       message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
-      stop(paste(issues, collapse = "\n"))
+      message(paste(length(issues),"codes did not match.", length(species), "codes did match", sep=" ")) 
+      message("These codes did not match:")
+      message(paste(issues, collapse = "\n"))
+      stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
+
+
     }
 
     #else might as well set a tree aside with codes instead of sci names
@@ -149,13 +156,17 @@ extractTree <- function(species="all_species",
   else if(label_type=="scientific")
   {
     #identify mismatches
-    issues <- setdiff(species, tax$SCI_NAME)
 
+    issues <- setdiff(species, tax$SCI_NAME)
+    species <- intersect(tax$SCI_NAME, species)
     #if there are any, throw an error
-    if(length(issues) > 0)
+     if(length(issues) > 0 & force==FALSE)
     {
-      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
-      stop(paste(issues, collapse = "\n"))
+      message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message("These names did not match:")
+      message(paste(issues, collapse = "\n"))
+      stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
     }
 
     #else plug in underscores
