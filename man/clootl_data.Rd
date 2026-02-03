@@ -38,7 +38,7 @@ A list of data frames. Each element corresponds to a taxonomy year:
 }
 These originate as CSV files linking the Clements taxonomy
 for each of these years to OTT ids, Avibase ids, and other bird taxonomies
-(see README of \url{https://github.com/AvesTree/AvesData}).
+(see README of \url{https://github.com/McTavishLab/AvesData}).
 }
 
 \item{\code{clootl_data$trees}}{
@@ -49,7 +49,7 @@ Phylo objects of complete dated trees mapped to the Clements taxonomy year:
 \item \code{year2025}
 }
 These are generated from \code{summary_dated_clements.nex}
-(see \url{https://github.com/AvesTree/AvesData} README).
+(see \url{https://github.com/McTavishLab/AvesData} README).
 }
 \item{\code{annotations}}{
 Complete annotations of the OpenTree synthetic tree for this version,

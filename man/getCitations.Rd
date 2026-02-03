@@ -17,7 +17,7 @@ citation information.}
 \item{data_path}{Default to FALSE. If you are gathering citations for an
 older version of the tree than the current one packed in the data object, you will have
 already downloaded the data repo in order to generate that tree.
-The data is available at https://github.com/AvesTree/AvesData.
+The data is available at https://github.com/McTavishLab/AvesData.
 If you have manually downloaded the repo, use data_path= the path to the download location.
 Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}.
 This approach will download the data and set an environmental variable AVESDATA_PATH.
