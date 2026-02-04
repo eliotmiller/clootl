@@ -133,7 +133,7 @@ extractTree <- function(species="all_species",
       message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
       message("These names did not match:")
       message(paste(issues, collapse = "\n"))
-      message("force=TRUE, returning a tree for the species that match.")
+      message("Argument force=TRUE, returning a tree for the species that match.")
     }
 
     #plug in underscores
