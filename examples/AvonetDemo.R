@@ -3,12 +3,7 @@ library(clootl)
 library(phytools)
 library(phylolm)
 
-
-
-ourTree <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
-                       label_type="code")
-
-
+## Easily match trees to AVONET dataset
 
 #load the AVONET dataset
 ##Download AVONET Supplmentary dataset 1 from here
@@ -35,13 +30,17 @@ pruned <- extractTree(species=datSubset$Species2,
 
 pruned$root.edge <- NULL
 
+## phylolm automatically drops the unmatched values
 summary(phylolm(log(Tarsus.Length)~Beak.Length_Culmen, data=datSubset, phy=pruned, model="BM"))
 
-x <- log(datSubset$Mass)
-names(x) <- datSubset$underscores
+# but for other functions you need to match the data rows to tips in the tree
+datMatched <- datSubset[datSubset$underscores %in% pruned$tip.label,]
+
+x <- log(datMatched$Mass)
+names(x) <- datMatched$underscores
 contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
 
 
-x <- log(datSubset$Beak.Length_Culmen)
-names(x) <- datSubset$underscores
+x <- log(datMatched$Beak.Length_Culmen)
+names(x) <- datMatched$underscores
 contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
