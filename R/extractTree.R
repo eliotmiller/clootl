@@ -95,7 +95,7 @@ extractTree <- function(species="all_species",
   if((version=='1.6') & (taxonomy_year==2025)){
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
-    tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
+    tax <- clootl_data$taxonomy_files[[`taxonomyYear`]]
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
   }
@@ -214,7 +214,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
    ##We should be in here if we DIDN'T download the data
       utils::data("clootl_data")
       taxonomyYear <- paste("year", taxonomy_year, sep="")
-      tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
+      tax <- clootl_data$taxonomy_files[[`taxonomyYear`]]
   } else {
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
        ##This needs an if statement for if it is looking for the object or the path
@@ -243,19 +243,26 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
   return(tax)
 }
 
+CDversionCheck <- function(version){
+  utils::data("clootl_data")
+  if (!version in clootl_data$cd_versions){
+      stop("AvesData folder not found at: ", data_path)
+    } 
+}
+
 #' Helper to load a tree into the R environment
 #'
 #' Not exported. Internal use only.
 #'
 #' @keywords internal
 #'
-treeGet <- function(version, taxonomy_year, data_path=FALSE){
+treeGet <- function(version, data_path=FALSE){
   #pull the tree file in the right version and taxonomy
   if (data_path==FALSE){
         data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
        }
   if(data_path == ""){
-    ## We will be in here if we have run get_avesdata_repo and downloaded the data
+    ## We will be in here if we have not run get_avesdata_repo and downloaded the data
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version <- paste("Aves_", version, sep="")
