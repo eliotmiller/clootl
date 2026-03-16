@@ -70,8 +70,8 @@
 #' clootl_data$versions <- c("1.2","1.3","1.4","1.5","1.6")
 #' clootl_data$cd_trees <- c("1.3.2021","1.3.2022", "1.3.2023", "1.5.2021","1.5.2022", "1.5.2023","1.5.2024", "1.6.2025",)
 #'
-#' fullTree2025 <- treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
-#' clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
+#' v1.6.2025 <- treeGet("1.6.2025", data_path="~/projects/otapi/AvesData")
+#' clootl_data$trees$summary_trees$v1.6.2025 <- fullTree2025
 #'
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")

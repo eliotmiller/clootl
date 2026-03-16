@@ -60,8 +60,7 @@ utils::globalVariables(c("clootl_data"))
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
-                        taxonomy_year=2025,
-                        version="1.6",
+                        version="1.6.2025",
                         data_path=FALSE,
                         force=FALSE){
   label_type <- match.arg(label_type,c('code','scientific'))
@@ -243,13 +242,23 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
   return(tax)
 }
 
-CDversionCheck <- function(version){
+CDVersionCheck <- function(version){
   utils::data("clootl_data")
+  splitv <- strsplit(version)
+    if (!len in clootl_data$cd_versions){
+      stop("AvesData folder not found at: ", data_path)
+    } 
   if (!version in clootl_data$cd_versions){
       stop("AvesData folder not found at: ", data_path)
     } 
 }
 
+VersionSplit <- function(version){
+  taxonomy_year <-  strsplit(version)[-1]
+  if (!version in clootl_data$cd_versions){
+      stop("AvesData folder not found at: ", data_path)
+    } 
+}
 #' Helper to load a tree into the R environment
 #'
 #' Not exported. Internal use only.
@@ -264,9 +273,8 @@ treeGet <- function(version, data_path=FALSE){
   if(data_path == ""){
     ## We will be in here if we have not run get_avesdata_repo and downloaded the data
     utils::data("clootl_data")
-    taxonomyYear <- paste("year", taxonomy_year, sep="")
-    version <- paste("Aves_", version, sep="")
-    fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
+    version <- paste("v", version, sep="")
+    fullTree <- clootl_data$trees$summary_trees[[version]]
   } else {
     if (!file.exists(data_path)){
       stop("AvesData folder not found at: ", data_path)
