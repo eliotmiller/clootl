@@ -14,7 +14,7 @@
 #' The structure of the data store (a list) is as follows:
 #'
 #' \describe{
-#'   \item{\code{clootl_data$taxonomy.files}}{
+#'   \item{\code{clootl_data$taxonomy_files}}{
 #'     A list of data frames. Each element corresponds to a taxonomy year:
 #'     \itemize{
 #'       \item \code{year2025}
@@ -68,9 +68,10 @@
 #' clootl_data = list()
 #'
 #' clootl_data$versions <- c("1.2","1.3","1.4","1.5","1.6")
+#' clootl_data$cd_trees <- c("1.3.2021","1.3.2022", "1.3.2023", "1.5.2021","1.5.2022", "1.5.2023","1.5.2024", "1.6.2025",)
 #'
-#' fullTree2025 <- treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
-#' clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
+#' v1.6.2025 <- treeGet("1.6.2025", data_path="~/projects/otapi/AvesData")
+#' clootl_data$trees$summary_trees$v1.6.2025 <- fullTree2025
 #'
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
@@ -78,11 +79,11 @@
 #' tax2024 <- taxonomyGet(2024, data_path="~/projects/otapi/AvesData")
 #' tax2025 <- taxonomyGet(2025, data_path="~/projects/otapi/AvesData")
 #'
-#' clootl_data$taxonomy.files$year2021 <- tax2021
-#' clootl_data$taxonomy.files$year2022 <- tax2022
-#' clootl_data$taxonomy.files$year2023 <- tax2023
-#' clootl_data$taxonomy.files$year2024 <- tax2024
-#' clootl_data$taxonomy.files$year2025 <- tax2025
+#' clootl_data$taxonomy_files$year2021 <- tax2021
+#' clootl_data$taxonomy_files$year2022 <- tax2022
+#' clootl_data$taxonomy_files$year2023 <- tax2023
+#' clootl_data$taxonomy_files$year2024 <- tax2024
+#' clootl_data$taxonomy_files$year2025 <- tax2025
 #'
 #' clootl_data$tax_years <- c("2021","2022","2023","2024", "2025")
 #'

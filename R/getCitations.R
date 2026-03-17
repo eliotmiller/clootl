@@ -54,7 +54,7 @@ utils::globalVariables(c("clootl_data"))
 #' @examples
 #'\donttest{#pull the taxonomy file out
 #' data(clootl_data)
-#' tax <- clootl_data$taxonomy.files$year2025
+#' tax <- clootl_data$taxonomy_files$year2025
 #' ls(tax)
 #' #subset to species only
 #' # TODO: this step seems no longer necessary, is it??
