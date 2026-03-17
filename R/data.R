@@ -68,6 +68,23 @@
 #' clootl_data = list()
 #'
 #' clootl_data$versions <- c("1.2","1.3","1.4","1.5","1.6")
+#' clootl_data$tax_years <- c("2021","2022","2023","2024", "2025")
+#'
+#' 
+#' clootl_data$combinations <- c(c(1.2, 2021),
+#'                               c(1.2, 2022),
+#'                               c(1.2, 2023),
+#'                               c(1.3, 2021),
+#'                               c(1.3, 2022),
+#'                               c(1.3, 2023),
+#'                               c(1.4, 2021),
+#'                               c(1.4, 2022),
+#'                               c(1.4, 2023),
+#'                               c(1.5, 2021), <--- this will have every tip in AVONET
+#'                               c(1.5, 2022),
+#'                               c(1.5, 2023),
+#'                               c(1.5, 2024),
+#'                               c(1.6, 2025),) 
 #'
 #' fullTree2025 <- treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
 #' clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
@@ -84,7 +101,6 @@
 #' clootl_data$taxonomy.files$year2024 <- tax2024
 #' clootl_data$taxonomy.files$year2025 <- tax2025
 #'
-#' clootl_data$tax_years <- c("2021","2022","2023","2024", "2025")
 #'
 #' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.6/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)

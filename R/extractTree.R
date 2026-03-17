@@ -73,10 +73,14 @@ extractTree <- function(species="all_species",
     stop("version not recognized: ", version) ## TODO print out actual list
   }
 
-
   taxonomy_year <- as.character(taxonomy_year)
   if (!is.element(taxonomy_year, clootl_data$tax_years)){
-    stop("Requested year currently unavailable")
+    stop("Requested taxonomy year currently unavailable")
+  }
+
+  combo = c(version, taxonomy_year)
+  if (!is.element(combo, clootl_data$combinations)){
+      stop("This combination of tree version and taxonomy year is not available.")
   }
 
 
@@ -86,8 +90,8 @@ extractTree <- function(species="all_species",
   }
 
   if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.6')){
-      stop("Only tree version 1.6 is currently packaged with clootl.
-      To get alternate tree versions, run get_avesdata_repo()
+      stop("Only tree version 1.6 taxonomy year 2025 is currently packaged with clootl.
+      To get alternate tree versions and taxonomy years, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
     }
