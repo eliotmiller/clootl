@@ -51,7 +51,7 @@ utils::globalVariables(c("clootl_data"))
 #'  }
 sampleTrees <- function(species="all_species",
                         label_type="scientific",
-                        taxonomy_year=2025,
+                        taxonomy_year="2025",
                         version="1.6",
                         count=100,
                         data_path=FALSE)
@@ -89,7 +89,7 @@ sampleTrees <- function(species="all_species",
   {
    stop("sampling over trees currently only returns all 100 trees.")
   }
-  tax <- taxonomyGet(taxonomy_year, data_path)
+  tax <- taxonomyGet(taxonomy_year)
 
   species <- as.list(species)
   #if species is set to all.species, redefine species as the full set of taxa
@@ -136,6 +136,8 @@ sampleTrees <- function(species="all_species",
                                as.character(taxonomy_year),
                                "/dated_rand_sample_clements.tre",
                                sep='')
+    message("Sampling trees from:")
+    message(sample_tree_filename)
     if (!file.exists(sample_tree_filename)){
       stop("Tree set file:", sample_tree_filename,
         " is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")

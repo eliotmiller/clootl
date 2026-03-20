@@ -13,20 +13,22 @@ library(clootl)
 ## Getting the data repo
 
 The most recent version of the tree is available with the package.
-If you want other versions, you need to use the GitHub repo https://github.com/AvesTree/AvesData
+If you want other versions, or to sample over the set of 100 dated trees,
+you need to use datafiles from the the GitHub repo https://github.com/AvesTree/AvesData.
+
 If you have already downloaded the Aves Data Repo to your computer,
 you can pass in the path to that directory to get other tree versions
 The data repo also contains the 100 tree dated sample sets. 
 
 ```{r, eval=FALSE}
-ex_1_2 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
-                               version=1.2,
+ex_1_5 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
+                               version=1.5,
                                taxonomy=2021,
                                data_path="~/projects/otapi/AvesData")
 ```
 
 
-Alternately, you can automatically download all the data from the AvesData github repo.
+Alternately, you can automatically download all the data from the AvesDataLite github repo.
 It will be unpacked as folder in whatever directory you pass in. 
 This example creates a folder in your current working directory with the data named "AvesData-main".
 It will also save the location to your R environment file, so that clootl automatically knows where to look for the data.
@@ -42,12 +44,17 @@ ex2_1_3 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
                              "Sitta canadensis"),
-                             version=1.3)
+                             version=1.3,
+                             taxonomy_year = 2023)
 
 plot(ex2_1_3)
 ```
 
-Once you have the whole repo you can also same across the uncertainty in taxonomically placed species, and in dates, using sampleTrees. This will return 100 sampled trees.
+To get citations for older trees, pass the version into getCitations()
+```{r}
+cites_ex_2_1_3 = getCitations(ex2_1_3, version=1.3)
+```
+Once you have the whole repo you can also sample across the uncertainty in taxonomically placed species, and in dates, using sampleTrees. This will return 100 sampled trees.
 
 ```{r}
 ex1 <- sampleTrees(species=c("Turdus migratorius",

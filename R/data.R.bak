@@ -22,11 +22,11 @@ clootl_data$combinations <- c("1.2_tax2021",
 fullTree2025 <- clootl:::treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
 clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
 #'
-tax2021 <- clootl:::taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
-tax2022 <- clootl:::taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
-tax2023 <- clootl:::taxonomyGet(2023, data_path="~/projects/otapi/AvesData")
-tax2024 <- clootl:::taxonomyGet(2024, data_path="~/projects/otapi/AvesData")
-tax2025 <- clootl:::taxonomyGet(2025, data_path="~/projects/otapi/AvesData")
+tax2021 <- clootl:::taxonomyGet(2021, data_path="~/projects/otapi/AvesData", from_file=TRUE)
+tax2022 <- clootl:::taxonomyGet(2022, data_path="~/projects/otapi/AvesData", from_file=TRUE)
+tax2023 <- clootl:::taxonomyGet(2023, data_path="~/projects/otapi/AvesData", from_file=TRUE)
+tax2024 <- clootl:::taxonomyGet(2024, data_path="~/projects/otapi/AvesData", from_file=TRUE)
+tax2025 <- clootl:::taxonomyGet(2025, data_path="~/projects/otapi/AvesData", from_file=TRUE)
 #'
 clootl_data$taxonomies$year2021 <- tax2021
 clootl_data$taxonomies$year2022 <- tax2022

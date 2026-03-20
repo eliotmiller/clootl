@@ -42,7 +42,7 @@ library(clootl)
 The most recent version of the tree is available with the package. You can easily get a subtree using `extractTree` and a list of scientific names of species codes. This defaults to tree version 1.6 and to the names and codes in the 2025 Clements taxonomy. The official version of that file can be found [here](https://www.birds.cornell.edu/clementschecklist/introduction/updateindex/october-2025/2025-citation-checklist-downloads/), and the version used by clootl, which also provides a match to Open Tree taxonomy, can be found in clootl itself:
 
 ``` r
-head(clootl_data$taxonomy.files$year2025)
+head(clootl_data$taxonomies$year2025)
 ```
 
 If you don’t give `extractTree` any arguments, it will return the whole tree (\~11,000 tips). Here's a much smaller tree (for example purposes):

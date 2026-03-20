@@ -187,7 +187,7 @@ extractTree <- function(species="all_species",
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
   message(paste("This analysis used tree version ", version, " and taxonomy year ", taxonomy_year, ". 
-    Please cite the version, clootl, and the contibuting studies using getCitations(tree).", sep=""))
+    Please cite the version, clootl, and the contibuting studies using getCitations(tree, version).", sep=""))
   return(pruned)
 }
 
@@ -212,42 +212,41 @@ extractTree <- function(species="all_species",
 #' @return A `data.frame` with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
 #' @export
 #'
-taxonomyGet <- function(taxonomy_year, data_path=FALSE){
-  if (data_path==FALSE){
-        data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
-       }
-  if (data_path == ""){
-   ##We should be in here if we DIDN'T download the data
+taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
+  if (from_file==FALSE){
+      taxonomy_year = as.character(taxonomy_year)
+       if (!is.element(taxonomy_year, clootl_data$tax_years)){
+        stop("Requested taxonomy year currently unavailable")
+        }
       utils::data("clootl_data")
       taxonomyYear <- paste("year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomies[[`taxonomyYear`]]
-  } else {
-       ## We will be in here if we have run get_avesdata_repo and downloaded the data
-       ##This needs an if statement for if it is looking for the object or the path
-       if (!file.exists(data_path)){
-          stop("AvesData folder not found at: ", data_path)
+     }
+  else {
+    if (data_path==FALSE || data_path==""){
+        data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
+       }
+    if (!file.exists(data_path)){
+        stop("AvesData folder not found at: ", data_path)
         }
-      message("Using data download for taxonomy in")
-      taxonomy_filename <- paste(data_path,
+    message("Using data download for taxonomy in")
+    taxonomy_filename <- paste(data_path,
                              '/Taxonomy_versions/Clements',
                              as.character(taxonomy_year),
                              "/OTT_crosswalk_",
                              as.character(taxonomy_year),
                              ".csv",
                              sep='')
-      message(taxonomy_filename)
-        if (!file.exists(taxonomy_filename)){
+    message(taxonomy_filename)
+    if (!file.exists(taxonomy_filename)){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
-      ## ONce we have the tree and taxonomy, all this stuff can happen
     tax = utils::read.csv(taxonomy_filename)
       }
-     #subset to species
-
-  #create a convenience underscore column
-  tax$underscores <- sub(" ", "_", tax$SCI_NAME)
-  return(tax)
-}
+    #create a convenience underscore column
+    tax$underscores <- sub(" ", "_", tax$SCI_NAME)
+    return(tax) 
+     }
 
 #' Helper to load a tree into the R environment
 #'
@@ -255,7 +254,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
 #'
 #' @keywords internal
 #'
-treeGet <- function(version, taxonomy_year, data_path=FALSE){
+treeGet <- function(version, taxonomy_year, data_path=FALSE, from_file=TRUE){
   #pull the tree file in the right version and taxonomy
   if (data_path==FALSE){
         data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
