@@ -100,7 +100,7 @@ extractTree <- function(species="all_species",
   if((version=='1.6') & (taxonomy_year==2025)){
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
-    tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
+    tax <- clootl_data$taxonomies[[`taxonomyYear`]]
     fullTree <- clootl_data$trees[[paste("Aves_", version, sep="")]]$summary.trees[[taxonomyYear]]
   }
   else{
@@ -220,7 +220,7 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE){
    ##We should be in here if we DIDN'T download the data
       utils::data("clootl_data")
       taxonomyYear <- paste("year", taxonomy_year, sep="")
-      tax <- clootl_data$taxonomy.files[[`taxonomyYear`]]
+      tax <- clootl_data$taxonomies[[`taxonomyYear`]]
   } else {
        ## We will be in here if we have run get_avesdata_repo and downloaded the data
        ##This needs an if statement for if it is looking for the object or the path
