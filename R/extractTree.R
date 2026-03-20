@@ -187,6 +187,8 @@ extractTree <- function(species="all_species",
 
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
+  message(paste("This analysis used tree version ", version, "and taxonomy year ", taxonomy_year, ". 
+    Please cite the version, clootl, and the contibuting studies using getCitations(tree).", sep=""))
   return(pruned)
 }
 
