@@ -9,7 +9,8 @@ extractTree(
   label_type = "scientific",
   taxonomy_year = 2025,
   version = "1.6",
-  data_path = FALSE
+  data_path = FALSE,
+  force = FALSE
 )
 }
 \arguments{
