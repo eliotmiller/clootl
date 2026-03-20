@@ -84,7 +84,7 @@
 #'                               c(1.5, 2022),
 #'                               c(1.5, 2023),
 #'                               c(1.5, 2024),
-#'                               c(1.6, 2025),) 
+#'                               c(1.6, 2025)) 
 #'
 #' fullTree2025 <- treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
 #' clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
