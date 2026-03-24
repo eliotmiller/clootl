@@ -4,7 +4,7 @@
 \alias{taxonomyGet}
 \title{Load a bird taxonomy into the R environment}
 \usage{
-taxonomyGet(taxonomy_year, data_path = FALSE)
+taxonomyGet(taxonomy_year, data_path = FALSE, from_file = FALSE)
 }
 \arguments{
 \item{taxonomy_year}{The eBird taxonomy year the tree should be output in. Current options

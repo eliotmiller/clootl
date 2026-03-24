@@ -27,7 +27,7 @@ some other variables.
 The structure of the data store (a list) is as follows:
 
 \describe{
-\item{\code{clootl_data$taxonomy.files}}{
+\item{\code{clootl_data$taxonomies}}{
 A list of data frames. Each element corresponds to a taxonomy year:
 \itemize{
 \item \code{year2025}
@@ -108,11 +108,11 @@ tax2023 <- taxonomyGet(2023, data_path="~/projects/otapi/AvesData")
 tax2024 <- taxonomyGet(2024, data_path="~/projects/otapi/AvesData")
 tax2025 <- taxonomyGet(2025, data_path="~/projects/otapi/AvesData")
 
-clootl_data$taxonomy.files$year2021 <- tax2021
-clootl_data$taxonomy.files$year2022 <- tax2022
-clootl_data$taxonomy.files$year2023 <- tax2023
-clootl_data$taxonomy.files$year2024 <- tax2024
-clootl_data$taxonomy.files$year2025 <- tax2025
+clootl_data$taxonomies$year2021 <- tax2021
+clootl_data$taxonomies$year2022 <- tax2022
+clootl_data$taxonomies$year2023 <- tax2023
+clootl_data$taxonomies$year2024 <- tax2024
+clootl_data$taxonomies$year2025 <- tax2025
 
 
 annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.6/OpenTreeSynth/annotated_supertree/annotations.json"
