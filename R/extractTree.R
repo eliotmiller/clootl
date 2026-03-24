@@ -24,8 +24,12 @@ utils::globalVariables(c("clootl_data"))
 #' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
+#' version of the tree. Other versions available are listed in clootl_data$versions and can be
 #' passed as a character string or as numeric.
+#' @param force Default to FALSE.  If FALSE a tree will be returned only if there is an exact match in the tree
+#' to all species requested. 
+#' If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be 
+#' returned for the species that do match.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
@@ -207,7 +211,8 @@ extractTree <- function(species="all_species",
 #' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
 #' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
-#'
+#' @param from_file Default to FALSE. If TRUE forces taxonomyGet to use a local copy of the the taxonomy. 
+#' This is useful for testing changes and/or updating the clootl_data object.
 #' @details This will return a data object that has the taxonomy of the requested year.
 #' @return A `data.frame` with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
 #' @export

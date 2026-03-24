@@ -20,6 +20,9 @@ available at https://github.com/McTavishLab/AvesData use data_path= the path to 
 Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}. This approach will download the data and
 set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
+
+\item{from_file}{Default to FALSE. If TRUE forces taxonomyGet to use a local copy of the the taxonomy.
+This is useful for testing changes and/or updating the clootl_data object.}
 }
 \value{
 A \code{data.frame} with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
