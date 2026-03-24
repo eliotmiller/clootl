@@ -17,25 +17,25 @@ get_avesdata_repo <- function(path,
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to overwite existing path."))
   }
-  message("Downloading AvesData repo from github. This may take several minutes depending on your connection.")
-  url = "https://github.com/McTavishLab/AvesData/archive/refs/heads/main.zip"
+  message("Downloading AvesDataLite repo from github (holds key files from large McTavishLab/AvesData repo). This may take several minutes depending on your connection.")
+  url = "https://github.com/McTavishLab/AvesDataLite/archive/refs/heads/main.zip?raw=TRUE"
   old <- options() # save current options
   on.exit(options(old)) #Revert to original options on exit
-  options(timeout=720) # This file is big and can take a little while to download
+  options(timeout=1000) # This file is big and can take a little while to download
   if (!file.exists(path)){
       stop("Directory to save AvesData not found:", path)
     }
-  zipfilepath = paste(path, "/", "AvesData.zip", sep="")
-  avesdata_path = paste(path,"/","AvesData-main", sep="")
-  avesdata_path = path.expand(avesdata_path)
+  zipfilepath = paste(path, "/", "AvesDataLite.zip", sep="")
   if (file.exists(zipfilepath) & (overwrite == FALSE)){
-    message("File AvesData.zip already exists. Use overwite = TRUE to download a new version")
+    message("File AvesDataLite.zip already exists. Use overwite = TRUE to download a new version")
   } else {
     utils::download.file(url, destfile = zipfilepath)
     utils::unzip(zipfile = zipfilepath, exdir = path, overwrite=TRUE)
   }
+  avesdata_path = paste(path, "/", "AvesDataLite-main", sep="")
+  avesdata_path = path.expand(avesdata_path)
   set_avesdata_repo_path(avesdata_path, overwrite=overwrite)
-  message("AvesData repo downloaded and upzipped to:", avesdata_path)
+  message("AvesDataLite repo downloaded and upzipped to:", avesdata_path)
   invisible(avesdata_path)
 }
 

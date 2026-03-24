@@ -9,7 +9,8 @@ extractTree(
   label_type = "scientific",
   taxonomy_year = 2025,
   version = "1.6",
-  data_path = FALSE
+  data_path = FALSE,
+  force = FALSE
 )
 }
 \arguments{
@@ -25,7 +26,7 @@ are 2021-2024. Both numeric and character inputs are acceptable here. Any value
 aside from these years will result in an error. Default is most recent year.}
 
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
+version of the tree. Other versions available are listed in clootl_data$versions and can be
 passed as a character string or as numeric.}
 
 \item{data_path}{Default to FALSE. If a summary, dated tree is desired, this is sufficient
@@ -37,6 +38,11 @@ available at https://github.com/McTavishLab/AvesData use data_path= the path to 
 Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}. This approach will download the data and
 set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
+
+\item{force}{Default to FALSE.  If FALSE a tree will be returned only if there is an exact match in the tree
+to all species requested.
+If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be
+returned for the species that do match.}
 }
 \value{
 One or more phylogenies of the specified taxa in the specified eBird taxonomy version and clootl

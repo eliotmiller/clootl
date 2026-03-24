@@ -4,7 +4,7 @@
 \alias{treeGet}
 \title{Helper to load a tree into the R environment}
 \usage{
-treeGet(version, taxonomy_year, data_path = FALSE)
+treeGet(version, taxonomy_year, data_path = FALSE, from_file = TRUE)
 }
 \description{
 Not exported. Internal use only.

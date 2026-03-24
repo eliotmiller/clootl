@@ -54,7 +54,7 @@ and is agnostic to taxonomy version.
 \examples{
 \donttest{#pull the taxonomy file out
 data(clootl_data)
-tax <- clootl_data$taxonomy.files$year2025
+tax <- clootl_data$taxonomies$year2025
 ls(tax)
 #subset to species only
 # TODO: this step seems no longer necessary, is it??
