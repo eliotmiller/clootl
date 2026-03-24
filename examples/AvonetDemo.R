@@ -27,7 +27,7 @@ row.names(datSubset) <- datSubset$underscores
 ## The AVONET data was published aligned to the 2021 ebird taxonomy.
 ## Until it is updated, we have two options.
 
-## 1) Use our most recent tree and taconomy (1.6 2025), and just use the around 95% of species whose names have not changed.
+## 1) Use our most recent tree and taxonomy (1.6 2025), and just use the around 95% of species whose names have not changed.
 pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",
                       force=TRUE)
@@ -35,6 +35,13 @@ pruned <- extractTree(species=datSubset$Species2,
 
 ## or 2) Download the data store, as shown in examples/dataDownload.Rmd, 
 ## and use the v1.5 tree, which is avaialble in the 2021 ebird taxonomy
+## This command will download the data repo and add the path to the repo
+## as an environment variable
+get_avesdata_repo(path=".")
+
+## Once you have downloaded all the data, you can use a older tree 
+## which was generated in the 2021 taxonomy directly.
+## All species will match, but relationships will not all be up to date.
 pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",
                       version = 1.5,
