@@ -13,7 +13,7 @@
 get_avesdata_repo <- function(path,
                               overwrite=FALSE){
   if (Sys.getenv("AVESDATA_PATH") != "" & (overwrite == FALSE)){
-    stop(paste("AVESDATA_PATH already set to:",
+    message(paste("AVESDATA_PATH already set to:",
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to overwite existing path."))
   }
@@ -71,9 +71,10 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE){
       # drop existing
       writeLines(renv_lines[!renv_exists], renv_path)
     } else {
-      stop(
-        "AVESDATA_PATH already set, use overwrite = TRUE to overwite existing path."
-      )
+      message(paste("AVESDATA_PATH already set to:",
+                 Sys.getenv("AVESDATA_PATH"),
+                 "use overwrite = TRUE to overwite existing path."))
+  }
     }
   }
   # set path in .Renviron
