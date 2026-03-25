@@ -16,6 +16,7 @@ get_avesdata_repo <- function(path,
     message(paste("AVESDATA_PATH already set to:",
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to overwite existing path."))
+    return(invisible(1))
   }
   message("Downloading AvesDataLite repo from github (holds key files from large McTavishLab/AvesData repo). This may take several minutes depending on your connection.")
   url = "https://github.com/McTavishLab/AvesDataLite/archive/refs/heads/main.zip?raw=TRUE"
@@ -76,7 +77,6 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE){
                  "use overwrite = TRUE to overwite existing path."))
   }
     }
-  }
   # set path in .Renviron
   write(paste0("AVESDATA_PATH='", path, "'\n"), renv_path, append = TRUE)
   message(paste("AVESDATA_PATH set to", path))
