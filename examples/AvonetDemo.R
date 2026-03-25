@@ -13,21 +13,28 @@ library(phylolm)
 dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
 
 
-#create an underscores column in 
-dat$underscores <- sub(" ", "_", dat$Species2)
-
-#select a random subset of 200 species, then see whether body mass and tarsus length are correlated
-#and make a continuous character map of body mass
+# Select a random subset of 100 species, then see whether body mass and tarsus length are correlated
+# and make a continuous character map of body mass
+# Setting the seed makes this example choose the same 100 species each tim.
 set.seed(123)
+
+
 spp <- sample(dat$Species2, 100)
 datSubset <- dat[dat$Species2 %in% spp,]
-row.names(datSubset) <- datSubset$underscores
 
 
 ## The AVONET data was published aligned to the 2021 ebird taxonomy.
-## Until it is updated, we have two options.
+## That means that thare are some mismatches when trying to get a tree for those taxa
 
-## 1) Use our most recent tree and taxonomy (1.6 2025), and just use the around 95% of species whose names have not changed.
+pruned <- extractTree(species=datSubset$Species2,
+                      label_type="scientific",
+                      force=TRUE)
+
+
+## Until it is updated, we have two options. 
+
+## 1) Use our most recent tree and taxonomy (1.6 2025), and 
+## just use the around 95% of species whose names have not changed.
 pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",
                       force=TRUE)
@@ -46,6 +53,8 @@ pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",
                       version = 1.5,
                       taxonomy_year=2021)
+
+
 
 pruned$root.edge <- NULL
 
