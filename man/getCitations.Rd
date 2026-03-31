@@ -56,10 +56,6 @@ and is agnostic to taxonomy version.
 data(clootl_data)
 tax <- clootl_data$taxonomies$year2025
 ls(tax)
-#subset to species only
-# TODO: this step seems no longer necessary, is it??
-# tax <- tax[tax$CATEGORY=="species",]
-
 #simulate extracting a tree for a particular family
 temp <- tax[tax$FAMILY=="Rhinocryptidae (Tapaculos)",]
 spp <- temp$SCI_NAME
@@ -69,7 +65,7 @@ prunedTree <- extractTree(species=spp, label_type="scientific",
    taxonomy_year=2025, version="1.6")
 
 #get your citation DF
- yourCitations <- getCitations(tree=prunedTree)}
+yourCitations <- getCitations(tree=prunedTree)}
 }
 \author{
 Eliot Miller, Emily Jane McTavish

@@ -26,20 +26,14 @@ include 2021, 2022, and 2023. Both numeric and character inputs are acceptable h
 aside from these years will result in an error. Default is set 2023.}
 
 \item{version}{The desired version of the tree. Default to the most recent
-version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be
-passed as a character string or as numeric.}
+version of the tree. Other versions available are listed in data object as clootl_data$versions
+Verson can be passed as a character string or as numeric.}
 
 \item{count}{Work in progress, can only sample 100 for now. Eventually: The desired number of sampled trees.}
 
-\item{data_path}{Default to FALSE. If a summary, dated tree is desired, this is sufficient
-and does not need to be modified. However, if a user wishes to extract a set of complete
-dated trees, for example to iterate an analysis across a cloud of trees, or to use an
-older version of the tree than the current one packed in the data object, this function
-can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
-available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
-Alternately, you can download the full data repo using \code{\link[=get_avesdata_repo]{get_avesdata_repo()}}. This approach will download the data and
-set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
-To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
+\item{data_path}{Default to FALSE. Data_path is not necessary if the path has been stored in the
+environment, as occurs when the data was downloaded using get_avesdata_repo.
+Otherwise, pass in the path to the directory where the AvesData repo was downloaded.}
 }
 \value{
 A set of phylogenies determined in \code{count} of the specified taxa in the specified eBird taxonomy version and clootl

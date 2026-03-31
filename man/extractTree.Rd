@@ -40,7 +40,11 @@ set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data
 To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use \code{\link[=set_avesdata_repo_path]{set_avesdata_repo_path()}}}
 
 \item{force}{Default to FALSE.  If FALSE a tree will be returned only if there is an exact match in the tree
-to all species requested.
+to all species requested. This function first ensures that the requested output species overlap with species-level
+taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
+on the user to ensure the requested taxa are valid. This is critical to ensure no unexpected
+analysis hiccups later--you don't want to find out many steps later that your dataset doesn't
+match your phylogeny.
 If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be
 returned for the species that do match.}
 }
@@ -52,18 +56,6 @@ tree version.
 This function extracts one or more phylogenies in the desired taxonomy and tree version.
 It defaults to the pre-packaged summary trees, but can also be used to extract sets of
 phylogenies expressing uncertainty, once they have been downloaded from the online repository.
-}
-\details{
-This function first ensures that the requested output species overlap with species-level
-taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
-on the user to ensure the requested taxa are valid. This is critical to ensure no unexpected
-analysis hiccups later--you don't want to find out many steps later that your dataset doesn't
-match your phylogeny. The eBird database is currently (as of Mar 2025) in 2024 taxonomy.
-The 2025 taxonomy will be released
-to the public in October or November 2025. The intention is to release a tree in 2025 taxonomy
-concurrently with the publication of the taxonomy itself. Going forward, we will begin
-sunsetting older taxonomies, and intend to maintain the current year plus the two
-previous years.
 }
 \examples{
 ex1 <- extractTree(species=c("amerob", "canwar", "reevir1", "yerwar", "gockin"),
