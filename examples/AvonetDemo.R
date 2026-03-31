@@ -17,7 +17,7 @@ dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
 # and make a continuous character map of body mass
 # Setting the seed makes this example choose the same 100 species each tim.
 set.seed(123)
-spp <- sample(dat$Species2, 4)
+spp <- sample(dat$Species2, 100)
 datSubset <- dat[dat$Species2 %in% spp,]
 rownames(datSubset)<-datSubset$Species2
 
