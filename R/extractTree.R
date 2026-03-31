@@ -142,9 +142,10 @@ extractTree <- function(species="all_species",
   #check whether the input species are valid
   if(label_type=="code")
   {
-     if(species[1]=="all_species" & label_type=="scientific")
+     if(species[1]=="all_species")
      {
-    species <- tax$SPECIES_CODE    }
+       species <- tax$SPECIES_CODE    
+      }
 
     #identify mismatches
     issues <- setdiff(species, tax$SPECIES_CODE)
@@ -167,12 +168,11 @@ extractTree <- function(species="all_species",
       message(paste(issues, collapse = "\n"))
       message("Argument force=TRUE, returning a tree for the species that match.")
     }
-    #might as well set a tree aside with codes instead of sci names
+      ## Prune to requested species
       #swap the scientific names for species codes
       newNames <- data.frame(order=1:length(fullTree$tip.label), orig=fullTree$tip.label)
-
       #merge and re-sort
-      newNames <- merge(newNames, tax[,c("SPECIES_NAME","SPECIES_CODE")], by.x="orig", by.y="SPECIES_NAME")
+      newNames <- merge(newNames, tax[,c("SCI_NAME","SPECIES_CODE")], by.x="orig", by.y="SCI_NAME")
       newNames <- newNames[order(newNames$order),]
 
       #swap names

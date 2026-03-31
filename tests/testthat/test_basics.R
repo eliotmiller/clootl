@@ -44,7 +44,6 @@ test_that(desc = "code name tree extract", code = {
 code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
 code_tree <- extractTree(species=code_spp,
                          label_type="code")
-
 expect_identical(sort(code_tree[['tip.label']]), sort(code_spp))
 })
 
