@@ -27,20 +27,14 @@ utils::globalVariables(c("clootl_data"))
 #' version of the tree. Other versions available are listed in clootl_data$versions and can be
 #' passed as a character string or as numeric.
 #' @param force Default to FALSE.  If FALSE a tree will be returned only if there is an exact match in the tree
-#' to all species requested. 
-#' If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be 
-#' returned for the species that do match.
-#'
-#' @details This function first ensures that the requested output species overlap with species-level
+#' to all species requested. This function first ensures that the requested output species overlap with species-level
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
 #' on the user to ensure the requested taxa are valid. This is critical to ensure no unexpected
 #' analysis hiccups later--you don't want to find out many steps later that your dataset doesn't
-#' match your phylogeny. The eBird database is currently (as of Mar 2025) in 2024 taxonomy.
-#' The 2025 taxonomy will be released
-#' to the public in October or November 2025. The intention is to release a tree in 2025 taxonomy
-#' concurrently with the publication of the taxonomy itself. Going forward, we will begin
-#' sunsetting older taxonomies, and intend to maintain the current year plus the two
-#' previous years.
+#' match your phylogeny. 
+#' If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be 
+#' returned for the species that do match.
+#'
 #'
 #' @return One or more phylogenies of the specified taxa in the specified eBird taxonomy version and clootl
 #' tree version.
@@ -144,8 +138,6 @@ extractTree <- function(species="all_species",
       message("Argument force=TRUE, returning a tree for the species that match.")
     }
 
-    #plug in underscores
-    species <- sub(" ", "_", species)
   }  
   #check whether the input species are valid
   if(label_type=="code")
@@ -180,7 +172,7 @@ extractTree <- function(species="all_species",
       newNames <- data.frame(order=1:length(fullTree$tip.label), orig=fullTree$tip.label)
 
       #merge and re-sort
-      newNames <- merge(newNames, tax[,c("underscores","SPECIES_CODE")], by.x="orig", by.y="underscores")
+      newNames <- merge(newNames, tax[,c("SPECIES_NAME","SPECIES_CODE")], by.x="orig", by.y="SPECIES_NAME")
       newNames <- newNames[order(newNames$order),]
 
       #swap names
@@ -190,7 +182,8 @@ extractTree <- function(species="all_species",
 
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
-  message(paste("This analysis used tree version ", version, " and taxonomy year ", taxonomy_year, ". 
+
+  message(paste("This extracted tree is from version ", version, " and taxonomy year ", taxonomy_year, ". 
     Please cite the version, clootl, and the contibuting studies using getCitations(tree, version).", sep=""))
   return(pruned)
 }
@@ -249,7 +242,6 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
     tax = utils::read.csv(taxonomy_filename)
       }
     #create a convenience underscore column
-    tax$underscores <- sub(" ", "_", tax$SCI_NAME)
     return(tax) 
      }
 
@@ -290,6 +282,7 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE, from_file=TRUE){
         "is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")
     } else {
     fullTree <- read.nexus(tree_filename)
+    fullTree$tip.label <- gsub("_", " ", fullTree$tip.label)
   }
           }
   }

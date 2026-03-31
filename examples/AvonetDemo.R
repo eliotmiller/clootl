@@ -17,18 +17,16 @@ dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
 # and make a continuous character map of body mass
 # Setting the seed makes this example choose the same 100 species each tim.
 set.seed(123)
-
-
-spp <- sample(dat$Species2, 100)
+spp <- sample(dat$Species2, 4)
 datSubset <- dat[dat$Species2 %in% spp,]
+rownames(datSubset)<-datSubset$Species2
 
 
 ## The AVONET data was published aligned to the 2021 ebird taxonomy.
 ## That means that thare are some mismatches when trying to get a tree for those taxa
 
-pruned <- extractTree(species=datSubset$Species2,
-                      label_type="scientific",
-                      force=TRUE)
+# pruned <- extractTree(species=datSubset$Species2,
+#                       label_type="scientific")
 
 
 ## Until it is updated, we have two options. 
@@ -62,13 +60,13 @@ pruned$root.edge <- NULL
 summary(phylolm(log(Tarsus.Length)~Beak.Length_Culmen, data=datSubset, phy=pruned, model="BM"))
 
 # but for other functions you need to match the data rows to tips in the tree
-datMatched <- datSubset[datSubset$underscores %in% pruned$tip.label,]
+datMatched <- datSubset[datSubset$Species2 %in% pruned$tip.label,]
 
 x <- log(datMatched$Mass)
-names(x) <- datMatched$underscores
+names(x) <- datMatched$Species2
 contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
 
 
 x <- log(datMatched$Beak.Length_Culmen)
-names(x) <- datMatched$underscores
+names(x) <- datMatched$Species2
 contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
