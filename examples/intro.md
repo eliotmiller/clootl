@@ -91,26 +91,30 @@ cites[,c("study", "reference.trunc", "doi", "contribution")]
 16 Taxonomic additions                  Miller et al.        https://github.com/eliotmiller/addtaxa      0.00000
 ```
 
-To get the tree using a different taxonomy year, use the argument “taxonomy_year”. Current options are 2021-2025, though not all topology/taxonomy combinations are available. We are in the process of updating how different tree versions are accessed, so the naming convention here may change in the near future.
-
-``` r
-ex2 <- extractTree(species=c("Turdus migratorius",
-                             "Setophaga dominica",
-                             "Setophaga ruticilla",
-                             "Sitta canadensis"),
-                             taxonomy_year = 2021)
-```
 
 You can also use eBird codes as tip labels:
 
 ``` r
-ex3 <- extractTree(species=c("amerob",
+ex2 <- extractTree(species=c("amerob",
                              "canwar",
                              "reevir1",
                              "yerwar",
                              "gockin"), 
                               label_type="code")
+plot(ex2)
+```
+![](intro_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+
+To get a tree for a higher taxon (such as Family or Genus), you can pull the species names from the taxonomy
+
+``` r
+tax <- clootl_data$taxonomies$year2025
+rhin <- tax[tax$FAMILY=="Rhinocryptidae (Tapaculos)",]
+rhin_spp <- rhin$SCI_NAME
+ex3 <- extractTree(species=rhin_spp)
 plot(ex3)
+
 ```
 
-![](intro_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+

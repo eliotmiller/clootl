@@ -56,10 +56,6 @@ utils::globalVariables(c("clootl_data"))
 #' data(clootl_data)
 #' tax <- clootl_data$taxonomies$year2025
 #' ls(tax)
-#' #subset to species only
-#' # TODO: this step seems no longer necessary, is it??
-#' # tax <- tax[tax$CATEGORY=="species",]
-#'
 #' #simulate extracting a tree for a particular family
 #' temp <- tax[tax$FAMILY=="Rhinocryptidae (Tapaculos)",]
 #' spp <- temp$SCI_NAME
@@ -69,7 +65,7 @@ utils::globalVariables(c("clootl_data"))
 #'    taxonomy_year=2025, version="1.6")
 #'
 #' #get your citation DF
-#'  yourCitations <- getCitations(tree=prunedTree)}
+#' yourCitations <- getCitations(tree=prunedTree)}
 getCitations <- function(tree, version=1.6, data_path=FALSE) {##ToDO not hardcode?
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs

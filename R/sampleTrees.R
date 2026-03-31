@@ -10,18 +10,13 @@ utils::globalVariables(c("clootl_data"))
 #' @param taxonomy_year The eBird taxonomy year the tree should be output in. Current options
 #' include 2021, 2022, and 2023. Both numeric and character inputs are acceptable here. Any value
 #' aside from these years will result in an error. Default is set 2023.
-#' @param data_path Default to FALSE. If a summary, dated tree is desired, this is sufficient
-#' and does not need to be modified. However, if a user wishes to extract a set of complete
-#' dated trees, for example to iterate an analysis across a cloud of trees, or to use an
-#' older version of the tree than the current one packed in the data object, this function
-#' can also accept a path to the downloaded set of trees. If you have already downloaded the AvesData repo
-#' available at https://github.com/McTavishLab/AvesData use data_path= the path to the download location.
-#' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
-#' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
-#' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
+#' @param data_path Default to FALSE. Data_path is not necessary if the path has been stored in the
+#' environment, as occurs when the data was downloaded using get_avesdata_repo. 
+#' Otherwise, pass in the path to the directory where the AvesData repo was downloaded. 
+#' 
 #' @param version The desired version of the tree. Default to the most recent
-#' version of the tree. Other versions available are '0.1','1.0','1.2','1.3','1.4' and can be 
-#' passed as a character string or as numeric.
+#' version of the tree. Other versions available are listed in data object as clootl_data$versions
+#' Verson can be passed as a character string or as numeric.
 #' @param count Work in progress, can only sample 100 for now. Eventually: The desired number of sampled trees.
 #'
 #' @details This function first ensures that the requested output species overlap with species-level
@@ -113,7 +108,8 @@ sampleTrees <- function(species="all_species",
     #if there are any, throw an error
     if(length(issues) > 0)
     {
-      message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy")
+      message("Some of your provided species codes do not match with codes 
+        in the requested year's eBird taxonomy")
       stop(paste(issues, collapse = "\n"))
     }
 
@@ -126,7 +122,7 @@ sampleTrees <- function(species="all_species",
 
   else
   {
-    stop("label_type must be set to either 'code' or 'scientific'")
+    stop("Sample trees only works with label_type 'scientific'")
   }
     sample_tree_filename <- paste(data_path,
                                "/Tree_versions/",
