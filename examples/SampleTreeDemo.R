@@ -20,6 +20,6 @@ densiTree(ex1)
 
 tax <- clootl_data$taxonomies$year2025
 columba <- tax[tax$GENUS=="Columba",]
-columba_spp <- rhin$SCI_NAME
+columba_spp <- columba$SCI_NAME
 ex2 <- sampleTrees(species=columba_spp)
 densiTree(ex2)
