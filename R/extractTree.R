@@ -78,7 +78,7 @@ extractTree <- function(species="all_species",
 
   combo = paste(version, "_tax", taxonomy_year, sep="")
   if (!is.element(combo, clootl_data$combinations)){
-      stop(paste("This combination of tree version and taxonomy year is not available. 
+      stop(paste(combo, "This combination of tree version and taxonomy year is not available. 
         Available combinations are:\n", paste(clootl_data$combinations, collapse=",\n")))
   }
 
