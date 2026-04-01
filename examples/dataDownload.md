@@ -39,22 +39,46 @@ library(clootl)
 
 The most recent version of the tree (currently 1.4) is available with
 the package. If you want other versions, you need to use the GitHub repo
-<https://github.com/McTavishLab/AvesData> If you have already downloaded
+<https://github.com/McTavishLab/AvesData>. If you have already downloaded
 the Aves Data Repo to your computer, you can pass in the path to that
-directory to get other tree versions The data repo also contains the 100
+directory to get other tree versions and taxonomies. The data repo also contains the 100
 tree dated sample sets.
 
 ``` r
 ex_1_2 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
                                version=1.2,
-                               taxonomy_year=2021,
-                               data_path="~/projects/otapi/AvesData")
+
+                               taxonomy_year=2023,
+                               data_path="your/path/to/AvesData")
 ```
+
+Take into account that the default taxonomy is the latest. That was the 2025 taxonomy when this tutorial was written, so if you do not specify a compatible taxonomy for the 1.2 tree version, you will get an error like the following:
+
+    ## Error in extractTree(species = c("Turdus migratorius", "Setophaga ## dominica",  : 
+    
+    ##   1.2_tax2025 This combination of tree version and taxonomy year is not available. 
+    
+    ##         Available combinations are:
+    
+    ##  1.2_tax2021,
+    ## 1.2_tax2022,
+    ## 1.2_tax2023,
+    ## 1.3_tax2021,
+    ## 1.3_tax2022,
+    ## 1.3_tax2023,
+    ## 1.4_tax2021,
+    ## 1.4_tax2022,
+    ## 1.4_tax2023,
+    ## 1.5_tax2021,
+    ## 1.5_tax2022,
+    ## 1.5_tax2023,
+    ## 1.5_tax2024,
+    ## 1.6_tax2025
 
 Alternatively, you can automatically download all the data from the
 AvesData github repo. It will be unpacked as a folder in whatever
 directory you pass in. This example creates a folder in your current
-working directory with the data named “AvesData-main”. It will also save
+working directory with the data named “AvesDataLite-main”. It will also save
 the location to your R environment file, so that `clootl` automatically
 knows where to look for the data.
 
@@ -70,7 +94,7 @@ ex2_1_3 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga ruticilla",
                              "Sitta canadensis"),
                              version=1.3,
-                             taxonomy_year=2022)
+                             taxonomy_year=2023)
 
 plot(ex2_1_3)
 ```
