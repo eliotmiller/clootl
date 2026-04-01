@@ -47,6 +47,7 @@ tree dated sample sets.
 ``` r
 ex_1_2 <- extractTree(species=c("Turdus migratorius","Setophaga dominica", "Setophaga ruticilla", "Sitta canadensis"),
                                version=1.2,
+                               taxonomy_year=2021,
                                data_path="~/projects/otapi/AvesData")
 ```
 
@@ -68,7 +69,8 @@ ex2_1_3 <- extractTree(species=c("Turdus migratorius",
                              "Setophaga dominica",
                              "Setophaga ruticilla",
                              "Sitta canadensis"),
-                             version=1.3)
+                             version=1.3,
+                             taxonomy_year=2022)
 
 plot(ex2_1_3)
 ```
