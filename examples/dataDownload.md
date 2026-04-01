@@ -61,7 +61,7 @@ knows where to look for the data.
 get_avesdata_repo(path=".") 
 ```
 
-Then you can use extractTree to get other versions of the tree.
+Then you can use `extractTree()` to get other versions of the tree.
 
 ``` r
 ex2_1_3 <- extractTree(species=c("Turdus migratorius",
@@ -75,9 +75,9 @@ plot(ex2_1_3)
 
 ![](dataDownload_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
-Once you have the whole repo you can also same across the uncertainty in
-taxonomically placed species, and in dates, using sampleTrees. This will
-return 100 sampled trees.
+Once you have the whole repo, you can also sample across the uncertainty in
+taxonomically placed species, and in dates, using the function `sampleTrees()`. This will
+return 100 sampled trees:
 
 ``` r
 ex1 <- sampleTrees(species=c("Turdus migratorius",
@@ -89,7 +89,7 @@ ex1
 
     ## 100 phylogenetic trees
 
-getCitations is only expecting one tree - but all trees in the set have
+`getCitations()` is only expecting one tree - but all trees in the set have
 the same citations, so you can use
 
 ``` r
