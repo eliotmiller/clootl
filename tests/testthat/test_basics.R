@@ -41,10 +41,40 @@ test_that(desc = "sci name tree extract", code = {
 
 test_that(desc = "code name tree extract", code = {
 ## Test code extract
-code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
-code_tree <- extractTree(species=code_spp,
+  code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
+  code_tree <- extractTree(species=code_spp,
                          label_type="code")
-expect_identical(sort(code_tree[['tip.label']]), sort(code_spp))
+  expect_identical(sort(code_tree[['tip.label']]), sort(code_spp))
 })
+
+test_that(des = "sampleTrees works with label_type = scientific", code = {
+  xx <- sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="scientific",
+              taxonomy_year="2025",
+              version="1.6",
+              count=100,
+              data_path=FALSE)
+  expect_true(length(xx)==100)
+  expect_s3_class(xx, "multiPhylo")
+})
+
+test_that(des = "sampleTrees works with label type = code", code = {
+  expect_error(sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="code",
+              taxonomy_year="2025",
+              version="1.6",
+              count=100,
+              data_path=FALSE))
+  # expect_true(length(xx)==100)
+  # expect_class(xx, "multiPhylo")
+})
+
+
 
 

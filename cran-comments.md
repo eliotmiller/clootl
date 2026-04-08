@@ -2,9 +2,9 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+* This is an update submission.
 
-We have updated the underlying data set and added useful error messages. Thanks.
+We have updated the database and adjusted functions and examples to work with the update.
 
 ## Test environments:
 
