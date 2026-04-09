@@ -4,18 +4,22 @@
 \alias{set_avesdata_repo_path}
 \title{Set path to Aves Data folder}
 \usage{
-set_avesdata_repo_path(path, overwrite = FALSE)
+set_avesdata_repo_path(path, overwrite = FALSE, warn = TRUE)
 }
 \arguments{
-\item{path}{A character vector with the path to the Aves Data folder.}
+\item{path}{A character vector with the path to the Aves Data folder}
 
 \item{overwrite}{Boolean, default to \code{FALSE}, does not overwrite an existing Aves Data folder. Set to \code{TRUE} to overwrite.}
+
+\item{warn}{Boolean, default to \code{TRUE}, Warns if path does not exist.
+Set to FALSE and path="" to unset path.}
 }
 \value{
 No return value, called to set the path to the Aves Data folder.
 }
 \description{
 Set path to Aves Data folder already somewhere on your computer
+and store it in your R environment file
 }
 \details{
 Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
