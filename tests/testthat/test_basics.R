@@ -1,6 +1,6 @@
 library(clootl)
 
-test_that(desc = "sci name tree extract", code = {
+test_that(desc = "extractTree works with scientific names", code = {
 ## Test sci name extract
     sci_name_spp <- c("Turdus migratorius",
                       "Setophaga dominica",
@@ -39,7 +39,7 @@ test_that(desc = "sci name tree extract", code = {
 })
 
 
-test_that(desc = "code name tree extract", code = {
+test_that(desc = "extractTree works with code names", code = {
 ## Test code extract
   code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
   code_tree <- extractTree(species=code_spp,
@@ -72,9 +72,38 @@ test_that(des = "sampleTrees works with label type = code", code = {
               count=100,
               data_path=FALSE))
   # expect_true(length(xx)==100)
-  # expect_class(xx, "multiPhylo")
+  # expect_s3_class(xx, "multiPhylo")
 })
 
+test_that(desc = "errors work on extractTree", code = {
+  expect_error(extractTree(species="all_species",
+                           label_type="scientific",
+                           taxonomy_year=1999))
+  expect_error(extractTree(species="all_species",
+                           label_type="scientific",
+                           version="0.5"))
+  expect_error(extractTree(species="all_species",
+                           label_type="scientific",
+                           taxonomy_year=2025,
+                           version="1.2"))
+  expect_error(extractTree(species="all_species",
+                           label_type="unknown"))
+})
 
+test_that(desc = "extractTree gets the full tree", code = {
+  xx <- extractTree()
+  expect_s3_class(xx, "phylo")
+  xx <- extractTree(label_type = "code")
+  expect_s3_class(xx, "phylo")
+})
 
+test_that(desc = "errors work on taxonomyGet", code = {
+  expect_error(taxonomyGet(taxonomy_year=1999))
+})
 
+test_that(desc = "treeGet works", code = {
+  treeGet(version = 1.6,
+          taxonomy_year=2025,
+          data_path = FALSE,
+          from_file = FALSE)
+})
