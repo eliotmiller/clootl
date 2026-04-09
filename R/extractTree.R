@@ -244,13 +244,13 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
   return(tax)
 }
 
-#' Helper to load a tree into the R environment
+#' Helper to load a tree from a file into the R environment
 #'
 #' Not exported. Internal use only.
 #'
 #' @keywords internal
 #'
-treeGet <- function(version, taxonomy_year, data_path=FALSE, from_file=TRUE){
+treeGet <- function(version, taxonomy_year, data_path=FALSE){
   #pull the tree file in the right version and taxonomy
   if (data_path==FALSE){
         data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
