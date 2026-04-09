@@ -250,23 +250,26 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
 #'
 #' @keywords internal
 #'
-treeGet <- function(version, taxonomy_year, data_path=FALSE){
+treeGet <- function(version, taxonomy_year, data_path=FALSE, from_file=FALSE){
   #pull the tree file in the right version and taxonomy
   if (data_path==FALSE){
         data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
        }
-  if(data_path == ""){
-    ## We will be in here if we have run get_avesdata_repo and downloaded the data
+  if ((data_path=="") & (from_file==TRUE)){
+    stop("A data path is required to get tree from file.")
+  }
+  if((data_path=="") & (from_file==FALSE)){
+    ## We will be in here if we have NOT run get_avesdata_repo and downloaded the data
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     version <- paste("Aves_", version, sep="")
     fullTree <- clootl_data$trees[[version]]$summary.trees[[taxonomyYear]]
-  } else {
-    if (!file.exists(data_path)){
+  } 
+  else {
+  if (!file.exists(data_path)){
       stop("AvesData folder not found at: ", data_path)
-    } else {
-   ##This needs an if statement for if it is looking for the object or the path
-        tree_filename <- paste(data_path,
+  } 
+    tree_filename <- paste(data_path,
                             "/Tree_versions/",
                             "Aves_",
                             version,
@@ -279,11 +282,12 @@ treeGet <- function(version, taxonomy_year, data_path=FALSE){
     if (!file.exists(tree_filename)){
       stop("Tree :", tree_filename,
         "is not found. This version may not be available for this taxonomy year or you may need to update your AvesData repo using get_avesdata_repo(overwrite=TRUE)")
-    } else {
+    } 
+    else {
     fullTree <- read.nexus(tree_filename)
     fullTree$tip.label <- gsub("_", " ", fullTree$tip.label)
-  }
           }
-  }
+   }
+
   return(fullTree)
-}
+  }
