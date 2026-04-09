@@ -31,8 +31,8 @@ utils::globalVariables(c("clootl_data"))
 #' taxa in the requested eBird taxonomy. If they do not, the function will error out. The onus is
 #' on the user to ensure the requested taxa are valid. This is critical to ensure no unexpected
 #' analysis hiccups later--you don't want to find out many steps later that your dataset doesn't
-#' match your phylogeny. 
-#' If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be 
+#' match your phylogeny.
+#' If force=TRUE even if there is is not a match to all taxa in the requested species list, a tree will be
 #' returned for the species that do match.
 #'
 #'
@@ -68,17 +68,17 @@ extractTree <- function(species="all_species",
 
   version <- as.character(version)
   if (!is.element(version, clootl_data$versions)){
-    stop("version not recognized: ", version) ## TODO print out actual list
+    stop("Tree version not recognized: ", version) ## TODO print out actual list from clootl_data$versions
   }
 
   taxonomy_year <- as.character(taxonomy_year)
   if (!is.element(taxonomy_year, clootl_data$tax_years)){
-    stop("Requested taxonomy year currently unavailable")
+    stop("Requested taxonomy year unavailable: ", taxonomy_year)
   }
 
   combo = paste(version, "_tax", taxonomy_year, sep="")
   if (!is.element(combo, clootl_data$combinations)){
-      stop(paste(combo, "This combination of tree version and taxonomy year is not available. 
+      stop(paste(combo, "This combination of tree version and taxonomy year is not available.
         Available combinations are:\n", paste(clootl_data$combinations, collapse=",\n")))
   }
 
@@ -124,7 +124,7 @@ extractTree <- function(species="all_species",
      if(length(issues) > 0 & force==FALSE)
     {
       message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
-      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" "))
       message("These names did not match:")
       message(paste(issues, collapse = "\n"))
       stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
@@ -132,19 +132,19 @@ extractTree <- function(species="all_species",
       else if(length(issues) > 0 & force==TRUE)
     {
       message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
-      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" "))
       message("These names did not match:")
       message(paste(issues, collapse = "\n"))
       message("Argument force=TRUE, returning a tree for the species that match.")
     }
 
-  }  
+  }
   #check whether the input species are valid
   if(label_type=="code")
   {
      if(species[1]=="all_species")
      {
-       species <- tax$SPECIES_CODE    
+       species <- tax$SPECIES_CODE
       }
 
     #identify mismatches
@@ -155,7 +155,7 @@ extractTree <- function(species="all_species",
     if(length(issues) > 0 & force==FALSE)
     {
       message("Some of your provided species codes do not match with codes in the requested year's eBird taxonomy:")
-      message(paste(length(issues),"codes did not match.", length(species), "codes did match", sep=" ")) 
+      message(paste(length(issues),"codes did not match.", length(species), "codes did match", sep=" "))
       message("These codes did not match:")
       message(paste(issues, collapse = "\n"))
       stop("Re-run with extractTree force=TRUE to generate a tree just for the names that do match.")
@@ -163,7 +163,7 @@ extractTree <- function(species="all_species",
     if(length(issues) > 0 & force==TRUE)
     {
       message("Some of your provided species names do not match with names in the requested year's eBird taxonomy:")
-      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" ")) 
+      message(paste(length(issues),"names did not match.", length(species), "names did match", sep=" "))
       message("These names did not match:")
       message(paste(issues, collapse = "\n"))
       message("Argument force=TRUE, returning a tree for the species that match.")
@@ -178,12 +178,12 @@ extractTree <- function(species="all_species",
       #swap names
       fullTree$tip.label <- newNames$SPECIES_CODE
     }
-  
+
 
   #now prune the tree and extract. if species is the full set, no pruning will occur
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
 
-  message(paste("This extracted tree is from version ", version, " and taxonomy year ", taxonomy_year, ". 
+  message(paste("This extracted tree is from version ", version, " and taxonomy year ", taxonomy_year, ".
     Please cite the version, clootl, and the contibuting studies using getCitations(tree, version).", sep=""))
   return(pruned)
 }
@@ -204,7 +204,7 @@ extractTree <- function(species="all_species",
 #' Alternately, you can download the full data repo using [get_avesdata_repo()]. This approach will download the data and
 #' set an environmental variable AVESDATA_PATH. When AVESDATA_PATH is set, the data_path will default to this value.
 #' To manually set AVESDATA_PATH to the location of your downloaded AvesData repo use [set_avesdata_repo_path()]
-#' @param from_file Default to FALSE. If TRUE forces taxonomyGet to use a local copy of the the taxonomy. 
+#' @param from_file Default to FALSE. If TRUE forces taxonomyGet to use a local copy of the the taxonomy.
 #' This is useful for testing changes and/or updating the clootl_data object.
 #' @details This will return a data object that has the taxonomy of the requested year.
 #' @return A `data.frame` with 17 columns of taxonomic information: order, species code, taxon concept, common name, scientific name, family, OpenTree Taxonomy data, etc.
@@ -213,20 +213,19 @@ extractTree <- function(species="all_species",
 taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
   if (from_file==FALSE){
       taxonomy_year = as.character(taxonomy_year)
-       if (!is.element(taxonomy_year, clootl_data$tax_years)){
-        stop("Requested taxonomy year currently unavailable")
+        if (!is.element(taxonomy_year, clootl_data$tax_years)){
+          stop("Requested taxonomy year unavailable: ", taxonomy_year)
         }
       utils::data("clootl_data")
       taxonomyYear <- paste("year", taxonomy_year, sep="")
       tax <- clootl_data$taxonomies[[`taxonomyYear`]]
-     }
-  else {
+  } else {
     if (data_path==FALSE || data_path==""){
         data_path = Sys.getenv('AVESDATA_PATH') ## If you didn't download it, this will be ""
-       }
+    }
     if (!file.exists(data_path)){
         stop("AvesData folder not found at: ", data_path)
-        }
+    }
     message("Using data download for taxonomy in")
     taxonomy_filename <- paste(data_path,
                              '/Taxonomy_versions/Clements',
@@ -240,10 +239,10 @@ taxonomyGet <- function(taxonomy_year, data_path=FALSE, from_file=FALSE){
           stop("taxonomy file not found at: ", taxonomy_filename)
           }
     tax = utils::read.csv(taxonomy_filename)
-      }
-    #create a convenience underscore column
-    return(tax) 
-     }
+  }
+  #create a convenience underscore column
+  return(tax)
+}
 
 #' Helper to load a tree into the R environment
 #'
