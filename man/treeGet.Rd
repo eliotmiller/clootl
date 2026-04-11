@@ -2,9 +2,9 @@
 % Please edit documentation in R/extractTree.R
 \name{treeGet}
 \alias{treeGet}
-\title{Helper to load a tree into the R environment}
+\title{Helper to load a tree from a file into the R environment}
 \usage{
-treeGet(version, taxonomy_year, data_path = FALSE, from_file = TRUE)
+treeGet(version, taxonomy_year, data_path = FALSE, from_file = FALSE)
 }
 \description{
 Not exported. Internal use only.
