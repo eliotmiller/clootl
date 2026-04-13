@@ -96,6 +96,8 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE, warn = TRUE){
     if (overwrite) {
       # drop existing
       writeLines(renv_lines[!renv_exists], renv_path)
+      Sys.setenv(AVESDATA_PATH = path)
+
     } else {
       message(paste("AVESDATA_PATH already set to:",
                  Sys.getenv("AVESDATA_PATH"),
