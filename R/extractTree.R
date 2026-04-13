@@ -184,7 +184,7 @@ extractTree <- function(species="all_species",
   pruned <- drop.tip(fullTree, setdiff(fullTree$tip.label, species))
 
   message(paste("This extracted tree is from version ", version, " and taxonomy year ", taxonomy_year, ".
-    Please cite the version, clootl, and the contibuting studies using getCitations(tree, version).", sep=""))
+    Please cite the version, clootl, and the contributing studies using getCitations(tree, version).", sep=""))
   return(pruned)
 }
 
