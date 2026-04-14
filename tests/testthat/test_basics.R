@@ -120,7 +120,8 @@ test_that(desc = "errors work on taxonomyGet", code = {
 
 ## Tests below here rely on local data download and should be skipped on cran
 test_that(desc = "several data download requiring tests (skip on cran)", code = {
- # skip_on_cran()
+  skip_on_cran()
+  skip_if_offline()
   old_data_path <- get_avesdata_repo_path()
   tmpdir_path = tempdir()
   # download folder and set path
