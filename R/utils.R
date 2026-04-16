@@ -29,11 +29,10 @@ get_avesdata_repo <- function(path,
       stop("Directory to save AvesData not found:", path)
     }
   zipfilepath = file.path(path, 'AvesDataLite.zip')
-  zipfilepath <- normalizePath(zipfilepath, winslash = "/")
   if (file.exists(zipfilepath) & (overwrite == FALSE)){
     message("File AvesDataLite.zip already exists. Use overwite = TRUE to download a new version")
   } else {
-    utils::download.file(url, destfile = zipfilepath)
+    utils::download.file(url, destfile = zipfilepath, mode="wb")
     stopifnot(file.exists(zipfilepath)) 
     stopifnot(file.exists(path)) 
     utils::unzip(zipfile = zipfilepath, exdir = path, overwrite=TRUE)
@@ -92,8 +91,10 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE, warn = TRUE){
   if (!file.exists(path) & (warn == TRUE)){
       stop("Path not found: ", path)
     }
-  path <- normalizePath(path, winslash = "/", mustWork = warn)
-  # find .Renviron
+  if (path != ""){
+    path <- normalizePath(path, winslash = "/", mustWork = warn)
+    # find .Renviron
+  }
   renv_path <- renv_file_path()
   renv_lines <- readLines(renv_path)
   renv_path <- path.expand(renv_path)
