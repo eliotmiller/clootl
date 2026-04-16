@@ -30,7 +30,6 @@ get_avesdata_repo <- function(path,
     }
   zipfilepath = file.path(path, 'AvesDataLite.zip')
   zipfilepath <- normalizePath(zipfilepath, winslash = "/")
-#  zipfilepath = paste(path, "/", "AvesDataLite.zip", sep="")
   if (file.exists(zipfilepath) & (overwrite == FALSE)){
     message("File AvesDataLite.zip already exists. Use overwite = TRUE to download a new version")
   } else {
@@ -39,13 +38,12 @@ get_avesdata_repo <- function(path,
     stopifnot(file.exists(path)) 
     utils::unzip(zipfile = zipfilepath, exdir = path, overwrite=TRUE)
   }
-#  avesdata_path = paste(path, "/", "AvesDataLite-main", sep="")
+  #  avesdata_path = paste(path, "/", "AvesDataLite-main", sep="")
   avesdata_path = file.path(path, 'AvesDataLite-main')
   avesdata_path <- normalizePath(avesdata_path, winslash = "/")
-
-#  stopifnot(file.exists(avesdata_path)) 
- # exp_avesdata_path = path.expand(avesdata_path)
- # stopifnot(file.exists(exp_avesdata_path)) 
+  # stopifnot(file.exists(avesdata_path)) 
+  avesdata_path = path.expand(avesdata_path)
+  # stopifnot(file.exists(exp_avesdata_path)) 
   set_avesdata_repo_path(avesdata_path, overwrite=overwrite)
   message("AvesDataLite repo downloaded and upzipped to:", avesdata_path)
   invisible(avesdata_path)
