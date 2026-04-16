@@ -61,8 +61,30 @@ test_that(desc = "extractTree works with code names", code = {
 })
 
 
+test_that(des = "sampleTrees errors works", code = {
+  expect_error(sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="code",
+              taxonomy_year="1999",
+              version="1.6",
+              count=100,
+              data_path=FALSE))
+  expect_error(sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="code",
+              taxonomy_year="1999",
+              version="11",
+              count=100,
+              data_path=FALSE))
+  # expect_true(length(xx)==100)
+  # expect_s3_class(xx, "multiPhylo")
+})
 
-test_that(des = "sampleTrees works with label type = code", code = {
+test_that(des = "sampleTrees fails with no data download", code = {
   expect_error(sampleTrees(species=c("Turdus migratorius",
                         "Setophaga dominica",
                         "Setophaga ruticilla",
