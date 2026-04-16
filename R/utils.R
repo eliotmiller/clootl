@@ -12,12 +12,14 @@
 #' @export
 get_avesdata_repo <- function(path,
                               overwrite=FALSE){
+  path <- normalizePath(path, winslash = "/")
   if (Sys.getenv("AVESDATA_PATH") != "" & (overwrite == FALSE)){
     message(paste("AVESDATA_PATH already set to:",
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to download and overwite existing path."))
     return(invisible(1))
   }
+
   message("Downloading AvesDataLite repo from github (holds key files from large McTavishLab/AvesData repo). This may take several minutes depending on your connection.")
   url = "https://github.com/McTavishLab/AvesDataLite/archive/refs/heads/main.zip?raw=TRUE"
   old <- options() # save current options
@@ -26,15 +28,21 @@ get_avesdata_repo <- function(path,
   if (!file.exists(path)){
       stop("Directory to save AvesData not found:", path)
     }
-  zipfilepath = paste(path, "/", "AvesDataLite.zip", sep="")
+  zipfilepath = file.path(path, 'AvesDataLite.zip')
   if (file.exists(zipfilepath) & (overwrite == FALSE)){
     message("File AvesDataLite.zip already exists. Use overwite = TRUE to download a new version")
   } else {
-    utils::download.file(url, destfile = zipfilepath)
+    utils::download.file(url, destfile = zipfilepath, mode="wb")
+    stopifnot(file.exists(zipfilepath)) 
+    stopifnot(file.exists(path)) 
     utils::unzip(zipfile = zipfilepath, exdir = path, overwrite=TRUE)
   }
-  avesdata_path = paste(path, "/", "AvesDataLite-main", sep="")
+  #  avesdata_path = paste(path, "/", "AvesDataLite-main", sep="")
+  avesdata_path = file.path(path, 'AvesDataLite-main')
+  avesdata_path <- normalizePath(avesdata_path, winslash = "/")
+  # stopifnot(file.exists(avesdata_path)) 
   avesdata_path = path.expand(avesdata_path)
+  # stopifnot(file.exists(exp_avesdata_path)) 
   set_avesdata_repo_path(avesdata_path, overwrite=overwrite)
   message("AvesDataLite repo downloaded and upzipped to:", avesdata_path)
   invisible(avesdata_path)
@@ -83,9 +91,10 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE, warn = TRUE){
   if (!file.exists(path) & (warn == TRUE)){
       stop("Path not found: ", path)
     }
-
-  path <- normalizePath(path, winslash = "/", mustWork = warn)
-  # find .Renviron
+  if (path != ""){
+    path <- normalizePath(path, winslash = "/", mustWork = warn)
+    # find .Renviron
+  }
   renv_path <- renv_file_path()
   renv_lines <- readLines(renv_path)
   renv_path <- path.expand(renv_path)

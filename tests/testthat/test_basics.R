@@ -61,8 +61,30 @@ test_that(desc = "extractTree works with code names", code = {
 })
 
 
+test_that(des = "sampleTrees errors works", code = {
+  expect_error(sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="code",
+              taxonomy_year="1999",
+              version="1.6",
+              count=100,
+              data_path=FALSE))
+  expect_error(sampleTrees(species=c("Turdus migratorius",
+                        "Setophaga dominica",
+                        "Setophaga ruticilla",
+                        "Sitta canadensis"),
+              label_type="code",
+              taxonomy_year="1999",
+              version="11",
+              count=100,
+              data_path=FALSE))
+  # expect_true(length(xx)==100)
+  # expect_s3_class(xx, "multiPhylo")
+})
 
-test_that(des = "sampleTrees works with label type = code", code = {
+test_that(des = "sampleTrees fails with no data download", code = {
   expect_error(sampleTrees(species=c("Turdus migratorius",
                         "Setophaga dominica",
                         "Setophaga ruticilla",
@@ -120,7 +142,8 @@ test_that(desc = "errors work on taxonomyGet", code = {
 
 ## Tests below here rely on local data download and should be skipped on cran
 test_that(desc = "several data download requiring tests (skip on cran)", code = {
- # skip_on_cran()
+#  skip_on_cran()
+#  skip_if_offline()
   old_data_path <- get_avesdata_repo_path()
   tmpdir_path = tempdir()
   # download folder and set path
@@ -174,6 +197,6 @@ test_that(desc = "several data download requiring tests (skip on cran)", code = 
   expect_true(length(xx)==100)
   expect_s3_class(xx, "multiPhylo")
 
-  set_avesdata_repo_path(old_data_path, overwrite=TRUE)
+  set_avesdata_repo_path(old_data_path, overwrite=TRUE, warn=FALSE)
   })
 
