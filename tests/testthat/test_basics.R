@@ -197,6 +197,6 @@ test_that(desc = "several data download requiring tests (skip on cran)", code = 
   expect_true(length(xx)==100)
   expect_s3_class(xx, "multiPhylo")
 
-  set_avesdata_repo_path(old_data_path, overwrite=TRUE)
+  set_avesdata_repo_path(old_data_path, overwrite=TRUE, warn=FALSE)
   })
 
