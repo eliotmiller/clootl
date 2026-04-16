@@ -29,7 +29,7 @@ get_avesdata_repo <- function(path,
       stop("Directory to save AvesData not found:", path)
     }
   zipfilepath = file.path(path, 'AvesDataLite.zip')
-  zipfilepath = paste(path, "/", "AvesDataLite.zip", sep="")
+#  zipfilepath = paste(path, "/", "AvesDataLite.zip", sep="")
   if (file.exists(zipfilepath) & (overwrite == FALSE)){
     message("File AvesDataLite.zip already exists. Use overwite = TRUE to download a new version")
   } else {
