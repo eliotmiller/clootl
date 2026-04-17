@@ -2,17 +2,24 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "clootl",
-  "description": "Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree. Tree generated as described in McTavish et al. (2024) <doi:https://doi.org/10.1101/2024.05.20.595017>.",
+  "description": "Fetches the Cornell Lab of Ornithology Open Tree of Life (clootl) tree in a specified taxonomy. Optionally prune it to a given set of study taxa. Provide a recommended citation list for the studies that informed the extracted tree. Tree generated as described in McTavish et al. (2024) <doi:10.1101/2024.05.20.595017>.",
   "name": "clootl: Fetch and Explore the Cornell Lab of Ornithology Open Tree of Life Avian Phylogeny",
   "codeRepository": "https://github.com/eliotmiller/clootl",
+  "issueTracker": "https://github.com/eliotmiller/clootl/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.3.3 (2024-02-29)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -47,18 +54,6 @@
     }
   ],
   "softwareSuggestions": [
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
-    },
     {
       "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
@@ -106,11 +101,6 @@
     },
     "3": {
       "@type": "SoftwareApplication",
-      "identifier": "stats",
-      "name": "stats"
-    },
-    "4": {
-      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -121,7 +111,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "5": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "RCurl",
       "name": "RCurl",
@@ -133,7 +123,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=RCurl"
     },
-    "6": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -147,7 +137,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1426.519KB",
+  "fileSize": "1441.798KB",
   "citation": [
     {
       "@type": "CreativeWork",
@@ -235,5 +225,6 @@
     }
   ],
   "releaseNotes": "https://github.com/eliotmiller/clootl/blob/master/NEWS.md",
-  "readme": "https://github.com/eliotmiller/clootl/blob/master/README.md"
+  "readme": "https://github.com/eliotmiller/clootl/blob/master/README.md",
+  "relatedLink": "https://CRAN.R-project.org/package=clootl"
 }
