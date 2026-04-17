@@ -54,7 +54,7 @@ test_that(desc = "extractTree works with code names", code = {
 
 
   code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
-  expect_contains(full_tree_code[['tip.label']], code_spp)
+  expect_contains(fulltree_code[['tip.label']], code_spp)
 
   code_tree <- extractTree(species=code_spp,
                          label_type="code")
