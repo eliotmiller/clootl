@@ -2,10 +2,14 @@ library(clootl)
 
 test_that(desc = "extractTree works with scientific names", code = {
 ## Test sci name extract
+    fulltree<-extractTree()
+    expect_type( object = fulltree, type = "list")
+
     sci_name_spp <- c("Turdus migratorius",
                       "Setophaga dominica",
                       "Setophaga ruticilla",
                       "Sitta canadensis")
+    expect_contains(fulltree[['tip.label']], sci_name_spp)
 
 
 
@@ -44,7 +48,14 @@ test_that(desc = "extractTree works with scientific names", code = {
 
 test_that(desc = "extractTree works with code names", code = {
 ## Test code extract
+
+  fulltree_code<-extractTree(label_type="code")
+  expect_type( object = fulltree_code, type = "list")
+
+
   code_spp <- c("amerob", "canwar", "reevir1", "yerwar", "gockin")
+  expect_contains(fulltree_code[['tip.label']], code_spp)
+
   code_tree <- extractTree(species=code_spp,
                          label_type="code")
   expect_identical(sort(code_tree[['tip.label']]), sort(code_spp))
