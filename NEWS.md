@@ -1,3 +1,6 @@
+# clootl v0.1.4
+- Removes code that edited .RENVIRON to include AVESDATA_PATH
+
 # clootl v0.1.3
 - Updates data to version 1.6, containing 2025 taxonomy and tree version 1.6
 - Improve documentation
