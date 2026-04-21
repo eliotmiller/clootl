@@ -73,7 +73,6 @@ get_avesdata_repo_path <- function(){
 #' 
 #' Set path to Aves Data folder
 #' @description Set path to Aves Data folder already somewhere on your computer
-#' and store it in your R environment file
 #' @param path A character vector with the path to the Aves Data folder
 #' @param overwrite Boolean, default to `FALSE`, does not overwrite an existing Aves Data folder. Set to `TRUE` to overwrite.
 #' @param warn Boolean, default to `TRUE`, Warns if path does not exist. 
@@ -93,48 +92,23 @@ set_avesdata_repo_path <- function(path, overwrite = FALSE, warn = TRUE){
     }
   if (path != ""){
     path <- normalizePath(path, winslash = "/", mustWork = warn)
-    # find .Renviron
   }
-  renv_path <- renv_file_path()
-  renv_lines <- readLines(renv_path)
-  renv_path <- path.expand(renv_path)
-
-  # look for existing entry, remove if overwrite = TRUE
-  renv_exists <- grepl("^AVESDATA_PATH[[:space:]]*=.*", renv_lines)
-  if (any(renv_exists)) {
     if (overwrite) {
       # drop existing
-      writeLines(renv_lines[!renv_exists], renv_path)
       Sys.setenv(AVESDATA_PATH = path)
-
     } else {
       message(paste("AVESDATA_PATH already set to:",
                  Sys.getenv("AVESDATA_PATH"),
                  "use overwrite = TRUE to overwite existing path."))
   }
-    }
-  else{
-    # set path in .Renviron
-    write(paste0("AVESDATA_PATH='", path, "'\n"), renv_path, append = TRUE)
+    
+  
     message(paste("AVESDATA_PATH set to", path))
     # set AVESDATA_PATH for this session, so user doesn't have to reload
     Sys.setenv(AVESDATA_PATH = path)
     invisible(path)
-  }
+
  }
 
-renv_file_path <- function() {
-  stored_path <- Sys.getenv("R_ENVIRON_USER")
-  if (stored_path != "") {
-    renv <- stored_path
-  } else {
-    renv <- path.expand(file.path("~", ".Renviron"))
-  }
-
-  if (!file.exists(renv)) {
-    file.create(renv)
-  }
-  return(renv)
-}
 
 
