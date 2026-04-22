@@ -19,7 +19,6 @@ No return value, called to set the path to the Aves Data folder.
 }
 \description{
 Set path to Aves Data folder already somewhere on your computer
-and store it in your R environment file
 }
 \details{
 Based on https://github.com/CornellLabofOrnithology/auk/blob/main/R/auk-set-ebd-path.r
