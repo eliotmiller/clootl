@@ -7,19 +7,13 @@
   "codeRepository": "https://github.com/eliotmiller/clootl",
   "issueTracker": "https://github.com/eliotmiller/clootl/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.3.3 (2024-02-29)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
   "author": [
     {
       "@type": "Person",
@@ -137,7 +131,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1441.798KB",
+  "fileSize": "1441.382KB",
   "citation": [
     {
       "@type": "CreativeWork",
@@ -225,6 +219,5 @@
     }
   ],
   "releaseNotes": "https://github.com/eliotmiller/clootl/blob/master/NEWS.md",
-  "readme": "https://github.com/eliotmiller/clootl/blob/master/README.md",
-  "relatedLink": "https://CRAN.R-project.org/package=clootl"
+  "readme": "https://github.com/eliotmiller/clootl/blob/master/README.md"
 }
