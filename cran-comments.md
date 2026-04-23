@@ -2,9 +2,10 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is an update submission.
+* This is a new submission.
 
-We have updated the database and adjusted functions and examples to work with the update.
+Package was archived on CRAN for modifiying '~/.Renviron'.
+We have removed this and the package does not violate any policies now.
 
 ## Test environments:
 
