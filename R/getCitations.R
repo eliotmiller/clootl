@@ -49,7 +49,6 @@ utils::globalVariables(c("clootl_data"))
 #' @import ape
 #' @importFrom jsonlite toJSON fromJSON
 #' @importFrom RCurl postForm
-#' @importFrom dplyr group_by summarize
 #'
 #' @examples
 #'\donttest{#pull the taxonomy file out
