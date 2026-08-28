@@ -13,11 +13,11 @@ library(phylolm)
 dat <- utils::read.csv("AVONET Supplementary dataset 1.csv")
 
 
-# Select a random subset of 100 species, then see whether body mass and tarsus length are correlated
+# Select a random subset of 50 species, then see whether body mass and tarsus length are correlated
 # and make a continuous character map of body mass
 # Setting the seed makes this example choose the same 100 species each tim.
 set.seed(123)
-spp <- sample(dat$Species2, 100)
+spp <- sample(dat$Species2, 50)
 datSubset <- dat[dat$Species2 %in% spp,]
 rownames(datSubset)<-datSubset$Species2
 
@@ -64,9 +64,18 @@ datMatched <- datSubset[datSubset$Species2 %in% pruned$tip.label,]
 
 x <- log(datMatched$Mass)
 names(x) <- datMatched$Species2
-contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
+contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200, leg.txt="log(body mass)")
 
 
 x <- log(datMatched$Beak.Length_Culmen)
 names(x) <- datMatched$Species2
-contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200)
+contMap(tree=pruned, x=x, outline=FALSE, lwd=0.8, fsize=0.2, res=200, leg.txt="Beak length")
+
+
+## For the figure in the paper:
+plot(obj,legend=FALSE, outline=TRUE, lwd=2, fsize=0.5, res=200, ylim=c(1-0.3*(Ntip(obj$tree)-1),Ntip(obj$tree)))
+add.color.bar(50,obj$cols,title="log(body size in grams)",
+               lims=obj$lims,digits=2,prompt=FALSE,x=0,
+               y=1-0.08*(Ntip(obj$tree)-1),lwd=4,fsize=1,subtitle="")
+axisPhylo(pos=-4)
+text(x = 55, y = -13, labels = "Millions of years ago", cex = 1, font = 1)
