@@ -67,7 +67,7 @@
 #' \preformatted{
 #' clootl_data = list()
 #'
-#' clootl_data$versions <- c("1.2","1.3","1.4","1.5","1.6")
+#' clootl_data$versions <- c("1.2","1.3","1.4","1.5","1.7")
 #' clootl_data$tax_years <- c("2021","2022","2023","2024", "2025")
 #'
 #' 
@@ -84,10 +84,10 @@
 #'                               c(1.5, 2022),
 #'                               c(1.5, 2023),
 #'                               c(1.5, 2024),
-#'                               c(1.6, 2025)) 
+#'                               c(1.7, 2025)) 
 #'
-#' fullTree2025 <- treeGet("1.6","2025", data_path="~/projects/otapi/AvesData")
-#' clootl_data$trees$`Aves_1.6`$summary.trees$year2025 <- fullTree2025
+#' fullTree2025 <- treeGet("1.7","2025", data_path="~/projects/otapi/AvesData")
+#' clootl_data$trees$`Aves_1.7`$summary.trees$year2025 <- fullTree2025
 #'
 #' tax2021 <- taxonomyGet(2021, data_path="~/projects/otapi/AvesData")
 #' tax2022 <- taxonomyGet(2022, data_path="~/projects/otapi/AvesData")
@@ -102,9 +102,9 @@
 #' clootl_data$taxonomies$year2025 <- tax2025
 #'
 #'
-#' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.6/OpenTreeSynth/annotated_supertree/annotations.json"
+#' annot_filename <- "~/projects/otapi/AvesData/Tree_versions/Aves_1.7/OpenTreeSynth/annotated_supertree/annotations.json"
 #' all_nodes <- jsonlite::fromJSON(txt=annot_filename)
-#' clootl_data$trees$Aves_1.6$annotations <- all_nodes
+#' clootl_data$trees$Aves_1.7$annotations <- all_nodes
 #'
 #' studies <- c()
 #' for (inputs in all_nodes$source_id_map) studies <- c(studies, inputs$study_id)

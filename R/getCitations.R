@@ -61,11 +61,11 @@ utils::globalVariables(c("clootl_data"))
 #'
 #' #get your tree
 #' prunedTree <- extractTree(species=spp, label_type="scientific",
-#'    taxonomy_year=2025, version="1.6")
+#'    taxonomy_year=2025, version="1.7")
 #'
 #' #get your citation DF
 #' yourCitations <- getCitations(tree=prunedTree)}
-getCitations <- function(tree, version=1.6, data_path=FALSE) {##ToDO not hardcode?
+getCitations <- function(tree, version=1.7, data_path=FALSE) {##ToDO not hardcode?
   #pull the node labels out. count any (character instances of) NA, as this should
   #be the contribution of taxonomic additions and drop any NAs
   nodesToQuery <- tree$node.label
@@ -80,9 +80,9 @@ getCitations <- function(tree, version=1.6, data_path=FALSE) {##ToDO not hardcod
           data_path = Sys.getenv('AVESDATA_PATH')
       }
 
-  if (version == 1.6){ ##not hardcode
+  if (version == 1.7){ ##not hardcode
       utils::data("clootl_data")
-      all_nodes <- clootl_data$trees$`Aves_1.6`$annotations ##ToDO not hardcode?
+      all_nodes <- clootl_data$trees$`Aves_1.7`$annotations ##ToDO not hardcode?
   } 
   else if (!file.exists(data_path)){##ToDO not hardcode?
     stop("GetCitations for anything other than the current tree requires an Aves Data download.
