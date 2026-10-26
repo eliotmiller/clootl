@@ -31,7 +31,7 @@ library(clootl)
 ## To see these entries in BibTeX format, use 'format(<citation>,
 ## bibtex=TRUE)', or 'toBibtex(.)'.
 ## 
-## The current version of the Aves tree is v1.6.
+## The current version of the Aves tree is v7.
 ##         Please specify the tree and taxonomy version used when citing this R package.
 ##         When possible, cite all the original studies supporting your tree:
 ##         These citations are acessible using getCitations(your_tree)
