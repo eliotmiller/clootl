@@ -31,7 +31,7 @@ rownames(datSubset)<-datSubset$Species2
 
 ## Until it is updated, we have two options. 
 
-## 1) Use our most recent tree and taxonomy (1.6 2025), and 
+## 1) Use our most recent tree and taxonomy (1.7 2025), and 
 ## just use the around 95% of species whose names have not changed.
 pruned <- extractTree(species=datSubset$Species2,
                       label_type="scientific",

@@ -22,7 +22,7 @@ test_that(desc = "extractTree works with scientific names", code = {
 #    sci_name_tree14_2021 <- extractTree(species=sci_name_spp, taxonomy_year=2021)
 #    sci_name_tree14_2022 <- extractTree(species=sci_name_spp, taxonomy_year=2022)
     #sci_name_tree14_2023 <- extractTree(species=sci_name_spp, version=1.4, taxonomy_year=2023)
-    sci_name_tree16_2025 <- extractTree(species=sci_name_spp, version=1.6, taxonomy_year=2025)
+    sci_name_tree16_2025 <- extractTree(species=sci_name_spp, version=1.7, taxonomy_year=2025)
 
         # expect_identical(sci_name_tree, sci_name_tree14_2023)
 #        expect_equal( length(sci_name_tree14_2021), 6 )
@@ -79,7 +79,7 @@ test_that(des = "sampleTrees errors works", code = {
                         "Sitta canadensis"),
               label_type="code",
               taxonomy_year="1999",
-              version="1.6",
+              version="1.7",
               count=100,
               data_path=FALSE))
   expect_error(sampleTrees(species=c("Turdus migratorius",
@@ -102,7 +102,7 @@ test_that(des = "sampleTrees fails with no data download", code = {
                         "Sitta canadensis"),
               label_type="code",
               taxonomy_year="2025",
-              version="1.6",
+              version="1.7",
               count=100,
               data_path=FALSE))
   # expect_true(length(xx)==100)
@@ -202,7 +202,7 @@ test_that(desc = "several data download requiring tests (skip on cran)", code = 
   xx <- sampleTrees(species=test_spp,
                     label_type="scientific",
                     taxonomy_year="2025",
-                    version="1.6",
+                    version="1.7",
                     count=100,
                     data_path=path)
   expect_true(length(xx)==100)

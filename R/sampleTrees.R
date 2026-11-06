@@ -47,7 +47,7 @@ utils::globalVariables(c("clootl_data"))
 sampleTrees <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year="2025",
-                        version="1.6",
+                        version="1.7",
                         count=100,
                         data_path=FALSE)
 {

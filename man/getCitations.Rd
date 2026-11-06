@@ -4,7 +4,7 @@
 \alias{getCitations}
 \title{Identify contributing studies}
 \usage{
-getCitations(tree, version = 1.6, data_path = FALSE)
+getCitations(tree, version = 1.7, data_path = FALSE)
 }
 \arguments{
 \item{tree}{A phylogeny obtained from extractTree (see details).}
@@ -62,7 +62,7 @@ spp <- temp$SCI_NAME
 
 #get your tree
 prunedTree <- extractTree(species=spp, label_type="scientific",
-   taxonomy_year=2025, version="1.6")
+   taxonomy_year=2025, version="1.7")
 
 #get your citation DF
 yourCitations <- getCitations(tree=prunedTree)}

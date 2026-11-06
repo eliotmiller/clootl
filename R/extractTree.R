@@ -54,12 +54,12 @@ utils::globalVariables(c("clootl_data"))
 #'                              "Sitta canadensis"),
 #'    label_type="scientific",
 #'    taxonomy_year="2025",
-#'    version="1.6")
+#'    version="1.7")
 #'
 extractTree <- function(species="all_species",
                         label_type="scientific",
                         taxonomy_year=2025,
-                        version="1.6",
+                        version="1.7",
                         data_path=FALSE,
                         force=FALSE){
   label_type <- match.arg(label_type,c('code','scientific'))
@@ -88,14 +88,14 @@ extractTree <- function(species="all_species",
     stop("label_type must be set to either 'code' or 'scientific'")
   }
 
-  if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.6')){
-      stop("Only tree version 1.6 taxonomy year 2025 is currently packaged with clootl.
+  if((Sys.getenv('AVESDATA_PATH') == "") & (data_path==FALSE) & (version!='1.7')){
+      stop("Only tree version 1.7 taxonomy year 2025 is currently packaged with clootl.
       To get alternate tree versions and taxonomy years, run get_avesdata_repo()
       or set path to Aves Data repo using set_avesdata_repo(path),
       or use the argument data_path = AvesData-path")
     }
 
-  if((version=='1.6') & (taxonomy_year==2025)){
+  if((version=='1.7') & (taxonomy_year==2025)){
     utils::data("clootl_data")
     taxonomyYear <- paste("year", taxonomy_year, sep="")
     tax <- clootl_data$taxonomies[[`taxonomyYear`]]

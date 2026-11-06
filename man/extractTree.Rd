@@ -8,7 +8,7 @@ extractTree(
   species = "all_species",
   label_type = "scientific",
   taxonomy_year = 2025,
-  version = "1.6",
+  version = "1.7",
   data_path = FALSE,
   force = FALSE
 )
@@ -66,7 +66,7 @@ ex2 <- extractTree(species=c("Turdus migratorius",
                              "Sitta canadensis"),
    label_type="scientific",
    taxonomy_year="2025",
-   version="1.6")
+   version="1.7")
 
 }
 \author{

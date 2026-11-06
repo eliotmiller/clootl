@@ -73,7 +73,7 @@ Take into account that the default taxonomy is the latest. That was the 2025 tax
     ## 1.5_tax2022,
     ## 1.5_tax2023,
     ## 1.5_tax2024,
-    ## 1.6_tax2025
+    ## 1.7_tax2025
 
 Alternatively, you can automatically download all the data from the
 AvesData github repo. It will be unpacked as a folder in whatever

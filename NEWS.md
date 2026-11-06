@@ -1,3 +1,6 @@
+# clootl v0.1.5
+- Remove dataset v1.6, update to v1.7
+
 # clootl v0.1.4
 - Removes code that edited .RENVIRON to include AVESDATA_PATH
 
